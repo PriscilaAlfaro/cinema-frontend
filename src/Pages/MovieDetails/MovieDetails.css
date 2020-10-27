@@ -1,0 +1,13 @@
+.container{
+    background-color: black; 
+    color: white;
+    height: 100%;
+}
+
+.superior{
+        text-align: -webkit-center;
+}
+
+.inferior{
+    text-align: initial;
+}

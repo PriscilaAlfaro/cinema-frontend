@@ -1,0 +1,13 @@
+.header {
+  padding: 10px;
+  text-align: left;
+  background-color: rgb(8, 7, 61);
+  color: white;
+  font-size: 15px;
+  margin-bottom: 2rem;
+}
+
+.header-image img{
+max-width: 5 rem;
+max-height: 3 rem;
+}
