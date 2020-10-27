@@ -4,14 +4,13 @@ import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 
 function Home() {
- 
-    return (
-        <div>
-            <Header />
-            <Movies />
-            <Footer />          
-        </div>
-    );
+  return (
+    <div>
+      <Header />
+      <Movies />
+      <Footer />
+    </div>
+  );
 }
 
 export default Home;

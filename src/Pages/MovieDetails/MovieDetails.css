@@ -4,10 +4,22 @@
     height: 100%;
 }
 
-.superior{
-        text-align: -webkit-center;
+.video{
+    text-align: -webkit-center; 
 }
-
+.superior{
+    text-align: initial;
+    padding: 40px 40px;
+}
+.superior h4 {
+    margin: 1px;
+}
 .inferior{
     text-align: initial;
+    padding-left: 40px;
+    line-height: 2;
+}
+
+h4{
+    /* padding: 5px; */
 }

@@ -1,29 +1,54 @@
-import React, { useContext}from 'react';
-import AppContext from "../../context/context";
-import './MovieDetails.css';
+import React, { useContext } from "react";
 import ReactPlayer from "react-player";
+import AppContext from "../../context/context";
+import Footer from "../../Components/Footer/Footer";
+import "./MovieDetails.css";
 
 function MovieDetails() {
-    const { movies, currentMovieIndex } = useContext(AppContext);
-    const movie = movies[currentMovieIndex];
-    console.log(movie);
-    
-    return (
+  const { movies, currentMovieIndex } = useContext(AppContext);
+  const movie = movies[currentMovieIndex];
+  // eslint-disable-next-line no-debugger
+  //   debugger;
+  return (
     <div className="container">
-{movie && <div className="superior">
-<ReactPlayer url='https://www.youtube.com/watch?v=P9A6hOg9QQ0'/>
-    <h1>{movie.title}</h1>
-    <h4>Clasification: {movie.rated}  </h4>
-    <h4>Recomended: {movie.minimunAge} years</h4>  
-    </div>}
-    <div className="inferior">
-        <h4>{movie.title}</h4>
-        <h4>Director: {movie.director}</h4>
-        <h4>Sinopsis: {movie.description}</h4>
+      {movie && (
+        <div>
+          <div className="video">
+            <ReactPlayer url={movie.video} />
+          </div>
+          <div className="superior">
+            <h1>{movie.title}</h1>
+            <h4>
+              Clasification:&nbsp;
+              {movie.rated}
+            </h4>
+            <h4>
+              Recomended:&nbsp;
+              {movie.minimunAge}
+              &nbsp; years
+            </h4>
+            <h4>
+              Duration:&nbsp;
+              {movie.duration}
+            </h4>
+          </div>
 
+          <div className="inferior">
+            <h4>{movie.title}</h4>
+            <h4>
+              Director:&nbsp;
+              {movie.director}
+            </h4>
+            <h4>
+              Sinopsis:&nbsp;
+              {movie.description}
+            </h4>
+          </div>
         </div>
+      )}
+      <Footer />
     </div>
-    );
+  );
 }
 
 export default MovieDetails;
