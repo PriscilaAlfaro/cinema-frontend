@@ -13,13 +13,41 @@
 }
 .superior h4 {
     margin: 1px;
+    
 }
-.inferior{
+.inferior, .tickets, .hours{
     text-align: initial;
     padding-left: 40px;
     line-height: 2;
 }
-
-h4{
-    /* padding: 5px; */
+.tickets_dropDownList{
+    overflow:hidden;
+    width:350px;
+    margin-left:35px;
+    margin: 1rem;
+   
 }
+
+select{
+  border:0;
+    background:black;
+    height:32px;
+    border:1px solid #d8d8d8;
+    width:200px;
+    color:white;
+
+}
+
+.days_dropDownList{
+    color: white;
+}
+
+.hour-button{
+    width: 60%;
+      height: 5rem;
+      margin: 1rem;
+    text-align: left;
+    background-color: rebeccapurple;
+
+}
+

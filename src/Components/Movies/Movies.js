@@ -12,15 +12,15 @@ function Movies() {
 
   const goToMovieDetail = (index) => {
     handleMovieClick(index);
-    navigate("/movie", { replace: true });
+    navigate("/movie");
   };
 
   return (
     <div className="movie-container">
       {movies.map((movie, index) => {
         return (
-          <div onClick={() => goToMovieDetail(index)}>
-            <MovieItem movie={movie} key={movie._id} />
+          <div key={movie._id} onClick={() => goToMovieDetail(index)}>
+            <MovieItem movie={movie} />
           </div>
         );
       })}

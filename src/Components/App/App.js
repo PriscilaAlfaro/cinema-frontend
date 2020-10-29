@@ -9,27 +9,50 @@ const axios = require("axios");
 
 function App() {
   const [movies, setMovies] = useState([]);
+  const [locations, setLocations] = useState([]);
+  const [screenings, setScreenings] = useState([]);
   const [currentMovieIndex, setCurrentMovieIndex] = useState("");
+  const [salesOrder, setSalesOrder] = useState({});
 
   useEffect(() => {
-    async function fetchData() {
-      const result = await axios.get("http://localhost:4001/movies");
-      setMovies(result.data);
+    async function fetchMoviesData() {
+      const mov = await axios.get("http://localhost:4001/movies");
+      setMovies(mov.data);
     }
-    fetchData();
+    async function fetchLocationData() {
+      const loc = await axios.get("http://localhost:4001/locations");
+      setLocations(loc.data);
+    }
+    async function fetchScreeningData() {
+      const scree = await axios.get("http://localhost:4001/screenings");
+      setScreenings(scree.data);
+    }
+    fetchMoviesData();
+    fetchLocationData();
+    fetchScreeningData();
   }, []);
 
   function handleMovieClick(index) {
     setCurrentMovieIndex(index);
+    const stockholm = locations.find((city) => city.location === "Stockholm");
+    setSalesOrder({ location: stockholm._id });
   }
 
   return (
     <div className="App">
       <AppContext.Provider
-        value={{ movies, handleMovieClick, currentMovieIndex }}
+        value={{
+          movies,
+          handleMovieClick,
+          currentMovieIndex,
+          locations,
+          setSalesOrder,
+          salesOrder,
+          screenings,
+        }}
       >
         <Router>
-          <Home path="/home" />
+          <Home path="/" />
           <MovieDetails path="/movie" />
         </Router>
       </AppContext.Provider>
