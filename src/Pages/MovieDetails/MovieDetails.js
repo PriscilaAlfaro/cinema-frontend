@@ -1,51 +1,44 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useContext } from "react";
 import ReactPlayer from "react-player";
+import { useNavigate } from "@reach/router";
 import AppContext from "../../context/context";
 import Footer from "../../Components/Footer/Footer";
 import "./MovieDetails.css";
 
 function MovieDetails() {
   const {
-    movies,
-    currentMovieIndex,
+    currentMovie,
     locations,
     setSalesOrder,
     salesOrder,
-    screenings,
+    dates,
   } = useContext(AppContext);
-  const currentMovie = movies[currentMovieIndex];
-
-  const formatDay = (date) => new Date(date).toLocaleDateString("se-SV");
-
-  const currentScreening = screenings.find(
-    (screen) =>
-      screen.movie_id === currentMovie._id &&
-      screen.location_id === salesOrder.location
-  );
-
-  const dates = currentScreening.dates.map((date) => {
-    return {
-      _id: date._id,
-      day: formatDay(date.date),
-      hours: date.hours,
-    };
-  });
-
-  console.log("screenings", screenings);
-  console.log("currentScreening", currentScreening);
-  console.log("dates", dates);
-
+  const navigate = useNavigate();
   function handleLocationChange(e) {
-    setSalesOrder({ ...salesOrder, location: e.target.value });
+    setSalesOrder({
+      ...salesOrder,
+      location_id: e.target.value,
+      location: locations.find((loc) => e.target.value === loc._id).location,
+    });
   }
 
   function handleDayChange(e) {
-    setSalesOrder({ ...salesOrder, date_id: e.target.value });
+    setSalesOrder({
+      ...salesOrder,
+      date_id: e.target.value,
+      date: dates.find((dat) => e.target.value === dat._id).day,
+    });
+  }
+
+  function handleHourChange(e) {
+    setSalesOrder({ ...salesOrder, hour: e.target.value });
+    navigate("/tickets");
   }
 
   return (
     <div className="container">
+      {/* Movie details ----------------------------------- */}
       {currentMovie && (
         <div>
           <div className="video">
@@ -79,50 +72,61 @@ function MovieDetails() {
               {currentMovie.description}
             </h4>
           </div>
-          <div className="tickets">
-            <h1>Boka biljetter</h1>
-            <div className="tickets_dropDownList">
-              <label htmlFor="location">Choose a location:&nbsp;</label>
-              <select
-                name="location"
-                id="location"
-                onChange={handleLocationChange}
-              >
-                {locations.map((city) => (
-                  <option value={city._id} key={city._id}>
-                    {city.location}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="days_dropDownList">
-              <label htmlFor="days">Choose a day:&nbsp;</label>
-              <select name="days" id="days" onChange={handleDayChange}>
-                {dates.map((date) => (
-                  <option value={date._id} key={date._id}>
-                    {date.day}
-                  </option>
-                ))}
-              </select>
-            </div>
+        </div>
+      )}
+      {/* Tickets ----------------------------------- */}
+      <div className="tickets">
+        <h1>Boka biljetter</h1>
+        {/* Locations ----------------------------------- */}
+        {locations && (
+          <div className="tickets_dropDownList">
+            <label htmlFor="location">Choose a location:&nbsp;</label>
+            <select
+              name="location"
+              id="location"
+              onChange={handleLocationChange}
+            >
+              {locations.map((city) => (
+                <option value={city._id} key={city._id}>
+                  {city.location}
+                </option>
+              ))}
+            </select>
           </div>
-        </div>
-      )}
-      {salesOrder.date_id && (
-        <div className="hours">
-          <p>Choose an hour:&nbsp;</p>
-          {dates
-            .find((date) => date._id === salesOrder.date_id)
-            .hours.map((hour) => (
-              <button className="hour-button" type="button">
-                {hour}
-                &nbsp; BUY TIKECTS
-              </button>
-            ))}
-        </div>
-      )}
-
+        )}
+        {/* dates ----------------------------------- */}
+        {dates && (
+          <div className="days_dropDownList">
+            <label htmlFor="days">Choose a day:&nbsp;</label>
+            <select name="days" id="days" onChange={handleDayChange}>
+              {dates.map((date) => (
+                <option value={date._id} key={date._id}>
+                  {date.day}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+        {/* hours ----------------------------------- */}
+        {salesOrder.date && (
+          <div className="hours">
+            <p>Choose an hour:&nbsp;</p>
+            {dates
+              .find((date) => date._id === salesOrder.date_id)
+              .hours.map((hour) => (
+                <button
+                  className="hour-button"
+                  type="button"
+                  value={hour}
+                  onClick={handleHourChange}
+                >
+                  {hour}
+                  &nbsp; BUY TIKECTS
+                </button>
+              ))}
+          </div>
+        )}
+      </div>
       <Footer />
     </div>
   );

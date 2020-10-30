@@ -1,0 +1,40 @@
+.grid-container {
+  display: grid;
+  padding: 2rem 15rem;
+ 
+}
+
+.grid-item {
+  border: 1px solid white;
+  font-size: 30px;
+  text-align: center;
+}
+
+h2{
+  padding: 0px;
+  margin: 0px;
+}
+
+.buttons{
+  display: inline-flex;
+  
+}
+
+.button{
+  height: 2rem;
+  margin: 1rem;
+  background-color: #350a8c;
+  color: white;
+  border-radius: 4px;
+  width: 2rem;
+}
+
+.count{
+  margin: 1rem;
+}
+
+.next-button{
+  background-color: red;
+    width: 10rem;
+    height: 3rem;
+}
