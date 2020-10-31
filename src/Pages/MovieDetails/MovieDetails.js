@@ -4,6 +4,7 @@ import ReactPlayer from "react-player";
 import { useNavigate } from "@reach/router";
 import AppContext from "../../context/context";
 import Footer from "../../Components/Footer/Footer";
+import formatDay from "../../utils/utils";
 import "./MovieDetails.css";
 
 function MovieDetails() {
@@ -13,6 +14,7 @@ function MovieDetails() {
     setSalesOrder,
     salesOrder,
     dates,
+    screenings,
   } = useContext(AppContext);
   const navigate = useNavigate();
   function handleLocationChange(e) {
@@ -35,6 +37,21 @@ function MovieDetails() {
     setSalesOrder({ ...salesOrder, hour: e.target.value });
     navigate("/tickets");
   }
+
+  // cambiar el nombre para poder pintar los nuevos dates actualizados cada vez que una persona elige un location nuevo
+  // const currentScreening = screenings.find(
+  //   (screen) =>
+  //     screen.movie_id === salesOrder.movie_id &&
+  //     screen.location_id === salesOrder.location_id
+  // );
+
+  // const dateTimes = currentScreening.dates.map((date) => {
+  //   return {
+  //     _id: date._id,
+  //     day: formatDay(date.date),
+  //     hours: date.hours,
+  //   };
+  // });
 
   return (
     <div className="container">

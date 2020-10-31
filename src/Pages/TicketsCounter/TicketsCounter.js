@@ -1,13 +1,24 @@
 import React, { useContext, useState, useEffect } from "react";
+import { useNavigate } from "@reach/router";
 import AppContext from "../../context/context";
 import Footer from "../../Components/Footer/Footer";
+import SalesOrderInfo from "../../Components/SalesOrderInfo/SalesOrderInfo";
 import "./TicketsCounter.css";
 
+const axios = require("axios");
+
 function TicketsCounter() {
-  const { salesOrder, setSalesOrder } = useContext(AppContext);
+  const {
+    salesOrder,
+    setSalesOrder,
+    setTransations,
+    transactions,
+  } = useContext(AppContext);
   const [count, setCount] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [price] = useState(15);
+
+  const navigate = useNavigate();
 
   const incrementCounter = () => {
     if (count < 25) {
@@ -21,32 +32,22 @@ function TicketsCounter() {
     }
   };
 
+  const handlGoToSeats = () => {
+    navigate("/seats");
+  };
   useEffect(() => {
+    async function fetchtransationsData() {
+      const trans = await axios.get("http://localhost:4001/transations");
+      setTransations(trans.data);
+    }
+    fetchtransationsData();
     setTotalPrice(price * count);
     setSalesOrder({ ...salesOrder, tickets: count, total: totalPrice });
-  }, [price, count, setSalesOrder, salesOrder, totalPrice]);
+  }, [price, count, setSalesOrder, salesOrder, totalPrice, setTransations]);
 
   return (
     <div className="container">
-      {/* sales order info --------------------------*/}
-      <div className="salesOrder_information" />
-      <h1>Boka biljetter</h1>
-      <h3>
-        Movie: &nbsp;
-        {salesOrder.movie}
-      </h3>
-      <h3>
-        Location: &nbsp;
-        {salesOrder.location}
-      </h3>
-      <h3>
-        Date: &nbsp;
-        {salesOrder.date}
-      </h3>
-      <h3>
-        Hour: &nbsp;
-        {salesOrder.hour}
-      </h3>
+      <SalesOrderInfo />
       {/* counter --------------------------*/}
       <div>
         <h5>Select tickets </h5>
@@ -58,7 +59,7 @@ function TicketsCounter() {
         </div>
         <div className="grid-item">
           <h4>Price</h4>
-          <h5>{price}</h5>
+          <h5>{transactions.price}</h5>
         </div>
         <div className="grid-item">
           <h4>Amount</h4>
@@ -77,10 +78,14 @@ function TicketsCounter() {
           <h4>{totalPrice}</h4>
         </div>
       </div>
-      {/* counter --------------------------*/}
+      {/* next --------------------------*/}
       {count > 0 && (
         <div>
-          <button className="next-button" type="button">
+          <button
+            className="next-button"
+            onClick={handlGoToSeats}
+            type="button"
+          >
             <h2>Next</h2>
           </button>
         </div>

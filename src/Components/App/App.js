@@ -6,6 +6,7 @@ import AppContext from "../../context/context";
 import MovieDetails from "../../Pages/MovieDetails/MovieDetails";
 import formatDay from "../../utils/utils";
 import TicketsCounter from "../../Pages/TicketsCounter/TicketsCounter";
+import Seats from "../../Pages/Seats/Seats";
 
 const axios = require("axios");
 
@@ -13,6 +14,7 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [locations, setLocations] = useState([]);
   const [screenings, setScreenings] = useState([]);
+  const [transactions, setTransations] = useState({});
   const [currentMovie, setCurrentMovie] = useState("");
   const [salesOrder, setSalesOrder] = useState({});
   const [dates, setDates] = useState({});
@@ -73,12 +75,15 @@ function App() {
           salesOrder,
           screenings,
           dates,
+          transactions,
+          setTransations,
         }}
       >
         <Router>
           <Home path="/" />
           <MovieDetails path="/movie" />
           <TicketsCounter path="/tickets" />
+          <Seats path="/seats" />
         </Router>
       </AppContext.Provider>
     </div>
