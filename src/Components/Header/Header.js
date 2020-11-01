@@ -7,8 +7,9 @@ function Header() {
       <img
         className="header-image"
         alt=""
-        src="https://image.freepik.com/vector-gratis/tiempo-pelicula-signo-neon-cubo-palomitas-claqueta-carrete-pelicula-cartel_1262-13530.jpg"
+        src="https://www.flaticon.com/svg/static/icons/svg/1765/1765822.svg"
       />
+      <h3>Cinema CR</h3>
     </div>
   );
 }

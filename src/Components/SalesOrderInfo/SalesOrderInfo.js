@@ -22,7 +22,7 @@ function SalesOrderInfo() {
       </h3>
       <h3>
         Hour: &nbsp;
-        {salesOrder.hour}
+        {salesOrder.screening}
       </h3>
     </div>
   );

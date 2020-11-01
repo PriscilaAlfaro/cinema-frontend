@@ -11,39 +11,65 @@ function TicketsCounter() {
   const {
     salesOrder,
     setSalesOrder,
-    setTransations,
-    transactions,
+    setSeatAvailability,
+    setPurchasedSeats,
   } = useContext(AppContext);
   const [count, setCount] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [price] = useState(15);
+  const [
+    seatsAvailableForCurrentScreening,
+    setSeatsAvailableForCurrentScreening,
+  ] = useState(0);
 
   const navigate = useNavigate();
 
   const incrementCounter = () => {
-    if (count < 25) {
-      setCount(count + 1);
+    if (count < seatsAvailableForCurrentScreening) {
+      const newCount = count + 1;
+      const newTotal = salesOrder.price * newCount;
+      setCount(newCount);
+      setTotalPrice(newTotal);
+      setSalesOrder({ ...salesOrder, totalPrice: newTotal, tickets: newCount });
     }
   };
 
   const decrementCounter = () => {
     if (count > 0) {
-      setCount(count - 1);
+      const newCount = count - 1;
+      const newTotal = salesOrder.price * newCount;
+      setCount(newCount);
+      setTotalPrice(newTotal);
+      setSalesOrder({ ...salesOrder, totalPrice: newTotal, tickets: newCount });
     }
   };
 
   const handlGoToSeats = () => {
     navigate("/seats");
   };
+
   useEffect(() => {
-    async function fetchtransationsData() {
-      const trans = await axios.get("http://localhost:4001/transations");
-      setTransations(trans.data);
+    async function fetchSeatAvailableData() {
+      const available = await axios.get(
+        "http://localhost:4001/seatAvailability"
+      );
+      setSeatAvailability(available.data);
+
+      const currentSeatAvailability = available.data.find(
+        (seats) => seats.screening_id === salesOrder.screening_id
+      );
+      const seatsAvailable =
+        salesOrder.totalSeats - currentSeatAvailability.purchasedSeats.length;
+      setSeatsAvailableForCurrentScreening(seatsAvailable);
+      setPurchasedSeats(currentSeatAvailability.purchasedSeats);
     }
-    fetchtransationsData();
-    setTotalPrice(price * count);
-    setSalesOrder({ ...salesOrder, tickets: count, total: totalPrice });
-  }, [price, count, setSalesOrder, salesOrder, totalPrice, setTransations]);
+    fetchSeatAvailableData();
+    const initialTotalPrice = salesOrder.price * count;
+    setTotalPrice(initialTotalPrice);
+    setSalesOrder({
+      ...salesOrder,
+      totalPrice: initialTotalPrice,
+    });
+  }, []);
 
   return (
     <div className="container">
@@ -59,7 +85,7 @@ function TicketsCounter() {
         </div>
         <div className="grid-item">
           <h4>Price</h4>
-          <h5>{transactions.price}</h5>
+          <h5>{salesOrder.price}</h5>
         </div>
         <div className="grid-item">
           <h4>Amount</h4>

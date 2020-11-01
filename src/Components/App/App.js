@@ -14,7 +14,8 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [locations, setLocations] = useState([]);
   const [screenings, setScreenings] = useState([]);
-  const [transactions, setTransations] = useState({});
+  const [seatAvailability, setSeatAvailability] = useState(null);
+  const [purchasedSeats, setPurchasedSeats] = useState([]);
   const [currentMovie, setCurrentMovie] = useState("");
   const [salesOrder, setSalesOrder] = useState({});
   const [dates, setDates] = useState({});
@@ -46,9 +47,9 @@ function App() {
     );
     const dateTimes = currentScreening.dates.map((date) => {
       return {
-        _id: date._id,
+        day_id: date._id,
         day: formatDay(date.date),
-        hours: date.hours,
+        screening: date.screening,
       };
     });
     setDates(dateTimes);
@@ -57,9 +58,10 @@ function App() {
       movie: movies[index].title,
       location_id: locations[0]._id,
       location: locations[0].location,
-      date_id: dateTimes[0]._id,
+      price: locations[0].price,
+      totalSeats: locations[0].totalSeats,
+      date_id: dateTimes[0].day_id,
       date: dateTimes[0].day,
-      hour: dateTimes[0].hours[0],
     });
   }
 
@@ -75,8 +77,10 @@ function App() {
           salesOrder,
           screenings,
           dates,
-          transactions,
-          setTransations,
+          seatAvailability,
+          setSeatAvailability,
+          purchasedSeats,
+          setPurchasedSeats,
         }}
       >
         <Router>
