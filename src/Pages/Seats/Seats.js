@@ -1,16 +1,18 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useContext, useState } from "react";
+import { useNavigate } from "@reach/router";
 import AppContext from "../../context/context";
 import SalesOrderInfo from "../../Components/SalesOrderInfo/SalesOrderInfo";
 import Footer from "../../Components/Footer/Footer";
 import "./Seats.css";
 
 function Seats() {
-  const { salesOrder, purchasedSeats } = useContext(AppContext);
+  const { salesOrder, setSalesOrder, purchasedSeats } = useContext(AppContext);
   const [totalAmountOfSeats] = useState(
     Array.from({ length: salesOrder.totalSeats }, (_, i) => i + 1)
   );
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const navigate = useNavigate();
 
   function removeSeat(seat) {
     const foundIndex = selectedSeats.indexOf(seat);
@@ -22,19 +24,32 @@ function Seats() {
   }
 
   function handleSelectedSeat(seatNumber) {
+    // case already puschased
     if (purchasedSeats.includes(seatNumber)) {
       return;
     }
-
+    // case already selected
     if (selectedSeats.includes(seatNumber)) {
       removeSeat(seatNumber);
       return;
     }
-
+    // case maximun seats
+    if (selectedSeats.length === salesOrder.tickets) {
+      return;
+    }
+    // case selected
     setSelectedSeats([...selectedSeats, seatNumber]);
+    setSalesOrder({
+      ...salesOrder,
+      selectedSeats: [...selectedSeats, seatNumber],
+    });
   }
-  // 1.  aqui tiene que hacerse otro fecth y comparar si los asientos selected ya estan o no comprados
-  // 2. aparecer un boton para next
+
+  const handlGoToRegister = () => {
+    navigate("/register");
+  };
+
+  // 2. aqui tiene que hacerse otro fecth y comparar si los asientos selected ya estan o no comprados
 
   return (
     <div className="main-container">
@@ -82,10 +97,34 @@ function Seats() {
             ))}
         </div>
         <p className="text">
-          You have selected the seat number: &nbsp;
-          {selectedSeats}
+          {selectedSeats.length === 1 && (
+            <div>
+              You have selected the seat number: &nbsp;
+              {`${selectedSeats} `}
+            </div>
+          )}
+          {selectedSeats.length > 1 && (
+            <div>
+              You have selected the seats number: &nbsp;
+              {`${selectedSeats} `}
+            </div>
+          )}
         </p>
       </div>
+
+      {/* next --------------------------*/}
+      {selectedSeats.length > 0 && (
+        <div>
+          <button
+            className="next-button"
+            onClick={handlGoToRegister}
+            type="button"
+          >
+            <h2>Next</h2>
+          </button>
+        </div>
+      )}
+
       <Footer />
     </div>
   );

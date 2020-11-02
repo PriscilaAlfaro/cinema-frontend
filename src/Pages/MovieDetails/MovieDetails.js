@@ -1,10 +1,13 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useContext } from "react";
-import ReactPlayer from "react-player";
+// import ReactPlayer from "react-player";
 import { useNavigate } from "@reach/router";
 import AppContext from "../../context/context";
 import Footer from "../../Components/Footer/Footer";
 import formatDay from "../../utils/utils";
+import Modal from "../../Components/Modal/Modal";
 import "./MovieDetails.css";
 
 function MovieDetails() {
@@ -14,6 +17,8 @@ function MovieDetails() {
     setSalesOrder,
     salesOrder,
     screenings,
+    setShowModal,
+    showModal,
   } = useContext(AppContext);
 
   const navigate = useNavigate();
@@ -55,6 +60,11 @@ function MovieDetails() {
     date_id: dateTimes[0].day_id,
     date: dateTimes[0].day,
     */
+
+    // PENDIENTE: 1. cambiar todos los videos de la base de datos a embed
+    // 2. Darle formato a la imagen para que quede con sombra hacia adentro
+    // 3. incluir en cada movie una  imagen grande para ponerla en movie details
+
     setSalesOrder({
       ...salesOrder,
       location_id: e.target.value,
@@ -84,14 +94,28 @@ function MovieDetails() {
     });
     navigate("/tickets");
   }
-
+  function handleOpenModal() {
+    setShowModal(true);
+  }
   return (
     <div className="container">
       {/* Movie details ----------------------------------- */}
       {currentMovie && (
         <div>
-          <div className="video">
-            <ReactPlayer url={currentMovie.video} />
+          <div className="movie">
+            <img
+              className="movie-image"
+              alt=" "
+              src="https://image.tmdb.org/t/p/original/4LuJCO1edIbLVGx99uv7luDoIJt.jpg"
+            />
+            {showModal && <Modal />}
+            <div onClick={handleOpenModal}>
+              <img
+                className="play"
+                alt=" "
+                src="https://icons-for-free.com/iconfiles/png/512/control+media+multimedia+music+options+play+play+button+player-1320185653542985681.png"
+              />
+            </div>
           </div>
           <div className="superior">
             <h1>{currentMovie.title}</h1>
@@ -128,11 +152,13 @@ function MovieDetails() {
         <h1>Boka biljetter</h1>
         {/* Locations ----------------------------------- */}
         {locations && (
-          <div className="tickets_dropDownList">
-            <label htmlFor="location">Choose a location:&nbsp;</label>
+          <div className="location_dropDownList">
+            <label htmlFor="location">
+              <h4>Choose a location:&nbsp;</h4>
+            </label>
             <select
               name="location"
-              id="location"
+              className="location"
               onChange={handleSelectedLocation}
             >
               {locations.map((city) => (
@@ -146,8 +172,10 @@ function MovieDetails() {
         {/* -----------------days------------------ */}
         {newDates && (
           <div className="days_dropDownList">
-            <label htmlFor="days">Choose a day:&nbsp;</label>
-            <select name="days" id="days" onChange={handleSelectedDay}>
+            <label htmlFor="days">
+              <h4>Choose a day:&nbsp;</h4>
+            </label>
+            <select name="days" className="days" onChange={handleSelectedDay}>
               {newDates.map((date) => (
                 <option value={date.day_id} key={date.day_id}>
                   {date.day}
@@ -159,7 +187,7 @@ function MovieDetails() {
         {/*  ------------------hours----------------- */}
         {newDates && (
           <div className="hours">
-            <p>Choose an hour:&nbsp;</p>
+            <h4>Choose an hour:&nbsp;</h4>
             {newDates
               .find((date) => date.day_id === salesOrder.date_id)
               .screening.map((hour) => (
@@ -171,7 +199,7 @@ function MovieDetails() {
                   onClick={handleSelectedHour}
                 >
                   {hour.hour}
-                  &nbsp; BUY TIKECTS
+                  &nbsp; BUY TIKECTS &nbsp; &gt;
                 </button>
               ))}
           </div>

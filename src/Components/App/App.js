@@ -7,6 +7,9 @@ import MovieDetails from "../../Pages/MovieDetails/MovieDetails";
 import formatDay from "../../utils/utils";
 import TicketsCounter from "../../Pages/TicketsCounter/TicketsCounter";
 import Seats from "../../Pages/Seats/Seats";
+import Register from "../../Pages/Register/Register";
+import Payment from "../../Pages/Payment/Payment";
+import Thanks from "../../Pages/Thanks/Thanks";
 
 const axios = require("axios");
 
@@ -19,6 +22,7 @@ function App() {
   const [currentMovie, setCurrentMovie] = useState("");
   const [salesOrder, setSalesOrder] = useState({});
   const [dates, setDates] = useState({});
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     async function fetchMoviesData() {
@@ -81,13 +85,18 @@ function App() {
           setSeatAvailability,
           purchasedSeats,
           setPurchasedSeats,
+          showModal,
+          setShowModal,
         }}
       >
         <Router>
           <Home path="/" />
-          <MovieDetails path="/movie" />
+          <MovieDetails path="/movie-details" />
           <TicketsCounter path="/tickets" />
           <Seats path="/seats" />
+          <Register path="/register" />
+          <Payment path="/payment" />
+          <Thanks path="/thanks" />
         </Router>
       </AppContext.Provider>
     </div>

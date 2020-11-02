@@ -1,15 +1,35 @@
 .container{
     background-color: black; 
     color: white;
-    height: 100%;
+    width: 100%;
 }
 
-.video{
+.movie{
     text-align: -webkit-center; 
+  
 }
-.superior{
+
+.movie-image{
+    width: 100%;
+    box-shadow: inset -8px -50px 30px -16px #000000;
+}
+
+.play {
+  padding: 16px 32px;
+   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+width: 7.5rem;
+}
+
+.superior{  
     text-align: initial;
-    padding: 40px 40px;
+    padding: 20px 40px;
+    color: white;
+    top: -5%;
+    position: absolute;
 }
 .superior h4 {
     margin: 1px;
@@ -17,37 +37,87 @@
 }
 .inferior, .tickets, .hours{
     text-align: initial;
-    padding-left: 40px;
+    padding: 0 3rem;
     line-height: 2;
 }
-.tickets_dropDownList{
-    overflow:hidden;
-    width:350px;
-    margin-left:35px;
-    margin: 1rem;
+.location_dropDownList, .days_dropDownList{
+    width: 30rem;
+    margin: 3rem 0rem;
+    display: inline-flex;
+    align-items: center;
+    color: white;
    
 }
 
+.location_dropDownList{
+        margin-left: 3rem;
+}
+
+.location, .days{
+    border-color: black;
+    border-bottom: 2px solid purple;
+    margin-left: 3.5rem;
+       font-size: 1rem;
+}
+
 select{
-  border:0;
+   border:0;
     background:black;
     height:32px;
-    border:1px solid #d8d8d8;
+    border:1px solid #c01919;
     width:200px;
     color:white;
 
 }
 
-.days_dropDownList{
-    color: white;
-}
 
 .hour-button{
-    width: 60%;
-      height: 5rem;
-      margin: 1rem;
+    width: 90%;
+    height: 5rem;
+    margin-top: 2rem;
     text-align: left;
-    background-color: rebeccapurple;
+    background-color: black;
+    border-color: black;
+    border-bottom: 5px solid purple;
+    color: white;
+    font-size: 1rem;
+    color: red
+
 
 }
 
+iframe{
+  width: 100%;
+  height: auto;
+}
+
+@media only screen and (max-width: 950px) {
+.container{
+    background-color: green; 
+   
+}
+.play{
+    width: 3rem;
+      top: 40%;
+}
+
+}
+@media only screen and (max-width: 740px) {
+.container{
+    background-color: pink; 
+   
+}
+
+.play{
+    width: 2.7rem;
+       top: 30%;
+}
+
+}
+
+@media only screen and (max-width: 450px) {
+.play{
+    width: 2.5rem;
+       top: 20%;
+}
+}

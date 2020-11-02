@@ -12,7 +12,7 @@ function Movies() {
 
   const goToMovieDetail = (index) => {
     handleMovieClick(index);
-    navigate("/movie");
+    navigate("/movie-details");
   };
 
   return (

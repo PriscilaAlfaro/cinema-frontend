@@ -3,6 +3,7 @@ import { useNavigate } from "@reach/router";
 import AppContext from "../../context/context";
 import Footer from "../../Components/Footer/Footer";
 import SalesOrderInfo from "../../Components/SalesOrderInfo/SalesOrderInfo";
+import Header from "../../Components/Header/Header";
 import "./TicketsCounter.css";
 
 const axios = require("axios");
@@ -29,7 +30,12 @@ function TicketsCounter() {
       const newTotal = salesOrder.price * newCount;
       setCount(newCount);
       setTotalPrice(newTotal);
-      setSalesOrder({ ...salesOrder, totalPrice: newTotal, tickets: newCount });
+      setSalesOrder({
+        ...salesOrder,
+        totalPrice: newTotal,
+        tickets: newCount,
+        seatsAvailableForCurrentScreening,
+      });
     }
   };
 
@@ -73,21 +79,22 @@ function TicketsCounter() {
 
   return (
     <div className="container">
+      <Header />
       <SalesOrderInfo />
       {/* counter --------------------------*/}
       <div>
-        <h5>Select tickets </h5>
+        <h1>Select tickets </h1>
       </div>
-      <div className="grid-container">
-        <div className="grid-item">
+      <div className="container_tickets">
+        <div className="tickets_info">
           <h4>Type</h4>
           <h5>Regular</h5>
         </div>
-        <div className="grid-item">
+        <div className="tickets_info">
           <h4>Price</h4>
           <h5>{salesOrder.price}</h5>
         </div>
-        <div className="grid-item">
+        <div className="tickets_info">
           <h4>Amount</h4>
           <div className="buttons">
             <button className="button" type="button" onClick={decrementCounter}>
@@ -98,10 +105,16 @@ function TicketsCounter() {
               <h2>+</h2>
             </button>
           </div>
+          <div className="seats-available">
+            <p>
+              Seats available for this screening: &nbsp;
+              {seatsAvailableForCurrentScreening}
+            </p>
+          </div>
         </div>
-        <div className="grid-item">
+        <div className="tickets_info">
           <h4>Total</h4>
-          <h4>{totalPrice}</h4>
+          <h5>{totalPrice}</h5>
         </div>
       </div>
       {/* next --------------------------*/}

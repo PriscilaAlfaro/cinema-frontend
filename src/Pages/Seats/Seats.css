@@ -73,3 +73,14 @@
     background-color: #0081cb;
 }
 
+.next-button{
+  background-color: red;
+    width: 10rem;
+    height: 3rem;
+    margin: 1rem;
+}
+
+@media only screen and (max-width: 600px) {
+.legend {
+  display: block;}
+}
