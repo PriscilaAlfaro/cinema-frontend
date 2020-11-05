@@ -1,34 +1,14 @@
 .container{
-    background-color: black; 
+    background-color: pink; 
     color: white;
     width: 100%;
-}
-
-.movie{
-    text-align: -webkit-center; 
-  
-}
-
-.movie-image{
-    width: 100%;
-    box-shadow: inset -8px -50px 30px -16px #000000;
-}
-
-.play {
-  padding: 16px 32px;
-   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-width: 7.5rem;
 }
 
 .superior{  
     text-align: initial;
     padding: 20px 40px;
     color: white;
-    top: -5%;
+    top: 0%;
     position: absolute;
 }
 .superior h4 {
@@ -42,22 +22,17 @@ width: 7.5rem;
 }
 .location_dropDownList, .days_dropDownList{
     width: 30rem;
-    margin: 3rem 0rem;
+    margin: 3rem 0rem 0rem 3rem;
     display: inline-flex;
     align-items: center;
     color: white;
-   
 }
 
-.location_dropDownList{
-        margin-left: 3rem;
-}
-
-.location, .days{
+select.location, select.days{
     border-color: black;
     border-bottom: 2px solid purple;
     margin-left: 3.5rem;
-       font-size: 1rem;
+    font-size: 1rem;
 }
 
 select{
@@ -65,11 +40,10 @@ select{
     background:black;
     height:32px;
     border:1px solid #c01919;
-    width:200px;
+    width:13rem;
     color:white;
 
 }
-
 
 .hour-button{
     width: 90%;
@@ -82,42 +56,137 @@ select{
     color: white;
     font-size: 1rem;
     color: red
-
-
 }
 
+
+/* ---------------main image -----------*/
+
+/* .play {
+  padding: 16px 32px;
+   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+width: 7.5rem;
+}  */
+
+figure {
+    justify-items: center;
+    width: 100%;
+    margin: 0;
+}  
+.movie-general-image img {
+    display: block;
+    height: auto;
+    width: 100%;
+}
+
+.play-container {
+    display: block;
+    grid-area: play;
+   width: 100%;
+
+	align-self: center;
+    padding: 1rem;
+    position: absolute;
+    top: 48%;
+    left: 50%;
+    
+}
+
+.play-container span {
+    display: block;
+    max-width: 10%;
+transform: translate(0%, 0%);
+}
+
+
+
+
+/* ----------modal-content-------------- */
 iframe{
   width: 100%;
   height: auto;
 }
+/* ----------MEDIA QUERY-------------- */
+
+ @media only screen and (max-width: 1500px) {
+/* .play-container{
+    transform: translate(0%, 25%);
+} */
+
+}
+
+@media only screen and (max-width: 1250px) {
+/* .play-container {
+      top: 21%;
+} */
+}
 
 @media only screen and (max-width: 950px) {
-.container{
-    background-color: green; 
-   
-}
-.play{
+
+/* .play-container{
     width: 3rem;
-      top: 40%;
-}
+      top: 17%;
+} */
 
-}
+} 
 @media only screen and (max-width: 740px) {
-.container{
-    background-color: pink; 
-   
+
+.superior{  
+    padding: 15px 30px;
+    top: -2%;
+    font-size: 60%;
+}
+/* .play-container{
+     top: 14%;
+       /* transform: translate(0%, 13%); } */
+
 }
 
-.play{
-    width: 2.7rem;
-       top: 30%;
+@media only screen and (max-width: 500px) {
+.superior{  
+    padding: 12px 25px;
+    top: -3%;
+    font-size: 55%;
 }
 
+
+.location_dropDownList, .days_dropDownList{
+    display: block;
+      width: 25rem;
+    margin: 1rem 0rem 0rem 1rem;
+
+}
+select{
+    margin: 0;
+}
+select.location, select.days {
+    margin-left: 0;
+    width: 50%;
 }
 
-@media only screen and (max-width: 450px) {
-.play{
-    width: 2.5rem;
-       top: 20%;
+div .hours{
+    padding: 0 1rem;
 }
+
+div .tickets{
+      padding: 0 1rem; 
+}
+/* .play-container{
+      top: 12%;
+} */
+}
+
+@media only screen and (max-width: 350px) {
+.superior{  
+    padding: 10px 20px;
+    top: -4%;
+    font-size: 45%;
+}
+
+/* .play-container{
+      top: 10%;
+} */
 }

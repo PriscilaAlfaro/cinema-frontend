@@ -102,21 +102,22 @@ function MovieDetails() {
       {/* Movie details ----------------------------------- */}
       {currentMovie && (
         <div>
-          <div className="movie">
+          <figure className="movie-general-image">
             <img
-              className="movie-image"
               alt=" "
               src="https://image.tmdb.org/t/p/original/4LuJCO1edIbLVGx99uv7luDoIJt.jpg"
             />
             {showModal && <Modal />}
-            <div onClick={handleOpenModal}>
-              <img
-                className="play"
-                alt=" "
-                src="https://icons-for-free.com/iconfiles/png/512/control+media+multimedia+music+options+play+play+button+player-1320185653542985681.png"
-              />
+            <div className="play-container" onClick={handleOpenModal}>
+              <span>
+                <img
+                  className="play"
+                  alt=" "
+                  src="https://icons-for-free.com/iconfiles/png/512/control+media+multimedia+music+options+play+play+button+player-1320185653542985681.png"
+                />
+              </span>
             </div>
-          </div>
+          </figure>
           <div className="superior">
             <h1>{currentMovie.title}</h1>
             <h4>

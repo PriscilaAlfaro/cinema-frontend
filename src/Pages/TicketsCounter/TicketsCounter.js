@@ -9,12 +9,9 @@ import "./TicketsCounter.css";
 const axios = require("axios");
 
 function TicketsCounter() {
-  const {
-    salesOrder,
-    setSalesOrder,
-    setSeatAvailability,
-    setPurchasedSeats,
-  } = useContext(AppContext);
+  const { salesOrder, setSalesOrder, setPurchasedSeats } = useContext(
+    AppContext
+  );
   const [count, setCount] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [
@@ -58,7 +55,6 @@ function TicketsCounter() {
       const available = await axios.get(
         "http://localhost:4001/seatAvailability"
       );
-      setSeatAvailability(available.data);
 
       const currentSeatAvailability = available.data.find(
         (seats) => seats.screening_id === salesOrder.screening_id
@@ -67,14 +63,16 @@ function TicketsCounter() {
         salesOrder.totalSeats - currentSeatAvailability.purchasedSeats.length;
       setSeatsAvailableForCurrentScreening(seatsAvailable);
       setPurchasedSeats(currentSeatAvailability.purchasedSeats);
+
+      const initialTotalPrice = salesOrder.price * count;
+      setTotalPrice(initialTotalPrice);
+      setSalesOrder({
+        ...salesOrder,
+        totalPrice: initialTotalPrice,
+        availability_id: currentSeatAvailability._id,
+      });
     }
     fetchSeatAvailableData();
-    const initialTotalPrice = salesOrder.price * count;
-    setTotalPrice(initialTotalPrice);
-    setSalesOrder({
-      ...salesOrder,
-      totalPrice: initialTotalPrice,
-    });
   }, []);
 
   return (
