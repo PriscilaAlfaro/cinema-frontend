@@ -1,0 +1,23 @@
+.goHome{
+  background-color: black;
+  color: white;
+  border-color: black;
+  max-width: 20rem;
+  min-width: 5rem;
+  height: 3rem;
+  margin: 8rem;
+}
+
+.text{
+  padding: 3rem 3rem;
+}
+
+.text h1{
+  padding: 5rem 3rem;
+  margin: 5rem;
+  font-size: 3rem;
+}
+
+.goHome h1:hover{
+ color: red;
+}

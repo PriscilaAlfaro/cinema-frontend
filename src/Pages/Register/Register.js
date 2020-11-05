@@ -1,45 +1,115 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useContext } from "react"; // , useState }
-import { useNavigate } from "@reach/router";
+import React, { useContext, useEffect } from "react";
+
+import { loadStripe } from "@stripe/stripe-js";
 import AppContext from "../../context/context";
 import SalesOrderInfo from "../../Components/SalesOrderInfo/SalesOrderInfo";
 import Footer from "../../Components/Footer/Footer";
 import Header from "../../Components/Header/Header";
 import "./Register.css";
 
+const axios = require("axios");
+
+let stripePromise;
+
 function Register() {
   const { salesOrder, setSalesOrder } = useContext(AppContext);
-  // 1. debe aparecer un cuadro tipo entrada con los datos de la compra
-  // 2. un formulario para registrar nombre y correo
-  // 3. verificar correo con regex
-  // 4. usar mailChimp para enviar ese correo
-  const navigate = useNavigate();
 
-  function handleUserName(e) {
+  useEffect(() => {
+    async function fetchApiKey() {
+      const key = await axios.get("http://localhost:4001/stripe/key");
+      stripePromise = loadStripe(key.data.publishableApiKey);
+    }
+    fetchApiKey();
+  }, []);
+
+  const handleUserName = (e) => {
     setSalesOrder({
       ...salesOrder,
       userName: e.target.value,
     });
-  }
+  };
 
   const validateEmail = (email) => {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email.toLowerCase());
   };
-  function handleUserEmail(e) {
+
+  const handleUserEmail = (e) => {
     if (validateEmail(e.target.value)) {
       setSalesOrder({
         ...salesOrder,
         userEmail: e.target.value,
       });
     }
-  }
-
-  const handlGoToPayment = () => {
-    navigate("/payment");
   };
+
+  const postOrderData = async (sessionId) => {
+    await axios
+      .post("http://localhost:4001/order", {
+        name: salesOrder.userName,
+        email: salesOrder.userEmail,
+        location_id: salesOrder.location_id,
+        location: salesOrder.location,
+        movie_id: salesOrder.movie_id,
+        movie: salesOrder.movie,
+        date_id: salesOrder.date_id,
+        date: salesOrder.date,
+        screening_id: salesOrder.screening_id,
+        screening: salesOrder.screening,
+        price: salesOrder.price,
+        totalPrice: salesOrder.totalPrice,
+        seatNumber: salesOrder.selectedSeats,
+        paymentReference: sessionId,
+        paymentStatus: "pending",
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const postAvailabilityData = async () => {
+    await axios
+      .patch(
+        `http://localhost:4001/seatAvailability/${salesOrder.availability_id}`,
+        {
+          screening_id: salesOrder.screening_id,
+          purchasedSeats: salesOrder.selectedSeats,
+        }
+      )
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const callStripeCheckout = async () => {
+    const stripe = await stripePromise;
+    const response = await axios.post(
+      "http://localhost:4001/stripe/create-checkout-session",
+      {
+        product: "cinema-tickets",
+        price: salesOrder.price,
+        amount: salesOrder.tickets,
+      }
+    );
+    const session = await response.data;
+    await postOrderData(session.id);
+    await postAvailabilityData();
+
+    const result = await stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+
+    if (result.error) {
+      console.log(result.error.message);
+      // If `redirectToCheckout` fails due to a browser or network
+      // error, display the localized error message to your customer
+      // using `result.error.message`.
+    }
+  };
+
   return (
     <div className="main-container">
       <Header />
@@ -131,14 +201,14 @@ function Register() {
         <div>
           <button
             className="next-button"
-            onClick={handlGoToPayment}
+            onClick={callStripeCheckout}
             type="button"
+            role="link"
           >
-            <h2>Next</h2>
+            <h2>Checkout</h2>
           </button>
         </div>
       )}
-
       <Footer />
     </div>
   );

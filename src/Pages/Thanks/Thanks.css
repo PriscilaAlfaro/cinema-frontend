@@ -1,0 +1,29 @@
+.main-container{
+    display: block;
+}
+
+.main-container .thanks{
+    padding: 5rem 2rem; 
+}
+
+.main-container .email{
+ font-size: 2rem;
+  padding: 3rem 2rem; 
+  display: block;
+
+}
+
+.home{
+ background-color: black;
+  color: white;
+  border-color: black;
+  max-width: 20rem;
+  min-width: 5rem;
+  height: auto;
+  margin: 8rem;
+
+}
+
+.home h1:hover{
+ color: red;
+}

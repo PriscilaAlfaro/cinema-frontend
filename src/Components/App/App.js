@@ -8,7 +8,7 @@ import formatDay from "../../utils/utils";
 import TicketsCounter from "../../Pages/TicketsCounter/TicketsCounter";
 import Seats from "../../Pages/Seats/Seats";
 import Register from "../../Pages/Register/Register";
-import Payment from "../../Pages/Payment/Payment";
+import CancelledPay from "../../Pages/CancelledPay/CancelledPay";
 import Thanks from "../../Pages/Thanks/Thanks";
 
 const axios = require("axios");
@@ -95,7 +95,7 @@ function App() {
           <TicketsCounter path="/tickets" />
           <Seats path="/seats" />
           <Register path="/register" />
-          <Payment path="/payment" />
+          <CancelledPay path="/cancelled" />
           <Thanks path="/thanks" />
         </Router>
       </AppContext.Provider>

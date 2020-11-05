@@ -10,11 +10,12 @@
   border: 0;
   outline: 0;
   font-size: 30px;
-
+  background-color: rgb(8, 7, 61);
+   margin-top: 4rem;
 }
 
 .footer h6{ 
-margin: 1rem;
+margin: 5rem;
 padding: 2rem;
 }
 

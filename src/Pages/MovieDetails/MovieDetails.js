@@ -37,7 +37,7 @@ function MovieDetails() {
     };
   });
 
-  function handleSelectedLocation(e) {
+  const handleSelectedLocation = (e) => {
     const newLocation = locations.find((loc) => e.target.value === loc._id);
 
     const newLocationScreening = screenings.find(
@@ -54,13 +54,6 @@ function MovieDetails() {
       };
     });
 
-    /*
-    OJO, Se debe inicializar una hora al igual que se hizo la primera vez en App.js
-    Para poder pintar las horas adecuadas a este location y date
-    date_id: dateTimes[0].day_id,
-    date: dateTimes[0].day,
-    */
-
     // PENDIENTE: 1. cambiar todos los videos de la base de datos a embed
     // 2. Darle formato a la imagen para que quede con sombra hacia adentro
     // 3. incluir en cada movie una  imagen grande para ponerla en movie details
@@ -74,17 +67,17 @@ function MovieDetails() {
       date_id: dates[0].day_id, // new default values
       date: dates[0].day,
     });
-  }
+  };
 
-  function handleSelectedDay(e) {
+  const handleSelectedDay = (e) => {
     setSalesOrder({
       ...salesOrder,
       date_id: e.target.value,
       date: newDates.find((date) => e.target.value === date.day_id).day,
     });
-  }
+  };
 
-  function handleSelectedHour(e) {
+  const handleSelectedHour = (e) => {
     setSalesOrder({
       ...salesOrder,
       screening_id: e.target.value,
@@ -93,10 +86,12 @@ function MovieDetails() {
         .screening.find((screening) => screening._id === e.target.value).hour,
     });
     navigate("/tickets");
-  }
-  function handleOpenModal() {
+  };
+
+  const handleOpenModal = () => {
     setShowModal(true);
-  }
+  };
+
   return (
     <div className="container">
       {/* Movie details ----------------------------------- */}

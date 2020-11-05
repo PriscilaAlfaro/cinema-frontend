@@ -96,7 +96,7 @@ function Seats() {
               </div>
             ))}
         </div>
-        <p className="text">
+        <div className="text">
           {selectedSeats.length === 1 && (
             <div>
               You have selected the seat number: &nbsp;
@@ -109,7 +109,7 @@ function Seats() {
               {`${selectedSeats} `}
             </div>
           )}
-        </p>
+        </div>
       </div>
 
       {/* next --------------------------*/}
