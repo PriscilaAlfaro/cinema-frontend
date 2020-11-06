@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useContext, useEffect } from "react";
-
 import { loadStripe } from "@stripe/stripe-js";
 import AppContext from "../../context/context";
 import SalesOrderInfo from "../../Components/SalesOrderInfo/SalesOrderInfo";
@@ -89,14 +88,15 @@ function Register() {
     const response = await axios.post(
       "http://localhost:4001/stripe/create-checkout-session",
       {
-        product: "cinema-tickets",
+        product: "Cinema-tickets",
         price: salesOrder.price,
         amount: salesOrder.tickets,
+        email: salesOrder.email,
       }
     );
     const session = await response.data;
-    await postOrderData(session.id);
-    await postAvailabilityData();
+    postOrderData(session.id);
+    postAvailabilityData();
 
     const result = await stripe.redirectToCheckout({
       sessionId: session.id,

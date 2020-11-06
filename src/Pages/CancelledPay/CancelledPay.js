@@ -1,14 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "@reach/router";
 import Footer from "../../Components/Footer/Footer";
 import Header from "../../Components/Header/Header";
 import "./CancelledPay.css";
 
+const axios = require("axios");
+
 function CancelledPay() {
   const navigate = useNavigate();
 
-  const handlGoToHome = () => {
-    navigate("/");
+  useEffect(() => {
+    const sessionId = new URLSearchParams(window.location.search).get(
+      "session_id"
+    );
+    async function deleteOrderData() {
+      try {
+        await axios.delete(`http://localhost:4001/order/${sessionId}`);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+    deleteOrderData();
+  }, []);
+
+  const handlGoToHomeFromCancelled = () => {
+    navigate("/", { replace: true });
   };
 
   return (
@@ -23,7 +40,11 @@ function CancelledPay() {
         </h3>
       </div>
       <div>
-        <button className="goHome" onClick={handlGoToHome} type="button">
+        <button
+          className="goHome"
+          onClick={handlGoToHomeFromCancelled}
+          type="button"
+        >
           <h1>Go to Cinema CR</h1>
         </button>
       </div>
