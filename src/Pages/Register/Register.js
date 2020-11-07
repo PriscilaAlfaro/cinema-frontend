@@ -130,6 +130,7 @@ function Register() {
               <h3>{salesOrder.location}</h3>
               <p>location</p>
             </div>
+
             <div className="inline">
               <div className="date">
                 <h3>{salesOrder.date}</h3>
@@ -138,6 +139,10 @@ function Register() {
               <div className="time">
                 <h3>{salesOrder.screening}</h3>
                 <p>time</p>
+              </div>
+              <div className="salong">
+                <h3>{salesOrder.salong}</h3>
+                <p>salong</p>
               </div>
               <div className="seats">
                 {salesOrder.selectedSeats.length === 1 && (

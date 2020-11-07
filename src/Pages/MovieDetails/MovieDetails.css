@@ -1,5 +1,5 @@
 .container{
-    background-color: pink; 
+    background-color:black;
     color: white;
     width: 100%;
 }
@@ -19,6 +19,7 @@
     text-align: initial;
     padding: 0 3rem;
     line-height: 2;
+    margin-top: 4rem;
 }
 .location_dropDownList, .days_dropDownList{
     width: 30rem;
@@ -61,48 +62,39 @@ select{
 
 /* ---------------main image -----------*/
 
-/* .play {
-  padding: 16px 32px;
-   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-width: 7.5rem;
-}  */
+
 
 figure {
     justify-items: center;
     width: 100%;
     margin: 0;
+
 }  
-.movie-general-image img {
+.poster img {
     display: block;
     height: auto;
     width: 100%;
+    position: relative; 
 }
 
 .play-container {
-    display: block;
-    grid-area: play;
-   width: 100%;
-
-	align-self: center;
-    padding: 1rem;
-    position: absolute;
-    top: 48%;
-    left: 50%;
+background-color: transparent;
+border-color: transparent;
+width: 7.5rem;
+height: 7.5rem;
+position: absolute;
+cursor: pointer;
+  display: block;
+  top: 50%;
+  left: 50%;
+background-image: url("../../utils/play-image.png");
+ background-position: center;
+background-size: 100%;
+background-repeat: no-repeat;
+  font-size: 4rem;
+  border-radius: 50%;
     
-}
-
-.play-container span {
-    display: block;
-    max-width: 10%;
-transform: translate(0%, 0%);
-}
-
-
-
+}  
 
 /* ----------modal-content-------------- */
 iframe{
@@ -110,26 +102,38 @@ iframe{
   height: auto;
 }
 /* ----------MEDIA QUERY-------------- */
+ @media only screen and (max-width: 2000px) {
+.play-container{
+       top: 40%;
+}
+
+}
+ @media only screen and (max-width: 1750px) {
+.play-container{
+       top: 30%;
+}
+
+}
 
  @media only screen and (max-width: 1500px) {
-/* .play-container{
-    transform: translate(0%, 25%);
-} */
+.play-container{
+       top: 23%;
+         width: 6rem;
+}
 
 }
 
 @media only screen and (max-width: 1250px) {
-/* .play-container {
+.play-container {
       top: 21%;
-} */
+}
 }
 
 @media only screen and (max-width: 950px) {
-
-/* .play-container{
-    width: 3rem;
-      top: 17%;
-} */
+.play-container{
+    width: 5rem;
+      top: 18%;
+}
 
 } 
 @media only screen and (max-width: 740px) {
@@ -139,9 +143,9 @@ iframe{
     top: -2%;
     font-size: 60%;
 }
-/* .play-container{
-     top: 14%;
-       /* transform: translate(0%, 13%); } */
+.play-container{
+     top: 13%;
+     }
 
 }
 
@@ -174,9 +178,9 @@ div .hours{
 div .tickets{
       padding: 0 1rem; 
 }
-/* .play-container{
-      top: 12%;
-} */
+.play-container{
+      top: 11%;
+}
 }
 
 @media only screen and (max-width: 350px) {
@@ -186,7 +190,38 @@ div .tickets{
     font-size: 45%;
 }
 
-/* .play-container{
+.inferior, .tickets {  
+    font-size: 50%;
+}
+.hour-button{
+ 
+    height: 3rem;
+    margin-top: 1rem;
+  border-bottom: 2px solid purple;
+      font-size: 90%;
+  
+
+}
+select.location, select.days {
+    font-size: 90%;
+           width: 20%;
+}
+.play-container{
       top: 10%;
-} */
+         width: 3rem;
+}
+}
+
+
+@media only screen and (max-width: 250px) {
+.superior{  
+    padding: 10px 20px;
+    top: -4%;
+    font-size: 45%;
+}
+
+.play-container{
+      top: 7%;
+       
+}
 }

@@ -54,10 +54,12 @@ function Seats() {
   return (
     <div className="main-container">
       <SalesOrderInfo />
-      <h1>
-        Tickets: &nbsp;
-        {salesOrder.tickets}
-      </h1>
+      <div className="tickets-buy">
+        <h1>
+          Tickets: &nbsp;
+          {salesOrder.tickets}
+        </h1>
+      </div>
       {/* -----------------legend ------------------*/}
       <div>
         <ul className="legend">

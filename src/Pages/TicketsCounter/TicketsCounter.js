@@ -80,7 +80,7 @@ function TicketsCounter() {
       <Header />
       <SalesOrderInfo />
       {/* counter --------------------------*/}
-      <div>
+      <div className="title-select-tickets">
         <h1>Select tickets </h1>
       </div>
       <div className="container_tickets">
@@ -123,7 +123,7 @@ function TicketsCounter() {
             onClick={handlGoToSeats}
             type="button"
           >
-            <h2>Next</h2>
+            <h3>Next</h3>
           </button>
         </div>
       )}

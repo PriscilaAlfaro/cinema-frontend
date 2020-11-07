@@ -17,7 +17,7 @@ function Modal() {
           title="movie"
           src={`${currentMovie.video}?autoplay=1`}
           frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allow=" accelerometer; autoplay;  clipboard-write; encrypted-media; gyroscope; picture-in-picture "
           allowFullScreen
           className="iframe"
         />

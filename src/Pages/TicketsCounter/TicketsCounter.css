@@ -1,17 +1,21 @@
 .container{
   background-color: black;
 }
+
+.title-select-tickets{
+  padding: 3rem 0rem;
+}
+
 .container_tickets{
   display: inline-flex;
   padding: 2rem 2rem;
- 
 }
 
 .tickets_info {
   font-size: 30px;
   text-align: center;
-    padding: 0rem 2rem;
-     margin: 0rem;
+  padding: 0rem 2rem;
+   margin: 0rem;
 }
 
 
@@ -45,8 +49,9 @@ h2{
 
 .next-button{
   background-color: red;
-    width: 10rem;
-    height: 3rem;
+  width: 10rem;
+  height: 3.5rem;
+    margin: 2rem;
 }
 
 p{
@@ -57,7 +62,13 @@ p{
 
   .tickets_info h4 {
     margin-top: 1rem;
-   font-size: 0.3rem;
+   font-size: 80%;
+}
+
+  .tickets_info h5 {
+   font-size: 50%;
+     padding: 0px;
+  margin: 0.5rem;
 }
 
 .container_tickets{
@@ -65,10 +76,13 @@ p{
   padding: 1rem 1rem;
  
 }
-h5{
 
-    padding: 0px;
-  margin: 0.5rem;
+.title-select-tickets{
+  padding: 1rem 0rem;
+  font-size: 70%;
+}
+.info{
+      padding: 1rem;
 }
 
 

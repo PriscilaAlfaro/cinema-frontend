@@ -43,7 +43,7 @@ function Thanks() {
         </h1>
       </div>
 
-      <div className="email">
+      <div className="thanks_email">
         <h5>
           Your tickets will be sent to &nbsp;
           {finalOrder.email}

@@ -21,6 +21,12 @@ function SalesOrderInfo() {
       </div>
       <div className="info">
         <h3>
+          Salong: &nbsp;
+          {salesOrder.salong}
+        </h3>
+      </div>
+      <div className="info">
+        <h3>
           Date: &nbsp;
           {salesOrder.date}
         </h3>

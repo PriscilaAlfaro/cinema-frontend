@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -5,6 +6,7 @@ import React, { useContext } from "react";
 // import ReactPlayer from "react-player";
 import { useNavigate } from "@reach/router";
 import AppContext from "../../context/context";
+// import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 import formatDay from "../../utils/utils";
 import Modal from "../../Components/Modal/Modal";
@@ -62,6 +64,7 @@ function MovieDetails() {
       ...salesOrder,
       location_id: e.target.value,
       location: newLocation.location,
+      salong: newLocation.location.salong,
       price: newLocation.price,
       totalSeats: newLocation.totalSeats,
       date_id: dates[0].day_id, // new default values
@@ -98,20 +101,16 @@ function MovieDetails() {
       {currentMovie && (
         <div>
           <figure className="movie-general-image">
-            <img
-              alt=" "
-              src="https://image.tmdb.org/t/p/original/4LuJCO1edIbLVGx99uv7luDoIJt.jpg"
-            />
-            {showModal && <Modal />}
-            <div className="play-container" onClick={handleOpenModal}>
-              <span>
-                <img
-                  className="play"
-                  alt=" "
-                  src="https://icons-for-free.com/iconfiles/png/512/control+media+multimedia+music+options+play+play+button+player-1320185653542985681.png"
-                />
-              </span>
+            <div className="poster">
+              <img alt="poster" src={currentMovie.poster} />
             </div>
+
+            {showModal && <Modal />}
+            <button
+              className="play-container"
+              onClick={handleOpenModal}
+              type="button"
+            />
           </figure>
           <div className="superior">
             <h1>{currentMovie.title}</h1>
@@ -131,11 +130,18 @@ function MovieDetails() {
           </div>
 
           <div className="inferior">
-            <h4>{currentMovie.title}</h4>
+            <h1>{currentMovie.title}</h1>
             <h4>
               Director:&nbsp;
               {currentMovie.director}
             </h4>
+            {currentMovie.actors && (
+              <h4>
+                Actors:&nbsp;
+                {currentMovie.actors}
+              </h4>
+            )}
+
             <h4>
               Sinopsis:&nbsp;
               {currentMovie.description}
@@ -195,7 +201,9 @@ function MovieDetails() {
                   onClick={handleSelectedHour}
                 >
                   {hour.hour}
-                  &nbsp; BUY TIKECTS &nbsp; &gt;
+                  &nbsp; &nbsp; Salong: &nbsp;
+                  {salesOrder.salong}
+                  &nbsp; &nbsp; Köp biljetter &nbsp; &gt;
                 </button>
               ))}
           </div>
