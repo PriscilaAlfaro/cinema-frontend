@@ -3,10 +3,8 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useContext } from "react";
-// import ReactPlayer from "react-player";
 import { useNavigate } from "@reach/router";
 import AppContext from "../../context/context";
-// import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 import formatDay from "../../utils/utils";
 import Modal from "../../Components/Modal/Modal";
@@ -55,10 +53,6 @@ function MovieDetails() {
         screening: date.screening, // array
       };
     });
-
-    // PENDIENTE: 1. cambiar todos los videos de la base de datos a embed
-    // 2. Darle formato a la imagen para que quede con sombra hacia adentro
-    // 3. incluir en cada movie una  imagen grande para ponerla en movie details
 
     setSalesOrder({
       ...salesOrder,

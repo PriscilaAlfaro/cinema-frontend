@@ -14,11 +14,7 @@ function CancelledPay() {
       "session_id"
     );
     async function deleteOrderData() {
-      try {
-        await axios.delete(`http://localhost:4001/order/${sessionId}`);
-      } catch (e) {
-        console.log(e);
-      }
+      await axios.delete(`http://localhost:4001/order/${sessionId}`);
     }
 
     deleteOrderData();

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-useless-escape */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -15,7 +16,7 @@ let stripePromise;
 
 function Register() {
   const { salesOrder, setSalesOrder } = useContext(AppContext);
-
+  let errorInStripe;
   useEffect(() => {
     async function fetchApiKey() {
       const key = await axios.get("http://localhost:4001/stripe/key");
@@ -46,41 +47,33 @@ function Register() {
   };
 
   const postOrderData = async (sessionId) => {
-    await axios
-      .post("http://localhost:4001/order", {
-        name: salesOrder.userName,
-        email: salesOrder.userEmail,
-        location_id: salesOrder.location_id,
-        location: salesOrder.location,
-        movie_id: salesOrder.movie_id,
-        movie: salesOrder.movie,
-        date_id: salesOrder.date_id,
-        date: salesOrder.date,
-        screening_id: salesOrder.screening_id,
-        screening: salesOrder.screening,
-        price: salesOrder.price,
-        totalPrice: salesOrder.totalPrice,
-        seatNumber: salesOrder.selectedSeats,
-        paymentReference: sessionId,
-        paymentStatus: "pending",
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    await axios.post("http://localhost:4001/order", {
+      name: salesOrder.userName,
+      email: salesOrder.userEmail,
+      location_id: salesOrder.location_id,
+      location: salesOrder.location,
+      movie_id: salesOrder.movie_id,
+      movie: salesOrder.movie,
+      date_id: salesOrder.date_id,
+      date: salesOrder.date,
+      screening_id: salesOrder.screening_id,
+      screening: salesOrder.screening,
+      price: salesOrder.price,
+      totalPrice: salesOrder.totalPrice,
+      seatNumber: salesOrder.selectedSeats,
+      paymentReference: sessionId,
+      paymentStatus: "pending",
+    });
   };
 
   const postAvailabilityData = async () => {
-    await axios
-      .patch(
-        `http://localhost:4001/seatAvailability/${salesOrder.availability_id}`,
-        {
-          screening_id: salesOrder.screening_id,
-          purchasedSeats: salesOrder.selectedSeats,
-        }
-      )
-      .catch((e) => {
-        console.log(e);
-      });
+    await axios.patch(
+      `http://localhost:4001/seatAvailability/${salesOrder.availability_id}`,
+      {
+        screening_id: salesOrder.screening_id,
+        purchasedSeats: salesOrder.selectedSeats,
+      }
+    );
   };
 
   const callStripeCheckout = async () => {
@@ -103,7 +96,8 @@ function Register() {
     });
 
     if (result.error) {
-      console.log(result.error.message);
+      errorInStripe = result.error.message;
+
       // If `redirectToCheckout` fails due to a browser or network
       // error, display the localized error message to your customer
       // using `result.error.message`.

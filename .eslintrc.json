@@ -13,7 +13,11 @@
             "jsx": true
         },
         "ecmaVersion": 2018,
-        "sourceType": "module"
+        "sourceType": "module",
+        "rules": {
+            "react-hooks/exhaustive-deps": "warn",
+            "react-hooks/rules-of-hooks": "error"
+        }
     },
     "plugins": [
         "react",
