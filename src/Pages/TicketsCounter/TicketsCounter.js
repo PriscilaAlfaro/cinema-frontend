@@ -82,19 +82,22 @@ function TicketsCounter() {
       <SalesOrderInfo />
       {/* counter --------------------------*/}
       <div className="title-select-tickets">
-        <h1>Select tickets </h1>
+        <h1>Välj biljetter</h1>
       </div>
       <div className="container_tickets">
         <div className="tickets_info">
-          <h4>Type</h4>
-          <h5>Regular</h5>
+          <h4>Typ</h4>
+          <h5>Regelbunden</h5>
         </div>
         <div className="tickets_info">
-          <h4>Price</h4>
-          <h5>{salesOrder.price}</h5>
+          <h4>Pris</h4>
+          <h5>
+            {salesOrder.price}
+            &nbsp; kr
+          </h5>
         </div>
         <div className="tickets_info">
-          <h4>Amount</h4>
+          <h4>Belopp</h4>
           <div className="buttons">
             <button className="button" type="button" onClick={decrementCounter}>
               <h2>-</h2>
@@ -106,7 +109,7 @@ function TicketsCounter() {
           </div>
           <div className="seats-available">
             <p>
-              Seats available for this screening: &nbsp;
+              Platser tillgängliga för denna screening: &nbsp;
               {seatsAvailableForCurrentScreening}
             </p>
           </div>
@@ -124,7 +127,7 @@ function TicketsCounter() {
             onClick={handlGoToSeats}
             type="button"
           >
-            <h3>Next</h3>
+            <h3>Nästa</h3>
           </button>
         </div>
       )}

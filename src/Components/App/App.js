@@ -64,6 +64,8 @@ function App() {
       location: locations[0].location,
       price: locations[0].price,
       salong: locations[0].salong,
+      place: locations[0].place,
+      mapUrl: locations[0].mapUrl,
       totalSeats: locations[0].totalSeats,
       date_id: dateTimes[0].day_id,
       date: dateTimes[0].day,

@@ -28,11 +28,11 @@ function CancelledPay() {
     <div className="main-container">
       <Header />
       <div className="text">
-        <h1>Your order in Cinema CR was cancelled</h1>
+        <h1>Din beställning i Cinema CR avbröts</h1>
         <h3>
-          Si usted enfrento problemas a la hora de cancelar la orden
+          Om du har problem med att avbryta beställningen
           <br />
-          por favor comuniquese al correo cinema_cr@outlok.com
+          kontakta e-postmeddelandet cinema_cr@outlok.com
         </h3>
       </div>
       <div>
@@ -41,7 +41,7 @@ function CancelledPay() {
           onClick={handlGoToHomeFromCancelled}
           type="button"
         >
-          <h1>Go to Cinema CR</h1>
+          <h1>Gå till Cinema CR</h1>
         </button>
       </div>
 

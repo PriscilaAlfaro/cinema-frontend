@@ -39,7 +39,7 @@ function MovieDetails() {
 
   const handleSelectedLocation = (e) => {
     const newLocation = locations.find((loc) => e.target.value === loc._id);
-
+    console.log(newLocation);
     const newLocationScreening = screenings.find(
       (screen) =>
         screen.movie_id === salesOrder.movie_id &&
@@ -58,7 +58,9 @@ function MovieDetails() {
       ...salesOrder,
       location_id: e.target.value,
       location: newLocation.location,
-      salong: newLocation.location.salong,
+      salong: newLocation.salong,
+      place: newLocation.place,
+      mapUrl: newLocation.mapUrl,
       price: newLocation.price,
       totalSeats: newLocation.totalSeats,
       date_id: dates[0].day_id, // new default values
@@ -89,6 +91,7 @@ function MovieDetails() {
     setShowModal(true);
   };
 
+  console.log("SalesOrder", salesOrder);
   return (
     <div className="container">
       {/* Movie details ----------------------------------- */}
@@ -109,16 +112,17 @@ function MovieDetails() {
           <div className="superior">
             <h1>{currentMovie.title}</h1>
             <h4>
-              Clasification:&nbsp;
+              Klassificering:&nbsp;
               {currentMovie.rated}
             </h4>
+
             <h4>
-              Recomended:&nbsp;
+              Rekommenderas:&nbsp;
               {currentMovie.minimunAge}
-              &nbsp; years
+              &nbsp; år
             </h4>
             <h4>
-              Duration:&nbsp;
+              Varaktighet:&nbsp;
               {currentMovie.duration}
             </h4>
           </div>
@@ -126,18 +130,22 @@ function MovieDetails() {
           <div className="inferior">
             <h1>{currentMovie.title}</h1>
             <h4>
-              Director:&nbsp;
+              Klassificering:&nbsp;
+              {currentMovie.rated}
+            </h4>
+            <h4>
+              Regi:&nbsp;
               {currentMovie.director}
             </h4>
             {currentMovie.actors && (
               <h4>
-                Actors:&nbsp;
+                Skådespelare:&nbsp;
                 {currentMovie.actors}
               </h4>
             )}
 
             <h4>
-              Sinopsis:&nbsp;
+              Synopsis:&nbsp;
               {currentMovie.description}
             </h4>
           </div>
@@ -150,7 +158,7 @@ function MovieDetails() {
         {locations && (
           <div className="location_dropDownList">
             <label htmlFor="location">
-              <h4>Choose a location:&nbsp;</h4>
+              <h4>Välj en plats:&nbsp;</h4>
             </label>
             <select
               name="location"
@@ -165,11 +173,12 @@ function MovieDetails() {
             </select>
           </div>
         )}
+
         {/* -----------------days------------------ */}
         {newDates && (
           <div className="days_dropDownList">
             <label htmlFor="days">
-              <h4>Choose a day:&nbsp;</h4>
+              <h4>Välj en dag:&nbsp;</h4>
             </label>
             <select name="days" className="days" onChange={handleSelectedDay}>
               {newDates.map((date) => (
@@ -180,10 +189,29 @@ function MovieDetails() {
             </select>
           </div>
         )}
+        {/* -----------------map------------------ */}
+        {locations && (
+          <div className="map-iframe">
+            <h4>
+              Plats:&nbsp;
+              {salesOrder.place}
+            </h4>
+            <iframe
+              title="map"
+              src={salesOrder.mapUrl}
+              width="600"
+              height="450"
+              frameBorder="0"
+              // style="border:0;"
+              allowFullScreen=""
+              aria-hidden="false"
+            />
+          </div>
+        )}
         {/*  ------------------hours----------------- */}
         {newDates && (
           <div className="hours">
-            <h4>Choose an hour:&nbsp;</h4>
+            <h4>Välj en timme:&nbsp;</h4>
             {newDates
               .find((date) => date.day_id === salesOrder.date_id)
               .screening.map((hour) => (
@@ -197,7 +225,7 @@ function MovieDetails() {
                   {hour.hour}
                   &nbsp; &nbsp; Salong: &nbsp;
                   {salesOrder.salong}
-                  &nbsp; &nbsp; Köp biljetter &nbsp; &gt;
+                  &nbsp; &nbsp; Köp biljetter &nbsp; &nbsp; &gt;
                 </button>
               ))}
           </div>

@@ -9,14 +9,16 @@ function SalesOrderInfo() {
     <div className="salesOrder_information">
       <div className="info">
         <h3>
-          Movie: &nbsp;
+          Film: &nbsp;
           {salesOrder.movie}
         </h3>
       </div>
       <div className="info">
         <h3>
-          Location: &nbsp;
+          Plats: &nbsp;
           {salesOrder.location}
+          &#45; &nbsp;
+          {salesOrder.place}
         </h3>
       </div>
       <div className="info">
@@ -27,13 +29,13 @@ function SalesOrderInfo() {
       </div>
       <div className="info">
         <h3>
-          Date: &nbsp;
+          Datum: &nbsp;
           {salesOrder.date}
         </h3>
       </div>
       <div className="info">
         <h3>
-          Hour: &nbsp;
+          Timm: &nbsp;
           {salesOrder.screening}
         </h3>
       </div>

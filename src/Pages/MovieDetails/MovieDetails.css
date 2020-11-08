@@ -21,7 +21,7 @@
     line-height: 2;
     margin-top: 4rem;
 }
-.location_dropDownList, .days_dropDownList{
+.location_dropDownList, .days_dropDownList {
     width: 30rem;
     margin: 3rem 0rem 0rem 3rem;
     display: inline-flex;
@@ -59,6 +59,10 @@ select{
     color: red
 }
 
+.map-iframe{
+    width: 35%;
+    margin: 3rem;
+}
 
 /* ---------------main image -----------*/
 

@@ -50,13 +50,14 @@ function Seats() {
   };
 
   // 2. aqui tiene que hacerse otro fecth y comparar si los asientos selected ya estan o no comprados
+  // no dejar que la persona siga si ha seleccionado todos los asientos selecionados en counter
 
   return (
     <div className="main-container">
       <SalesOrderInfo />
       <div className="tickets-buy">
         <h1>
-          Tickets: &nbsp;
+          Biljetter: &nbsp;
           {salesOrder.tickets}
         </h1>
       </div>
@@ -65,15 +66,15 @@ function Seats() {
         <ul className="legend">
           <li>
             <div className="seat" />
-            <small>N/A</small>
+            <small>Tillgängliga</small>
           </li>
           <li>
             <div className="seat selected" />
-            <small>Selected</small>
+            <small>Vald</small>
           </li>
           <li>
             <div className="seat occupied" />
-            <small>Occupied</small>
+            <small>Ockuperade</small>
           </li>
         </ul>
       </div>
@@ -101,13 +102,13 @@ function Seats() {
         <div className="text">
           {selectedSeats.length === 1 && (
             <div>
-              You have selected the seat number: &nbsp;
+              Du har valt sittnummer: &nbsp;
               {`${selectedSeats} `}
             </div>
           )}
           {selectedSeats.length > 1 && (
             <div>
-              You have selected the seats number: &nbsp;
+              Du har valt sittplatsnummer: &nbsp;
               {`${selectedSeats} `}
             </div>
           )}
@@ -122,7 +123,7 @@ function Seats() {
             onClick={handlGoToRegister}
             type="button"
           >
-            <h2>Next</h2>
+            <h2>Nästa</h2>
           </button>
         </div>
       )}

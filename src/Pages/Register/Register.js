@@ -37,6 +37,15 @@ function Register() {
     return re.test(email.toLowerCase());
   };
 
+  const handleUserPhone = (e) => {
+    const phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    if (e.target.value.match(phoneno)) {
+      setSalesOrder({
+        ...salesOrder,
+        userPhone: e.target.value,
+      });
+    }
+  };
   const handleUserEmail = (e) => {
     if (validateEmail(e.target.value)) {
       setSalesOrder({
@@ -45,7 +54,7 @@ function Register() {
       });
     }
   };
-
+  // hacer solo un fetch
   const postOrderData = async (sessionId) => {
     await axios.post("http://localhost:4001/order", {
       name: salesOrder.userName,
@@ -118,21 +127,25 @@ function Register() {
             </h2>
             <div className="title">
               <h3>{salesOrder.movie}</h3>
-              <p>movie</p>
+              <p>film</p>
             </div>
             <div className="location">
-              <h3>{salesOrder.location}</h3>
-              <p>location</p>
+              <h3>
+                {salesOrder.location}
+                &#45; &nbsp;
+                {salesOrder.place}
+              </h3>
+              <p>plats</p>
             </div>
 
             <div className="inline">
               <div className="date">
                 <h3>{salesOrder.date}</h3>
-                <p>date</p>
+                <p>datum</p>
               </div>
               <div className="time">
                 <h3>{salesOrder.screening}</h3>
-                <p>time</p>
+                <p>timm</p>
               </div>
               <div className="salong">
                 <h3>{salesOrder.salong}</h3>
@@ -144,7 +157,7 @@ function Register() {
                     <h3>
                       {salesOrder.selectedSeats.map((seat) => `${seat} `)}
                     </h3>
-                    <p>seat</p>
+                    <p>sittplats</p>
                   </>
                 )}
                 {salesOrder.selectedSeats.length > 1 && (
@@ -152,7 +165,7 @@ function Register() {
                     <h3>
                       {salesOrder.selectedSeats.map((seat) => `*${seat} `)}
                     </h3>
-                    <p>seats</p>
+                    <p>säten</p>
                   </>
                 )}
               </div>
@@ -167,13 +180,13 @@ function Register() {
         <form className="form">
           <div className="name">
             <label htmlFor="name" className="label">
-              Name:
+              Fullständiga namn:
             </label>
             <input
-              className="name-input"
+              className="input"
               id="name"
-              placeholder="name"
-              name="firstName"
+              placeholder="fullständiga namn"
+              name="name"
               autoComplete="name"
               type="text"
               onChange={handleUserName}
@@ -181,22 +194,39 @@ function Register() {
           </div>
           <div className="email">
             <label htmlFor="email" className="label">
-              Email:
+              E-post:
             </label>
             <input
-              className="email-input"
+              className="input"
               id="email"
-              placeholder="e-mail"
+              placeholder="example@gample.com"
               name="email"
               autoComplete="email"
+              type="email"
               onChange={handleUserEmail}
+            />
+          </div>
+          <div className="phone">
+            <label htmlFor="phone" className="label">
+              Telefonnummer:
+            </label>
+            <input
+              className="input"
+              pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}"
+              id="phone"
+              placeholder="012-123-12-12"
+              name="phone"
+              autoComplete="phone"
+              type="tel"
+              required
+              onChange={handleUserPhone}
             />
           </div>
         </form>
       </div>
 
       {/* -----------NEXTBUTTON ---------------*/}
-      {salesOrder.userName && salesOrder.userEmail && (
+      {salesOrder.userName && salesOrder.userEmail && salesOrder.userPhone && (
         <div>
           <button
             className="next-button"

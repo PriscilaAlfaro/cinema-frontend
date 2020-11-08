@@ -38,29 +38,29 @@ function Thanks() {
       <Header />
       <div className="thanks">
         <h1>
-          Thanks for your order &nbsp;
+          Tack för din beställning &nbsp;
           {finalOrder.name}
         </h1>
       </div>
 
       <div className="thanks_email">
         <h5>
-          Your tickets will be sent to &nbsp;
+          Dina biljetter skickas till &nbsp;
           {finalOrder.email}
           <br />
-          Or you can download your tickets here &gt; &nbsp;
+          Eller så kan du ladda ner dina biljetter här &gt; &nbsp;
           <button className="download" type="button">
             <h1>Download Tickets</h1>
           </button>
         </h5>
-        <h5>We appreciate your business!</h5>
+        <h5>Vi uppskattar ditt företag!</h5>
         <h6>
-          If you have any questions, please email: &nbsp;
+          Om du har några frågor, vänligen maila: &nbsp;
           <a href="mailto:cinema_cr@outlook.com">cinema_cr@outlook.com</a>
         </h6>
       </div>
       <button className="home" onClick={handlGoToHomeFromThanks} type="button">
-        <h1>Go to Cinema CR</h1>
+        <h1>Gå till Cinema CR</h1>
       </button>
       <Footer />
     </div>
