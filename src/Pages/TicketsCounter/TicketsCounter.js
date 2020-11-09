@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "@reach/router";
+import { useTranslation } from "react-i18next";
 import AppContext from "../../context/context";
 import Footer from "../../Components/Footer/Footer";
 import SalesOrderInfo from "../../Components/SalesOrderInfo/SalesOrderInfo";
@@ -10,6 +11,7 @@ import "./TicketsCounter.css";
 const axios = require("axios");
 
 function TicketsCounter() {
+  const { t } = useTranslation();
   const { salesOrder, setSalesOrder, setPurchasedSeats } = useContext(
     AppContext
   );
@@ -82,22 +84,22 @@ function TicketsCounter() {
       <SalesOrderInfo />
       {/* counter --------------------------*/}
       <div className="title-select-tickets">
-        <h1>Välj biljetter</h1>
+        <h1>{t("numberOfTikects")}</h1>
       </div>
       <div className="container_tickets">
         <div className="tickets_info">
-          <h4>Typ</h4>
-          <h5>Regelbunden</h5>
+          <h4>{t("type")}</h4>
+          <h5>{t("regular")}</h5>
         </div>
         <div className="tickets_info">
-          <h4>Pris</h4>
+          <h4>{t("price")}</h4>
           <h5>
             {salesOrder.price}
             &nbsp; kr
           </h5>
         </div>
         <div className="tickets_info">
-          <h4>Belopp</h4>
+          <h4>{t("amount")}</h4>
           <div className="buttons">
             <button className="button" type="button" onClick={decrementCounter}>
               <h2>-</h2>
@@ -109,7 +111,8 @@ function TicketsCounter() {
           </div>
           <div className="seats-available">
             <p>
-              Platser tillgängliga för denna screening: &nbsp;
+              {t("seatsAvailableForScreen")}
+              :&nbsp;
               {seatsAvailableForCurrentScreening}
             </p>
           </div>
@@ -127,7 +130,7 @@ function TicketsCounter() {
             onClick={handlGoToSeats}
             type="button"
           >
-            <h3>Nästa</h3>
+            <h3>{t("next")}</h3>
           </button>
         </div>
       )}

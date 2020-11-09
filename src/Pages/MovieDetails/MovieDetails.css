@@ -8,7 +8,7 @@
     text-align: initial;
     padding: 20px 40px;
     color: white;
-    top: 0%;
+    top: 10%;
     position: absolute;
 }
 .superior h4 {
@@ -144,7 +144,7 @@ iframe{
 
 .superior{  
     padding: 15px 30px;
-    top: -2%;
+    top: 10%;
     font-size: 60%;
 }
 .play-container{
@@ -156,7 +156,7 @@ iframe{
 @media only screen and (max-width: 500px) {
 .superior{  
     padding: 12px 25px;
-    top: -3%;
+    top: 10%;
     font-size: 55%;
 }
 
@@ -190,7 +190,7 @@ div .tickets{
 @media only screen and (max-width: 350px) {
 .superior{  
     padding: 10px 20px;
-    top: -4%;
+    top: 10%;
     font-size: 45%;
 }
 
@@ -220,7 +220,7 @@ select.location, select.days {
 @media only screen and (max-width: 250px) {
 .superior{  
     padding: 10px 20px;
-    top: -4%;
+    top: 10%;
     font-size: 45%;
 }
 

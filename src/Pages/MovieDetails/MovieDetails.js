@@ -4,13 +4,16 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useContext } from "react";
 import { useNavigate } from "@reach/router";
+import { useTranslation } from "react-i18next";
 import AppContext from "../../context/context";
 import Footer from "../../Components/Footer/Footer";
 import formatDay from "../../utils/utils";
 import Modal from "../../Components/Modal/Modal";
+import Header from "../../Components/Header/Header";
 import "./MovieDetails.css";
 
 function MovieDetails() {
+  const { t, i18n } = useTranslation();
   const {
     currentMovie,
     locations,
@@ -39,7 +42,6 @@ function MovieDetails() {
 
   const handleSelectedLocation = (e) => {
     const newLocation = locations.find((loc) => e.target.value === loc._id);
-    console.log(newLocation);
     const newLocationScreening = screenings.find(
       (screen) =>
         screen.movie_id === salesOrder.movie_id &&
@@ -90,10 +92,11 @@ function MovieDetails() {
   const handleOpenModal = () => {
     setShowModal(true);
   };
+  // console.log(`Current lang=${i18n.language}`);
 
-  console.log("SalesOrder", salesOrder);
   return (
     <div className="container">
+      <Header />
       {/* Movie details ----------------------------------- */}
       {currentMovie && (
         <div>
@@ -112,17 +115,21 @@ function MovieDetails() {
           <div className="superior">
             <h1>{currentMovie.title}</h1>
             <h4>
-              Klassificering:&nbsp;
-              {currentMovie.rated}
+              {t("clasification")}
+              :&nbsp;
+              {currentMovie.rated[i18n.language]}
             </h4>
 
             <h4>
-              Rekommenderas:&nbsp;
+              {t("recomendation")}
+              :&nbsp;
               {currentMovie.minimunAge}
-              &nbsp; år
+              &nbsp;
+              {t("years")}
             </h4>
             <h4>
-              Varaktighet:&nbsp;
+              {t("duration")}
+              :&nbsp;
               {currentMovie.duration}
             </h4>
           </div>
@@ -130,35 +137,42 @@ function MovieDetails() {
           <div className="inferior">
             <h1>{currentMovie.title}</h1>
             <h4>
-              Klassificering:&nbsp;
-              {currentMovie.rated}
+              {t("clasification")}
+              :&nbsp;
+              {currentMovie.rated[i18n.language]}
             </h4>
             <h4>
-              Regi:&nbsp;
+              {t("director")}
+              :&nbsp;
               {currentMovie.director}
             </h4>
             {currentMovie.actors && (
               <h4>
-                Skådespelare:&nbsp;
+                {t("cast")}
+                :&nbsp;
                 {currentMovie.actors}
               </h4>
             )}
 
             <h4>
-              Synopsis:&nbsp;
-              {currentMovie.description}
+              {t("synopsis")}
+              :&nbsp;
+              {currentMovie.description[i18n.language]}
             </h4>
           </div>
         </div>
       )}
       {/* Tickets ----------------------------------- */}
       <div className="tickets">
-        <h1>Boka biljetter</h1>
+        <h1>{t("reservationTickects")}</h1>
         {/* Locations ----------------------------------- */}
         {locations && (
           <div className="location_dropDownList">
             <label htmlFor="location">
-              <h4>Välj en plats:&nbsp;</h4>
+              <h4>
+                {t("selectLocation")}
+                :&nbsp;
+              </h4>
             </label>
             <select
               name="location"
@@ -178,7 +192,11 @@ function MovieDetails() {
         {newDates && (
           <div className="days_dropDownList">
             <label htmlFor="days">
-              <h4>Välj en dag:&nbsp;</h4>
+              <h4>
+                {" "}
+                {t("selectDay")}
+                :&nbsp;
+              </h4>
             </label>
             <select name="days" className="days" onChange={handleSelectedDay}>
               {newDates.map((date) => (
@@ -193,7 +211,8 @@ function MovieDetails() {
         {locations && (
           <div className="map-iframe">
             <h4>
-              Plats:&nbsp;
+              {t("place")}
+              :&nbsp;
               {salesOrder.place}
             </h4>
             <iframe
@@ -211,7 +230,10 @@ function MovieDetails() {
         {/*  ------------------hours----------------- */}
         {newDates && (
           <div className="hours">
-            <h4>Välj en timme:&nbsp;</h4>
+            <h4>
+              {t("selectHour")}
+              :&nbsp;
+            </h4>
             {newDates
               .find((date) => date.day_id === salesOrder.date_id)
               .screening.map((hour) => (
@@ -223,9 +245,13 @@ function MovieDetails() {
                   onClick={handleSelectedHour}
                 >
                   {hour.hour}
-                  &nbsp; &nbsp; Salong: &nbsp;
+                  &nbsp; &nbsp;
+                  {t("screen")}
+                  :&nbsp;
                   {salesOrder.salong}
-                  &nbsp; &nbsp; Köp biljetter &nbsp; &nbsp; &gt;
+                  &nbsp; &nbsp;
+                  {t("buyTickects")}
+                  &nbsp; &gt;
                 </button>
               ))}
           </div>

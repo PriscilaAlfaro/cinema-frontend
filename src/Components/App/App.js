@@ -25,21 +25,17 @@ function App() {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    async function fetchMoviesData() {
+    async function loadData() {
+      const loc = await axios.get("http://localhost:4001/locations");
+      setLocations(loc.data);
+
+      const scree = await axios.get("http://localhost:4001/screenings");
+      setScreenings(scree.data);
+
       const mov = await axios.get("http://localhost:4001/movies");
       setMovies(mov.data);
     }
-    async function fetchLocationData() {
-      const loc = await axios.get("http://localhost:4001/locations");
-      setLocations(loc.data);
-    }
-    async function fetchScreeningData() {
-      const scree = await axios.get("http://localhost:4001/screenings");
-      setScreenings(scree.data);
-    }
-    fetchMoviesData();
-    fetchLocationData();
-    fetchScreeningData();
+    loadData();
   }, []);
 
   function handleMovieClick(index) {

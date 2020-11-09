@@ -1,15 +1,27 @@
 .header {
-  padding: 10px;
+  padding: 10px; 
   text-align: left;
   background-color: rgb(8, 7, 61);
   color: white;
   font-size: 15px;
-  margin-bottom: 2rem;
+  /* margin-bottom: 2rem; */
 }
 
 .header-image{
     width: 5rem;
 }
+
+.languaje-buttons{   
+  display: flex;
+  justify-content: flex-end;
+}
+
+.languaje-buttons button{
+  background-color: tomato;
+
+}
+
+
 
 @media only screen and (max-width: 600px) {
 .header-image{

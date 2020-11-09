@@ -4,6 +4,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useContext, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
+import { useTranslation } from "react-i18next";
 import AppContext from "../../context/context";
 import SalesOrderInfo from "../../Components/SalesOrderInfo/SalesOrderInfo";
 import Footer from "../../Components/Footer/Footer";
@@ -15,6 +16,7 @@ const axios = require("axios");
 let stripePromise;
 
 function Register() {
+  const { t } = useTranslation();
   const { salesOrder, setSalesOrder } = useContext(AppContext);
   let errorInStripe;
   useEffect(() => {
@@ -106,7 +108,6 @@ function Register() {
 
     if (result.error) {
       errorInStripe = result.error.message;
-
       // If `redirectToCheckout` fails due to a browser or network
       // error, display the localized error message to your customer
       // using `result.error.message`.
@@ -127,7 +128,7 @@ function Register() {
             </h2>
             <div className="title">
               <h3>{salesOrder.movie}</h3>
-              <p>film</p>
+              <p>{t("movie")}</p>
             </div>
             <div className="location">
               <h3>
@@ -135,21 +136,21 @@ function Register() {
                 &#45; &nbsp;
                 {salesOrder.place}
               </h3>
-              <p>plats</p>
+              <p>{t("place")}</p>
             </div>
 
             <div className="inline">
               <div className="date">
                 <h3>{salesOrder.date}</h3>
-                <p>datum</p>
+                <p>{t("date")}</p>
               </div>
               <div className="time">
                 <h3>{salesOrder.screening}</h3>
-                <p>timm</p>
+                <p>{t("hour")}</p>
               </div>
               <div className="salong">
                 <h3>{salesOrder.salong}</h3>
-                <p>salong</p>
+                <p>{t("screen")}</p>
               </div>
               <div className="seats">
                 {salesOrder.selectedSeats.length === 1 && (
@@ -157,7 +158,7 @@ function Register() {
                     <h3>
                       {salesOrder.selectedSeats.map((seat) => `${seat} `)}
                     </h3>
-                    <p>sittplats</p>
+                    <p>{t("seat")}</p>
                   </>
                 )}
                 {salesOrder.selectedSeats.length > 1 && (
@@ -165,7 +166,7 @@ function Register() {
                     <h3>
                       {salesOrder.selectedSeats.map((seat) => `*${seat} `)}
                     </h3>
-                    <p>säten</p>
+                    <p>{t("seats")}</p>
                   </>
                 )}
               </div>
@@ -180,12 +181,13 @@ function Register() {
         <form className="form">
           <div className="name">
             <label htmlFor="name" className="label">
-              Fullständiga namn:
+              {t("fullName")}
+              :&nbsp;
             </label>
             <input
               className="input"
               id="name"
-              placeholder="fullständiga namn"
+              placeholder={t("fullName")}
               name="name"
               autoComplete="name"
               type="text"
@@ -194,12 +196,13 @@ function Register() {
           </div>
           <div className="email">
             <label htmlFor="email" className="label">
-              E-post:
+              {t("email")}
+              :&nbsp;
             </label>
             <input
               className="input"
               id="email"
-              placeholder="example@gample.com"
+              placeholder="example@sample.com"
               name="email"
               autoComplete="email"
               type="email"
@@ -208,7 +211,8 @@ function Register() {
           </div>
           <div className="phone">
             <label htmlFor="phone" className="label">
-              Telefonnummer:
+              {t("telephone")}
+              :&nbsp;
             </label>
             <input
               className="input"
@@ -234,7 +238,7 @@ function Register() {
             type="button"
             role="link"
           >
-            <h2>Checkout</h2>
+            <h2>{t("checkout")}</h2>
           </button>
         </div>
       )}

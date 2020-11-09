@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "@reach/router";
+import { useTranslation } from "react-i18next";
 import Footer from "../../Components/Footer/Footer";
 import Header from "../../Components/Header/Header";
 import "./Thanks.css";
@@ -7,10 +8,9 @@ import "./Thanks.css";
 const axios = require("axios");
 
 function Thanks() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [finalOrder, setFinalOrder] = useState({});
-
-  // llevar el final order a que se pueda descargar
 
   useEffect(() => {
     const sessionId = new URLSearchParams(window.location.search).get(
@@ -33,34 +33,69 @@ function Thanks() {
     navigate("/", { replace: true });
   };
 
+  const showPrintOption = () => {
+    window.print();
+  };
   return (
     <div className="main-container">
       <Header />
       <div className="thanks">
         <h1>
-          Tack för din beställning &nbsp;
+          {t("thanksForyYourOrder")}
+          &nbsp;
           {finalOrder.name}
         </h1>
+        <h2>Los datos de su orden son los siguientes:</h2>
+        <h5>
+          {t("movie")}
+          :&nbsp;
+          {finalOrder.movie}
+        </h5>
+        <h5>
+          {t("place")}
+          :&nbsp;
+          {finalOrder.location}
+          &#45; &nbsp;
+          {finalOrder.place}
+        </h5>
+        <h5>
+          {t("screen")}
+          :&nbsp;
+          {finalOrder.salong}
+        </h5>
+        <h5>
+          {t("date")}
+          :&nbsp;
+          {finalOrder.date}
+        </h5>
+        <h3>
+          {t("hour")}
+          :&nbsp;
+          {finalOrder.screening}
+        </h3>
       </div>
 
       <div className="thanks_email">
         <h5>
-          Dina biljetter skickas till &nbsp;
+          {t("tickectsSentTo")}
+          &nbsp;
           {finalOrder.email}
           <br />
-          Eller så kan du ladda ner dina biljetter här &gt; &nbsp;
-          <button className="download" type="button">
-            <h1>Download Tickets</h1>
+          {t("youCanDownloadHere")}
+          &gt; &nbsp;
+          <button className="download" onClick={showPrintOption} type="button">
+            <h1>{t("tickets")}</h1>
           </button>
         </h5>
-        <h5>Vi uppskattar ditt företag!</h5>
+        <h5>{t("thanksTorYourElection")}</h5>
         <h6>
-          Om du har några frågor, vänligen maila: &nbsp;
+          {t("ifQuestions")}
+          :&nbsp;
           <a href="mailto:cinema_cr@outlook.com">cinema_cr@outlook.com</a>
         </h6>
       </div>
       <button className="home" onClick={handlGoToHomeFromThanks} type="button">
-        <h1>Gå till Cinema CR</h1>
+        <h1>{t("goToCinemaCr")}</h1>
       </button>
       <Footer />
     </div>

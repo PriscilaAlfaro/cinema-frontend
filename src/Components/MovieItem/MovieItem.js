@@ -3,7 +3,7 @@ import "./MovieItem.css";
 
 function MovieItem({ movie }) {
   return (
-    <div className="movie_item">
+    <div className="movie_item" data-testid="movie-item">
       <div className="item_img">
         <img alt=" " src={movie.image} />
       </div>
