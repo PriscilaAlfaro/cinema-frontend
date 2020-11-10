@@ -45,7 +45,7 @@ function Thanks() {
           &nbsp;
           {finalOrder.name}
         </h1>
-        <h2>Los datos de su orden son los siguientes:</h2>
+        <h2>{t("detailsOfYourOrder")}</h2>
         <h5>
           {t("movie")}
           :&nbsp;

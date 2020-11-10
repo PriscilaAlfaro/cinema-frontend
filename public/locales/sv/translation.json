@@ -45,5 +45,8 @@
     "goToCinemaCr": "Gå till Cinema CR",
     "cancelledOrder": "Din beställning i Cinema CR avbröts",
     "ifProblems": "Om du har problem med att avbryta beställningen",
-    "emailContact": "kontakta e-postmeddelandet"
+    "emailContact": "kontakta e-postmeddelandet",
+    "detailsOfYourOrder": "Detaljerna i din beställning är som följer",
+    "search": "Sök",
+    "searchForAMovie": "Sök efter en film"
 }

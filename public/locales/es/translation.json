@@ -45,5 +45,8 @@
     "goToCinemaCr": "Ir a Cinema CR",
     "cancelledOrder": "Su pedido en Cinema CR fue cancelado",
     "ifProblems": "Si tiene problemas para cancelar el pedido",
-    "emailContact": "contactar el correo electrónico"
+    "emailContact": "contactar el correo electrónico",
+    "detailsOfYourOrder": "Los detalles de su orden son los siguientes",
+    "search": "Buscar",
+    "searchForAMovie": "Buscar una película"
 }

@@ -63,6 +63,8 @@ function Register() {
       email: salesOrder.userEmail,
       location_id: salesOrder.location_id,
       location: salesOrder.location,
+      place: salesOrder.place,
+      salong: salesOrder.salong,
       movie_id: salesOrder.movie_id,
       movie: salesOrder.movie,
       date_id: salesOrder.date_id,
