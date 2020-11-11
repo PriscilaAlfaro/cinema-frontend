@@ -1,7 +1,3 @@
-/* eslint-disable jsx-a11y/control-has-associated-label */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useContext } from "react";
 import { useNavigate } from "@reach/router";
 import { useTranslation } from "react-i18next";
@@ -108,8 +104,9 @@ function MovieDetails() {
             {showModal && <Modal />}
             <button
               className="play-container"
-              onClick={handleOpenModal}
               type="button"
+              onClick={handleOpenModal}
+              aria-label="play"
             />
           </figure>
           <div className="superior">

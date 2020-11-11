@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useContext, useState } from "react";
 import { useNavigate } from "@reach/router";
 import { useTranslation } from "react-i18next";

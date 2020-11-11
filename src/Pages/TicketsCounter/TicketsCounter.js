@@ -54,7 +54,7 @@ function TicketsCounter() {
   };
 
   useEffect(() => {
-    async function fetchSeatAvailableData() {
+    const fetchSeatAvailableData = async () => {
       const available = await axios.get(
         "http://localhost:4001/seatAvailability"
       );
@@ -74,7 +74,7 @@ function TicketsCounter() {
         totalPrice: initialTotalPrice,
         availability_id: currentSeatAvailability._id,
       });
-    }
+    };
     fetchSeatAvailableData();
   }, []);
 

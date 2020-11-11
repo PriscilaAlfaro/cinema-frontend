@@ -67,6 +67,7 @@
 
 .occupied {
   background-color: #fff;
+  color: black;
 }
 
 .seat:not(.occupied):hover {

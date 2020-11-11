@@ -8,6 +8,7 @@ function Header() {
   const changeLanguage = (code) => {
     i18n.changeLanguage(code);
   };
+
   return (
     <div className="header">
       <img
