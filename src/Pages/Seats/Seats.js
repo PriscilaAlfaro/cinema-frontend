@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "@reach/router";
 import { useTranslation } from "react-i18next";
-import AppContext from "../../context/context";
+import AppContext from "../../store/context";
 import SalesOrderInfo from "../../Components/SalesOrderInfo/SalesOrderInfo";
 import Footer from "../../Components/Footer/Footer";
 import Header from "../../Components/Header/Header";
@@ -9,7 +9,8 @@ import "./Seats.css";
 
 function Seats() {
   const { t } = useTranslation();
-  const { salesOrder, setSalesOrder, purchasedSeats } = useContext(AppContext);
+  const { state, dispatch } = useContext(AppContext);
+  const { salesOrder, purchasedSeats } = state;
   const [totalAmountOfSeats] = useState(
     Array.from({ length: salesOrder.totalSeats }, (_, i) => i + 1)
   );
@@ -41,9 +42,12 @@ function Seats() {
     }
     // case selected
     setSelectedSeats([...selectedSeats, seatNumber]);
-    setSalesOrder({
-      ...salesOrder,
-      selectedSeats: [...selectedSeats, seatNumber],
+
+    dispatch({
+      type: "setSalesOrder",
+      data: {
+        selectedSeats: [...selectedSeats, seatNumber],
+      },
     });
   }
 
@@ -51,7 +55,7 @@ function Seats() {
     navigate("/register");
   };
 
-  // TODO: 2. aqui tiene que hacerse otro fecth y comparar si los asientos selected ya estan o no comprados
+  // TODO: 2. aqui tiene que hacerse otro fecth
 
   return (
     <div className="main-container">

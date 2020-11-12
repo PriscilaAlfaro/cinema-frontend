@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer } from "react";
 import "./App.css";
 import { Router } from "@reach/router";
+import store from "../../store/index";
 import Home from "../../Pages/Home/Home";
-import AppContext from "../../context/context";
+import AppContext from "../../store/context";
 import MovieDetails from "../../Pages/MovieDetails/MovieDetails";
 import formatDay from "../../utils/utils";
 import TicketsCounter from "../../Pages/TicketsCounter/TicketsCounter";
@@ -14,27 +15,20 @@ import Thanks from "../../Pages/Thanks/Thanks";
 const axios = require("axios");
 
 function App() {
-  const [movies, setMovies] = useState([]);
-  const [locations, setLocations] = useState([]);
-  const [screenings, setScreenings] = useState([]);
-  const [seatAvailability, setSeatAvailability] = useState(null);
-  const [purchasedSeats, setPurchasedSeats] = useState([]);
-  const [currentMovie, setCurrentMovie] = useState("");
-  const [salesOrder, setSalesOrder] = useState({});
-  // const [dates, setDates] = useState({});
-  const [showModal, setShowModal] = useState(false);
+  const [state, dispatch] = useReducer(store.reducer, store.initialState);
+  const { movies, locations, screenings } = state;
 
   const loadData = async () => {
+    const mov = await axios.get(`${process.env.REACT_APP_BASE_URL}/movies`);
+    dispatch({ type: "setMovies", data: mov.data });
+
     const loc = await axios.get(`${process.env.REACT_APP_BASE_URL}/locations`);
-    setLocations(loc.data);
+    dispatch({ type: "setLocations", data: loc.data });
 
     const scree = await axios.get(
       `${process.env.REACT_APP_BASE_URL}/screenings`
     );
-    setScreenings(scree.data);
-
-    const mov = await axios.get(`${process.env.REACT_APP_BASE_URL}/movies`);
-    setMovies(mov.data);
+    dispatch({ type: "setScreenings", data: scree.data });
   };
 
   useEffect(() => {
@@ -42,7 +36,7 @@ function App() {
   }, []);
 
   function handleMovieClick(index) {
-    setCurrentMovie(movies[index]);
+    dispatch({ type: "setCurrentMovie", data: movies[index] });
 
     // screening from selected movie and location default
     const currentScreening = screenings.find(
@@ -59,19 +53,22 @@ function App() {
         screening: date.screening, // array
       };
     });
-    // setDates(dateTimes);
-    setSalesOrder({
-      movie_id: movies[index]._id,
-      movie: movies[index].title,
-      location_id: locations[0]._id, // default info
-      location: locations[0].location,
-      price: locations[0].price,
-      salong: locations[0].salong,
-      place: locations[0].place,
-      mapUrl: locations[0].mapUrl,
-      totalSeats: locations[0].totalSeats,
-      date_id: dateTimes[0].day_id,
-      date: dateTimes[0].day,
+
+    dispatch({
+      type: "setSalesOrder",
+      data: {
+        movie_id: movies[index]._id,
+        movie: movies[index].title,
+        location_id: locations[0]._id, // default info
+        location: locations[0].location,
+        price: locations[0].price,
+        salong: locations[0].salong,
+        place: locations[0].place,
+        mapUrl: locations[0].mapUrl,
+        totalSeats: locations[0].totalSeats,
+        date_id: dateTimes[0].day_id,
+        date: dateTimes[0].day,
+      },
     });
   }
 
@@ -79,20 +76,9 @@ function App() {
     <div className="App">
       <AppContext.Provider
         value={{
-          movies,
           handleMovieClick,
-          currentMovie,
-          locations,
-          setSalesOrder,
-          salesOrder,
-          screenings,
-          // dates,
-          seatAvailability,
-          setSeatAvailability,
-          purchasedSeats,
-          setPurchasedSeats,
-          showModal,
-          setShowModal,
+          state,
+          dispatch,
         }}
       >
         <Router>

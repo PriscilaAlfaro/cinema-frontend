@@ -1,12 +1,13 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "@reach/router";
 import { useTranslation } from "react-i18next";
-import AppContext from "../../context/context";
+import AppContext from "../../store/context";
 import "./SearchBar.css";
 
 function SearchBar() {
   const { t } = useTranslation();
-  const { movies, handleMovieClick } = useContext(AppContext);
+  const { state, handleMovieClick } = useContext(AppContext);
+  const { movies } = state;
 
   const [activeOption, setActiveOption] = useState(0);
   const [filteredMovies, setFilteredMovies] = useState([]);

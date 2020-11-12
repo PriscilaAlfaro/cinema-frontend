@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 import { useNavigate } from "@reach/router";
-import AppContext from "../../context/context";
+import AppContext from "../../store/context";
 import MovieItem from "../MovieItem/MovieItem";
 import "./Movies.css";
 
 function Movies() {
-  const { movies, handleMovieClick } = useContext(AppContext);
+  const { state, handleMovieClick } = useContext(AppContext);
+  const { movies } = state;
 
   const navigate = useNavigate();
 

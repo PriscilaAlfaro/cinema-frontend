@@ -1,8 +1,7 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "@reach/router";
 import { useTranslation } from "react-i18next";
-import AppContext from "../../context/context";
+import AppContext from "../../store/context";
 import Footer from "../../Components/Footer/Footer";
 import SalesOrderInfo from "../../Components/SalesOrderInfo/SalesOrderInfo";
 import Header from "../../Components/Header/Header";
@@ -12,9 +11,9 @@ const axios = require("axios");
 
 function TicketsCounter() {
   const { t } = useTranslation();
-  const { salesOrder, setSalesOrder, setPurchasedSeats } = useContext(
-    AppContext
-  );
+  const { state, dispatch } = useContext(AppContext);
+  const { salesOrder } = state;
+
   const [ticketCount, setTicketCount] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [
@@ -33,7 +32,10 @@ function TicketsCounter() {
     const currentSeatAvailability = available.data.find(
       (seats) => seats.screening_id === salesOrder.screening_id
     );
-    setPurchasedSeats(currentSeatAvailability.purchasedSeats);
+    dispatch({
+      type: "setPurchasedSeats",
+      data: currentSeatAvailability.purchasedSeats,
+    });
 
     const seatsAvailable =
       salesOrder.totalSeats - currentSeatAvailability.purchasedSeats.length;
@@ -41,10 +43,12 @@ function TicketsCounter() {
 
     const initialTotalPrice = salesOrder.price * ticketCount;
     setTotalPrice(initialTotalPrice);
-    setSalesOrder({
-      ...salesOrder,
-      totalPrice: initialTotalPrice,
-      availability_id: currentSeatAvailability._id,
+    dispatch({
+      type: "setSalesOrder",
+      data: {
+        totalPrice: initialTotalPrice,
+        availability_id: currentSeatAvailability._id,
+      },
     });
   };
 
@@ -58,11 +62,14 @@ function TicketsCounter() {
       const newTotal = salesOrder.price * newCount;
       setTicketCount(newCount);
       setTotalPrice(newTotal);
-      setSalesOrder({
-        ...salesOrder,
-        totalPrice: newTotal,
-        tickets: newCount,
-        seatsAvailableForCurrentScreening,
+
+      dispatch({
+        type: "setSalesOrder",
+        data: {
+          totalPrice: newTotal,
+          tickets: newCount,
+          seatsAvailableForCurrentScreening,
+        },
       });
     }
   };
@@ -73,7 +80,13 @@ function TicketsCounter() {
       const newTotal = salesOrder.price * newCount;
       setTicketCount(newCount);
       setTotalPrice(newTotal);
-      setSalesOrder({ ...salesOrder, totalPrice: newTotal, tickets: newCount });
+      dispatch({
+        type: "setSalesOrder",
+        data: {
+          totalPrice: newTotal,
+          tickets: newCount,
+        },
+      });
     }
   };
 

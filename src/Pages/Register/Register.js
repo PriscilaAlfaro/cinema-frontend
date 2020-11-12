@@ -1,8 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { useTranslation } from "react-i18next";
-// import formatDay from "../../utils/utils";
-import AppContext from "../../context/context";
+import AppContext from "../../store/context";
 import SalesOrderInfo from "../../Components/SalesOrderInfo/SalesOrderInfo";
 import Footer from "../../Components/Footer/Footer";
 import Header from "../../Components/Header/Header";
@@ -14,7 +13,8 @@ let stripePromise;
 
 function Register() {
   const { t } = useTranslation();
-  const { salesOrder, setSalesOrder } = useContext(AppContext);
+  const { state, dispatch } = useContext(AppContext);
+  const { salesOrder } = state;
   let errorInStripe;
 
   const fetchApiKey = async () => {
@@ -43,27 +43,32 @@ function Register() {
   };
 
   const handleUserName = (e) => {
-    setSalesOrder({
-      ...salesOrder,
-      userName: e.target.value,
+    dispatch({
+      type: "setSalesOrder",
+      data: {
+        userName: e.target.value,
+      },
     });
   };
 
   const handleUserPhone = (e) => {
-    setSalesOrder({
-      ...salesOrder,
-      userPhone: e.target.value,
+    dispatch({
+      type: "setSalesOrder",
+      data: {
+        userPhone: e.target.value,
+      },
     });
   };
 
   const handleUserEmail = (e) => {
-    setSalesOrder({
-      ...salesOrder,
-      userEmail: e.target.value,
+    dispatch({
+      type: "setSalesOrder",
+      data: {
+        userEmail: e.target.value,
+      },
     });
   };
 
-  // TODO: hacer solo un fetch
   const postOrderData = async (sessionId) => {
     await axios.post(`${process.env.REACT_APP_BASE_URL}/order`, {
       name: salesOrder.userName,

@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
-import AppContext from "../../context/context";
+import AppContext from "../../store/context";
 import "./SalesOrderInfo.css";
 
 function SalesOrderInfo() {
   const { t } = useTranslation();
-  const { salesOrder } = useContext(AppContext);
+  const { state } = useContext(AppContext);
+  const { salesOrder } = state;
 
   return (
     <div className="salesOrder_information">

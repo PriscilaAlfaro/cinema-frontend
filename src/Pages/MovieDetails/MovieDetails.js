@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useNavigate } from "@reach/router";
 import { useTranslation } from "react-i18next";
-import AppContext from "../../context/context";
+import AppContext from "../../store/context";
 import Footer from "../../Components/Footer/Footer";
 import formatDay from "../../utils/utils";
 import Modal from "../../Components/Modal/Modal";
@@ -10,15 +10,8 @@ import "./MovieDetails.css";
 
 function MovieDetails() {
   const { t, i18n } = useTranslation();
-  const {
-    currentMovie,
-    locations,
-    setSalesOrder,
-    salesOrder,
-    screenings,
-    setShowModal,
-    showModal,
-  } = useContext(AppContext);
+  const { state, dispatch } = useContext(AppContext);
+  const { currentMovie, locations, salesOrder, screenings, showModal } = state;
 
   const navigate = useNavigate();
 
@@ -54,42 +47,47 @@ function MovieDetails() {
         screening: date.screening, // array
       };
     });
-
-    setSalesOrder({
-      ...salesOrder,
-      location_id: e.target.value,
-      location: newLocation.location,
-      salong: newLocation.salong,
-      place: newLocation.place,
-      mapUrl: newLocation.mapUrl,
-      price: newLocation.price,
-      totalSeats: newLocation.totalSeats,
-      date_id: dates[0].day_id, // new dates for new location
-      date: dates[0].day,
+    dispatch({
+      type: "setSalesOrder",
+      data: {
+        location_id: e.target.value,
+        location: newLocation.location,
+        salong: newLocation.salong,
+        place: newLocation.place,
+        mapUrl: newLocation.mapUrl,
+        price: newLocation.price,
+        totalSeats: newLocation.totalSeats,
+        date_id: dates[0].day_id, // new dates for new location
+        date: dates[0].day,
+      },
     });
   };
 
   const handleSelectedDay = (e) => {
-    setSalesOrder({
-      ...salesOrder,
-      date_id: e.target.value,
-      date: newDates.find((date) => e.target.value === date.day_id).day,
+    dispatch({
+      type: "setSalesOrder",
+      data: {
+        date_id: e.target.value,
+        date: newDates.find((date) => e.target.value === date.day_id).day,
+      },
     });
   };
 
   const handleSelectedHour = (e) => {
-    setSalesOrder({
-      ...salesOrder,
-      screening_id: e.target.value,
-      screening: newDates
-        .find((date) => salesOrder.date_id === date.day_id)
-        .screening.find((screening) => screening._id === e.target.value).hour,
+    dispatch({
+      type: "setSalesOrder",
+      data: {
+        screening_id: e.target.value,
+        screening: newDates
+          .find((date) => salesOrder.date_id === date.day_id)
+          .screening.find((screening) => screening._id === e.target.value).hour,
+      },
     });
     navigate("/tickets");
   };
 
   const handleOpenModal = () => {
-    setShowModal(true);
+    dispatch({ type: "setShowModal", data: true });
   };
 
   const currentLanguage = i18n.language;
