@@ -20,7 +20,6 @@ function Thanks() {
         newPaymentStatus: "sucess",
       }
     );
-    console.log("finalOrder", updateOrder.data.order);
     setFinalOrder(updateOrder.data.order);
   };
 
