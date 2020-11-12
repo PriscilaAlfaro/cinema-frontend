@@ -1,6 +1,8 @@
 {
     "sv": "Svenska",
     "es": "Spanska",
+    "welcome": "Välkommen till",
+    "searchMovie": "Sök efter en film",
     "clasification": "Betyg",
     "recomendation": "Rekommenderas",
     "years": "år",
@@ -29,6 +31,7 @@
     "available": "Tillgängliga",
     "ocuppied": "Ockuperade",
     "selected": "Vald",
+    "chooseYourSeats": "Välj dina platser",
     "youSelectSeatSingular": "Du har valt sätet",
     "youSelectSeatsPlural": "Du har valt platserna",
     "seat": "Sittplats",
@@ -48,5 +51,12 @@
     "emailContact": "kontakta e-postmeddelandet",
     "detailsOfYourOrder": "Detaljerna i din beställning är som följer",
     "search": "Sök",
-    "searchForAMovie": "Sök efter en film"
+    "searchForAMovie": "Sök efter en film",
+    "screenSquare": "Skärm",
+    "completePersonalInformation": "Slutför registreringen av dina uppgifter för att köpa biljetterna",
+    "validEmail": "Ange ett e-postmeddelande i formatet exempel@sample.com",
+    "validPhoneNumber": "Ange ett tio siffrigt telefonnummer",
+    "purchaseStatus": "Köpstatus",
+    "purchaseDate": "Köpdatum",
+    "purchaseNumber": "Referensnummer"
 }

@@ -11,15 +11,16 @@ function CancelledPay() {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
+  const deleteOrderData = async (sessionId) => {
+    await axios.delete(`${process.env.REACT_APP_BASE_URL}/order/${sessionId}`);
+  };
+
   useEffect(() => {
     const sessionId = new URLSearchParams(window.location.search).get(
       "session_id"
     );
-    async function deleteOrderData() {
-      await axios.delete(`http://localhost:4001/order/${sessionId}`);
-    }
 
-    deleteOrderData();
+    deleteOrderData(sessionId);
   }, []);
 
   const handlGoToHomeFromCancelled = () => {

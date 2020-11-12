@@ -10,41 +10,43 @@ function SalesOrderInfo() {
   return (
     <div className="salesOrder_information">
       <div className="info">
-        <h3>
+        <h2 className="info_subtitle">
           {t("movie")}
           :&nbsp;
-          {salesOrder.movie}
-        </h3>
+        </h2>
+        <h3>{salesOrder.movie}</h3>
       </div>
       <div className="info">
-        <h3>
+        <h2 className="info_subtitle">
           {t("place")}
           :&nbsp;
+        </h2>
+        <h3>
           {salesOrder.location}
           &#45; &nbsp;
           {salesOrder.place}
         </h3>
       </div>
       <div className="info">
-        <h3>
+        <h2 className="info_subtitle">
           {t("screen")}
           :&nbsp;
-          {salesOrder.salong}
-        </h3>
+        </h2>
+        <h3>{salesOrder.salong}</h3>
       </div>
       <div className="info">
-        <h3>
+        <h2 className="info_subtitle">
           {t("date")}
           :&nbsp;
-          {salesOrder.date}
-        </h3>
+        </h2>
+        <h3>{salesOrder.date}</h3>
       </div>
       <div className="info">
-        <h3>
+        <h2 className="info_subtitle">
           {t("hour")}
           :&nbsp;
-          {salesOrder.screening}
-        </h3>
+        </h2>
+        <h3>{salesOrder.screening}</h3>
       </div>
     </div>
   );

@@ -1,6 +1,8 @@
 {
     "sv": "Sueco",
     "es": "Español",
+    "welcome": "Bienvenido a",
+    "searchMovie": "Buscar una película",
     "clasification": "Clasificación",
     "recomendation": "Recomendada",
     "years": "años",
@@ -29,6 +31,7 @@
     "available": "Disponibles",
     "ocuppied": "Ocupados",
     "selected": "Seleccionados",
+    "chooseYourSeats": "Seleccione sus sientos",
     "youSelectSeatSingular": "Usted ha seleccionado el asiento",
     "youSelectSeatsPlural": "Usted ha seleccionado los asientos",
     "seat": "Asiento",
@@ -48,5 +51,12 @@
     "emailContact": "contactar el correo electrónico",
     "detailsOfYourOrder": "Los detalles de su orden son los siguientes",
     "search": "Buscar",
-    "searchForAMovie": "Buscar una película"
+    "searchForAMovie": "Buscar una película",
+    "screenSquare": "Pantalla",
+    "completePersonalInformation": "Complete el registro de sus datos para realizar la compra de las entradas",
+    "validEmail": "Ingrese un correo electrónico con el formato example@sample.com",
+    "validPhoneNumber": "Ingrese un número de teléfono de 10 dígitos",
+    "purchaseStatus": "Estatus de su compra",
+    "purchaseDate": "Fecha de compra",
+    "purchaseNumber": "Número de referencia"
 }

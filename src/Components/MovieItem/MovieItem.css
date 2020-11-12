@@ -7,12 +7,14 @@
 }
 
 .item_text p{
+    color: white;
     margin: 2px;
 }
 
 .item_img img{
     border-radius: 15px;
     border-bottom: 6px solid black;
+    cursor: pointer;
 }
 
 .item_img img:hover{

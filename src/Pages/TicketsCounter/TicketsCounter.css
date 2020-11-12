@@ -41,6 +41,7 @@ h2{
   color: white;
   border-radius: 4px;
   width: 2rem;
+  cursor: pointer;
 }
 
 .count{
@@ -48,15 +49,27 @@ h2{
 }
 
 .next-button{
-  background-color: red;
+   cursor: pointer;
   width: 10rem;
-  height: 3.5rem;
-    margin: 2rem;
+  padding: 0.9rem 0;
+  border-radius: 54px;
+  background-color:  rgba(108, 65, 233, 0.7);
+  text-align: center;
+  font-size: 0.833rem;
+  transition: background-color 0.25s;
+  border: 5px;
+  color: #fff;
+  font-weight: 600;
 }
 
+.next-button:hover {
+  background-color: rgba(155, 128, 235, 0.7);
+}
 p{
   font-size: small;
 }
+
+
 
 @media only screen and (max-width: 715px) {
 
@@ -68,7 +81,7 @@ p{
   .tickets_info h5 {
    font-size: 50%;
      padding: 0px;
-  margin: 0.5rem;
+    margin: 0.5rem;
 }
 
 .container_tickets{

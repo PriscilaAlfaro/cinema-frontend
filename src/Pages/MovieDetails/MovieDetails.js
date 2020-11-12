@@ -22,12 +22,13 @@ function MovieDetails() {
 
   const navigate = useNavigate();
 
+  // When location change is saved in sales Order and also screnning should change
   const currentScreeningFromSalesOrder = screenings.find(
     (screen) =>
       screen.movie_id === salesOrder.movie_id &&
       screen.location_id === salesOrder.location_id
   );
-
+  // Used to change date and hour from specific movie/location
   const newDates = currentScreeningFromSalesOrder.dates.map((date) => {
     return {
       day_id: date._id,
@@ -37,13 +38,15 @@ function MovieDetails() {
   });
 
   const handleSelectedLocation = (e) => {
-    const newLocation = locations.find((loc) => e.target.value === loc._id);
-    const newLocationScreening = screenings.find(
-      (screen) =>
-        screen.movie_id === salesOrder.movie_id &&
-        screen.location_id === newLocation._id
+    const newLocation = locations.find(
+      (location) => e.target.value === location._id
     );
-
+    // We need to change the screening information for this new location
+    const newLocationScreening = screenings.find(
+      (screening) =>
+        screening.movie_id === salesOrder.movie_id &&
+        screening.location_id === newLocation._id
+    );
     const dates = newLocationScreening.dates.map((date) => {
       return {
         day_id: date._id,
@@ -61,7 +64,7 @@ function MovieDetails() {
       mapUrl: newLocation.mapUrl,
       price: newLocation.price,
       totalSeats: newLocation.totalSeats,
-      date_id: dates[0].day_id, // new default values
+      date_id: dates[0].day_id, // new dates for new location
       date: dates[0].day,
     });
   };
@@ -88,7 +91,8 @@ function MovieDetails() {
   const handleOpenModal = () => {
     setShowModal(true);
   };
-  // console.log(`Current lang=${i18n.language}`);
+
+  const currentLanguage = i18n.language;
 
   return (
     <div className="container">
@@ -114,7 +118,7 @@ function MovieDetails() {
             <h4>
               {t("clasification")}
               :&nbsp;
-              {currentMovie.rated[i18n.language]}
+              {currentMovie.rated[currentLanguage]}
             </h4>
 
             <h4>
@@ -133,29 +137,31 @@ function MovieDetails() {
 
           <div className="inferior">
             <h1>{currentMovie.title}</h1>
-            <h4>
+            <h3 className="subtitle">
               {t("clasification")}
               :&nbsp;
-              {currentMovie.rated[i18n.language]}
-            </h4>
-            <h4>
+            </h3>
+            <h4>{currentMovie.rated[currentLanguage]}</h4>
+            <h3 className="subtitle">
               {t("director")}
               :&nbsp;
-              {currentMovie.director}
-            </h4>
+            </h3>
+            <h4>{currentMovie.director}</h4>
             {currentMovie.actors && (
-              <h4>
-                {t("cast")}
-                :&nbsp;
-                {currentMovie.actors}
-              </h4>
+              <>
+                <h3 className="subtitle">
+                  {t("cast")}
+                  :&nbsp;
+                </h3>
+                <h4>{currentMovie.actors}</h4>
+              </>
             )}
 
-            <h4>
+            <h3 className="subtitle">
               {t("synopsis")}
               :&nbsp;
-              {currentMovie.description[i18n.language]}
-            </h4>
+            </h3>
+            <h4>{currentMovie.description[currentLanguage]}</h4>
           </div>
         </div>
       )}

@@ -15,7 +15,7 @@ function TicketsCounter() {
   const { salesOrder, setSalesOrder, setPurchasedSeats } = useContext(
     AppContext
   );
-  const [count, setCount] = useState(0);
+  const [ticketCount, setTicketCount] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [
     seatsAvailableForCurrentScreening,
@@ -24,11 +24,39 @@ function TicketsCounter() {
 
   const navigate = useNavigate();
 
+  const fetchSeatAvailableData = async () => {
+    const available = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/seatAvailability`
+    );
+
+    // find the correct seatAvalability accoding to screennig id
+    const currentSeatAvailability = available.data.find(
+      (seats) => seats.screening_id === salesOrder.screening_id
+    );
+    setPurchasedSeats(currentSeatAvailability.purchasedSeats);
+
+    const seatsAvailable =
+      salesOrder.totalSeats - currentSeatAvailability.purchasedSeats.length;
+    setSeatsAvailableForCurrentScreening(seatsAvailable);
+
+    const initialTotalPrice = salesOrder.price * ticketCount;
+    setTotalPrice(initialTotalPrice);
+    setSalesOrder({
+      ...salesOrder,
+      totalPrice: initialTotalPrice,
+      availability_id: currentSeatAvailability._id,
+    });
+  };
+
+  useEffect(() => {
+    fetchSeatAvailableData();
+  }, []);
+
   const incrementCounter = () => {
-    if (count < seatsAvailableForCurrentScreening) {
-      const newCount = count + 1;
+    if (ticketCount < seatsAvailableForCurrentScreening) {
+      const newCount = ticketCount + 1;
       const newTotal = salesOrder.price * newCount;
-      setCount(newCount);
+      setTicketCount(newCount);
       setTotalPrice(newTotal);
       setSalesOrder({
         ...salesOrder,
@@ -40,10 +68,10 @@ function TicketsCounter() {
   };
 
   const decrementCounter = () => {
-    if (count > 0) {
-      const newCount = count - 1;
+    if (ticketCount > 0) {
+      const newCount = ticketCount - 1;
       const newTotal = salesOrder.price * newCount;
-      setCount(newCount);
+      setTicketCount(newCount);
       setTotalPrice(newTotal);
       setSalesOrder({ ...salesOrder, totalPrice: newTotal, tickets: newCount });
     }
@@ -52,31 +80,6 @@ function TicketsCounter() {
   const handlGoToSeats = () => {
     navigate("/seats");
   };
-
-  useEffect(() => {
-    const fetchSeatAvailableData = async () => {
-      const available = await axios.get(
-        "http://localhost:4001/seatAvailability"
-      );
-
-      const currentSeatAvailability = available.data.find(
-        (seats) => seats.screening_id === salesOrder.screening_id
-      );
-      const seatsAvailable =
-        salesOrder.totalSeats - currentSeatAvailability.purchasedSeats.length;
-      setSeatsAvailableForCurrentScreening(seatsAvailable);
-      setPurchasedSeats(currentSeatAvailability.purchasedSeats);
-
-      const initialTotalPrice = salesOrder.price * count;
-      setTotalPrice(initialTotalPrice);
-      setSalesOrder({
-        ...salesOrder,
-        totalPrice: initialTotalPrice,
-        availability_id: currentSeatAvailability._id,
-      });
-    };
-    fetchSeatAvailableData();
-  }, []);
 
   return (
     <div className="container">
@@ -104,7 +107,7 @@ function TicketsCounter() {
             <button className="button" type="button" onClick={decrementCounter}>
               <h2>-</h2>
             </button>
-            <h5 className="count">{count}</h5>
+            <h5 className="count">{ticketCount}</h5>
             <button className="button" type="button" onClick={incrementCounter}>
               <h2>+</h2>
             </button>
@@ -119,11 +122,14 @@ function TicketsCounter() {
         </div>
         <div className="tickets_info">
           <h4>Total</h4>
-          <h5>{totalPrice}</h5>
+          <h5>
+            {totalPrice}
+            &nbsp; kr
+          </h5>
         </div>
       </div>
       {/* next --------------------------*/}
-      {count > 0 && (
+      {ticketCount > 0 && (
         <div>
           <button
             className="next-button"

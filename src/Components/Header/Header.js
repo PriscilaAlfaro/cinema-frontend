@@ -1,9 +1,15 @@
 import React from "react";
+import { useNavigate } from "@reach/router";
 import "./Header.css";
 import { useTranslation } from "react-i18next";
 
 function Header() {
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
+
+  const handlGoToHomeFromLogo = () => {
+    navigate("/", { replace: true });
+  };
 
   const changeLanguage = (code) => {
     i18n.changeLanguage(code);
@@ -11,13 +17,15 @@ function Header() {
 
   return (
     <div className="header">
-      <img
-        className="header-image"
-        alt=""
-        src="https://www.flaticon.com/svg/static/icons/svg/1765/1765822.svg"
-      />
-      <h3>Cinema CR</h3>
-      <div className="languaje-buttons">
+      <div className="header_logo" onClick={handlGoToHomeFromLogo}>
+        <img
+          className="header-image"
+          alt=""
+          src="https://www.flaticon.com/svg/static/icons/svg/1765/1765822.svg"
+        />
+        <h3>Cinema CR</h3>
+      </div>
+      <div className="language-buttons">
         <button type="button" onClick={() => changeLanguage("sv")}>
           {t("sv")}
         </button>

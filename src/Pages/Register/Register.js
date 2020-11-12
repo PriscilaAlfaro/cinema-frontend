@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { useTranslation } from "react-i18next";
+// import formatDay from "../../utils/utils";
 import AppContext from "../../context/context";
 import SalesOrderInfo from "../../Components/SalesOrderInfo/SalesOrderInfo";
 import Footer from "../../Components/Footer/Footer";
@@ -15,13 +16,31 @@ function Register() {
   const { t } = useTranslation();
   const { salesOrder, setSalesOrder } = useContext(AppContext);
   let errorInStripe;
+
+  const fetchApiKey = async () => {
+    const key = await axios.get(`${process.env.REACT_APP_BASE_URL}/stripe/key`);
+    stripePromise = loadStripe(key.data.publishableApiKey);
+  };
+
   useEffect(() => {
-    async function fetchApiKey() {
-      const key = await axios.get("http://localhost:4001/stripe/key");
-      stripePromise = loadStripe(key.data.publishableApiKey);
-    }
     fetchApiKey();
   }, []);
+
+  const validateEmail = (email) => {
+    if (!email) {
+      return false;
+    }
+    const validEmailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return validEmailRegex.test(email.toLowerCase());
+  };
+
+  const validatePhoneNumber = (phoneNumber) => {
+    if (!phoneNumber) {
+      return false;
+    }
+    const validPhoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    return validPhoneRegex.test(phoneNumber);
+  };
 
   const handleUserName = (e) => {
     setSalesOrder({
@@ -30,31 +49,23 @@ function Register() {
     });
   };
 
-  const validateEmail = (email) => {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email.toLowerCase());
+  const handleUserPhone = (e) => {
+    setSalesOrder({
+      ...salesOrder,
+      userPhone: e.target.value,
+    });
   };
 
-  const handleUserPhone = (e) => {
-    const phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-    if (e.target.value.match(phoneno)) {
-      setSalesOrder({
-        ...salesOrder,
-        userPhone: e.target.value,
-      });
-    }
-  };
   const handleUserEmail = (e) => {
-    if (validateEmail(e.target.value)) {
-      setSalesOrder({
-        ...salesOrder,
-        userEmail: e.target.value,
-      });
-    }
+    setSalesOrder({
+      ...salesOrder,
+      userEmail: e.target.value,
+    });
   };
-  // hacer solo un fetch
+
+  // TODO: hacer solo un fetch
   const postOrderData = async (sessionId) => {
-    await axios.post("http://localhost:4001/order", {
+    await axios.post(`${process.env.REACT_APP_BASE_URL}/order`, {
       name: salesOrder.userName,
       email: salesOrder.userEmail,
       location_id: salesOrder.location_id,
@@ -72,12 +83,13 @@ function Register() {
       seatNumber: salesOrder.selectedSeats,
       paymentReference: sessionId,
       paymentStatus: "pending",
+      purchaseDate: new Date().toISOString(),
     });
   };
 
   const postAvailabilityData = async () => {
     await axios.patch(
-      `http://localhost:4001/seatAvailability/${salesOrder.availability_id}`,
+      `${process.env.REACT_APP_BASE_URL}/seatAvailability/${salesOrder.availability_id}`,
       {
         screening_id: salesOrder.screening_id,
         purchasedSeats: salesOrder.selectedSeats,
@@ -88,7 +100,7 @@ function Register() {
   const callStripeCheckout = async () => {
     const stripe = await stripePromise;
     const response = await axios.post(
-      "http://localhost:4001/stripe/create-checkout-session",
+      `${process.env.REACT_APP_BASE_URL}/stripe/create-checkout-session`,
       {
         product: "Cinema-tickets",
         price: salesOrder.price,
@@ -105,11 +117,7 @@ function Register() {
     });
 
     if (result.error) {
-      // eslint-disable-next-line no-unused-vars
       errorInStripe = result.error.message;
-      // If `redirectToCheckout` fails due to a browser or network
-      // error, display the localized error message to your customer
-      // using `result.error.message`.
     }
   };
 
@@ -176,6 +184,9 @@ function Register() {
       </div>
 
       {/* -----------FORM---------------*/}
+      <div className="personal_info">
+        <h2>{t("completePersonalInformation")}</h2>
+      </div>
       <div className="container-form">
         <form className="form">
           <div className="name">
@@ -207,6 +218,9 @@ function Register() {
               type="email"
               onChange={handleUserEmail}
             />
+            {!validateEmail(salesOrder.userEmail) && (
+              <p>{t("validPhoneNumber")}</p>
+            )}
           </div>
           <div className="phone">
             <label htmlFor="phone" className="label">
@@ -224,23 +238,30 @@ function Register() {
               required
               onChange={handleUserPhone}
             />
+            {!validatePhoneNumber(salesOrder.userPhone) && (
+              <p>{t("validEmail")}</p>
+            )}
           </div>
         </form>
       </div>
 
       {/* -----------NEXTBUTTON ---------------*/}
-      {salesOrder.userName && salesOrder.userEmail && salesOrder.userPhone && (
-        <div>
-          <button
-            className="next-button"
-            onClick={callStripeCheckout}
-            type="button"
-            role="link"
-          >
-            <h2>{t("checkout")}</h2>
-          </button>
-        </div>
-      )}
+      {salesOrder.userName &&
+        validateEmail(salesOrder.userEmail) &&
+        validatePhoneNumber(salesOrder.userPhone) && (
+          <div>
+            <button
+              className="next-button"
+              onClick={callStripeCheckout}
+              type="button"
+              role="link"
+            >
+              <h2>{t("checkout")}</h2>
+            </button>
+          </div>
+        )}
+      {/* -----------Error ---------------*/}
+      {errorInStripe && <div>{errorInStripe}</div>}
       <Footer />
     </div>
   );

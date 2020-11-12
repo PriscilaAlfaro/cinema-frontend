@@ -8,8 +8,21 @@
      padding: 2rem;  
 }
 
+.info_subtitle{
+      font-size: 2rem;
+     color: rgb(181, 155, 228);
+}
+@media only screen and (max-width: 1055px) {
+.salesOrder_information{
+      display: block;
+}
+}
+
 @media only screen and (max-width: 600px) {
 .salesOrder_information{
       display: block;
+}
+.info_subtitle{
+      font-size: 1.5rem;
 }
 }

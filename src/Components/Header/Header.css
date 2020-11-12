@@ -11,12 +11,12 @@
     width: 5rem;
 }
 
-.languaje-buttons{   
+.language-buttons{   
   display: flex;
   justify-content: flex-end;
 }
 
-.languaje-buttons button{
+.language-buttons button{
   background-color: tomato;
 
 }

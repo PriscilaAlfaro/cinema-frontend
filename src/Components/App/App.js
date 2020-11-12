@@ -21,42 +21,49 @@ function App() {
   const [purchasedSeats, setPurchasedSeats] = useState([]);
   const [currentMovie, setCurrentMovie] = useState("");
   const [salesOrder, setSalesOrder] = useState({});
-  const [dates, setDates] = useState({});
+  // const [dates, setDates] = useState({});
   const [showModal, setShowModal] = useState(false);
 
+  const loadData = async () => {
+    const loc = await axios.get(`${process.env.REACT_APP_BASE_URL}/locations`);
+    setLocations(loc.data);
+
+    const scree = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/screenings`
+    );
+    setScreenings(scree.data);
+
+    const mov = await axios.get(`${process.env.REACT_APP_BASE_URL}/movies`);
+    setMovies(mov.data);
+  };
+
   useEffect(() => {
-    async function loadData() {
-      const loc = await axios.get("http://localhost:4001/locations");
-      setLocations(loc.data);
-
-      const scree = await axios.get("http://localhost:4001/screenings");
-      setScreenings(scree.data);
-
-      const mov = await axios.get("http://localhost:4001/movies");
-      setMovies(mov.data);
-    }
     loadData();
   }, []);
 
   function handleMovieClick(index) {
     setCurrentMovie(movies[index]);
+
+    // screening from selected movie and location default
     const currentScreening = screenings.find(
       (screen) =>
         screen.movie_id === movies[index]._id &&
-        screen.location_id === locations[0]._id
+        screen.location_id === locations[0]._id // default location
     );
+
+    // 1 screening per movie
     const dateTimes = currentScreening.dates.map((date) => {
       return {
         day_id: date._id,
         day: formatDay(date.date),
-        screening: date.screening,
+        screening: date.screening, // array
       };
     });
-    setDates(dateTimes);
+    // setDates(dateTimes);
     setSalesOrder({
       movie_id: movies[index]._id,
       movie: movies[index].title,
-      location_id: locations[0]._id,
+      location_id: locations[0]._id, // default info
       location: locations[0].location,
       price: locations[0].price,
       salong: locations[0].salong,
@@ -79,7 +86,7 @@ function App() {
           setSalesOrder,
           salesOrder,
           screenings,
-          dates,
+          // dates,
           seatAvailability,
           setSeatAvailability,
           purchasedSeats,

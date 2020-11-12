@@ -8,7 +8,7 @@
     text-align: initial;
     padding: 20px 40px;
     color: white;
-    top: 10%;
+    top: 18%;
     position: absolute;
 }
 .superior h4 {
@@ -20,6 +20,10 @@
     padding: 0 3rem;
     line-height: 2;
     margin-top: 4rem;
+}
+
+.subtitle {
+    color: rgb(181, 155, 228);
 }
 .location_dropDownList, .days_dropDownList {
     width: 30rem;
@@ -56,7 +60,8 @@ select{
     border-bottom: 5px solid purple;
     color: white;
     font-size: 1rem;
-    color: red
+    color: red;
+    cursor: pointer;
 }
 
 .map-iframe{
@@ -89,7 +94,7 @@ height: 7.5rem;
 position: absolute;
 cursor: pointer;
   display: block;
-  top: 50%;
+  top: 100%;
   left: 50%;
 background-image: url("../../utils/play-image.png");
  background-position: center;
@@ -108,20 +113,20 @@ iframe{
 /* ----------MEDIA QUERY-------------- */
  @media only screen and (max-width: 2000px) {
 .play-container{
-       top: 40%;
+       top: 62%;
 }
 
 }
  @media only screen and (max-width: 1750px) {
 .play-container{
-       top: 30%;
+       top: 60%;
 }
 
 }
 
  @media only screen and (max-width: 1500px) {
 .play-container{
-       top: 23%;
+       top: 58%;
          width: 6rem;
 }
 
@@ -129,14 +134,19 @@ iframe{
 
 @media only screen and (max-width: 1250px) {
 .play-container {
-      top: 21%;
+      top: 45%;
 }
 }
 
 @media only screen and (max-width: 950px) {
 .play-container{
     width: 5rem;
-      top: 18%;
+      top: 35%;
+}
+.superior{  
+    padding: 15px 30px;
+    font-size: 60%;
+
 }
 
 } 
@@ -144,11 +154,11 @@ iframe{
 
 .superior{  
     padding: 15px 30px;
-    top: 10%;
+    top: 24%;
     font-size: 60%;
 }
 .play-container{
-     top: 13%;
+     top: 29%;
      }
 
 }
@@ -156,8 +166,8 @@ iframe{
 @media only screen and (max-width: 500px) {
 .superior{  
     padding: 12px 25px;
-    top: 10%;
-    font-size: 55%;
+    top: 25%;
+    font-size: 50%;
 }
 
 
@@ -183,14 +193,14 @@ div .tickets{
       padding: 0 1rem; 
 }
 .play-container{
-      top: 11%;
+      top: 20%;
 }
 }
 
 @media only screen and (max-width: 350px) {
 .superior{  
     padding: 10px 20px;
-    top: 10%;
+    top: 26%;
     font-size: 45%;
 }
 
@@ -211,7 +221,7 @@ select.location, select.days {
            width: 20%;
 }
 .play-container{
-      top: 10%;
+      top: 16%;
          width: 3rem;
 }
 }
@@ -220,12 +230,12 @@ select.location, select.days {
 @media only screen and (max-width: 250px) {
 .superior{  
     padding: 10px 20px;
-    top: 10%;
+    top: 30%;
     font-size: 45%;
 }
 
 .play-container{
-      top: 7%;
+      top: 9%;
        
 }
 }

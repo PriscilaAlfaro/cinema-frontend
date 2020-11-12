@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import AppContext from "../../context/context";
 import SalesOrderInfo from "../../Components/SalesOrderInfo/SalesOrderInfo";
 import Footer from "../../Components/Footer/Footer";
+import Header from "../../Components/Header/Header";
 import "./Seats.css";
 
 function Seats() {
@@ -15,14 +16,14 @@ function Seats() {
   const [selectedSeats, setSelectedSeats] = useState([]);
   const navigate = useNavigate();
 
-  function removeSeat(seat) {
+  const removeSeat = (seat) => {
     const foundIndex = selectedSeats.indexOf(seat);
     if (foundIndex > -1) {
       const currentSeats = [...selectedSeats];
       currentSeats.splice(foundIndex, 1);
       setSelectedSeats(currentSeats);
     }
-  }
+  };
 
   function handleSelectedSeat(seatNumber) {
     // case already puschased
@@ -50,10 +51,11 @@ function Seats() {
     navigate("/register");
   };
 
-  // 2. aqui tiene que hacerse otro fecth y comparar si los asientos selected ya estan o no comprados
+  // TODO: 2. aqui tiene que hacerse otro fecth y comparar si los asientos selected ya estan o no comprados
 
   return (
     <div className="main-container">
+      <Header />
       <SalesOrderInfo />
       <div className="tickets-buy">
         <h1>
@@ -61,6 +63,7 @@ function Seats() {
           :&nbsp;
           {salesOrder.tickets}
         </h1>
+        <h1>{t("chooseYourSeats")}</h1>
       </div>
       {/* -----------------legend ------------------*/}
       <div>
@@ -81,7 +84,7 @@ function Seats() {
       </div>
       {/* -----------------legend ------------------*/}
       <div>
-        <div className="screen" />
+        <div className="screen">{t("screenSquare")}</div>
       </div>
       <div>
         <div className="row">

@@ -16,15 +16,16 @@ function SearchBar() {
   const navigate = useNavigate();
 
   const onChange = (e) => {
-    setUserInput(e.target.value);
+    const inputValue = e.target.value;
+    setUserInput(inputValue);
     const filteredSuggestions = movies.filter((movie) =>
-      movie.title.toLowerCase().startsWith(e.target.value.toLowerCase())
+      movie.title.toLowerCase().startsWith(inputValue.toLowerCase())
     );
 
     setActiveOption(0);
     setFilteredMovies(filteredSuggestions.sort((a, b) => a.title - b.title));
     setShowOptions(true);
-    setUserInput(e.target.value);
+    setUserInput(inputValue);
   };
 
   const onClick = (movie) => {
@@ -43,13 +44,9 @@ function SearchBar() {
       optionList = (
         <ul className="options">
           {filteredMovies.map((movie, index) => {
-            let className;
-            if (index === activeOption) {
-              className = "option-active";
-            }
             return (
               <li
-                className={className}
+                className={index === activeOption ? "option-active" : ""}
                 key={movie.title}
                 onClick={() => {
                   onClick(movie);
