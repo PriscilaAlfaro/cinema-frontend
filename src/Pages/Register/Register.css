@@ -89,6 +89,10 @@ h3 {
   font-size: 1.5rem;
 }
 
+.error{
+color: red;
+}
+
 @media only screen and (max-width: 600px) {
 .input{
     width: 95%;

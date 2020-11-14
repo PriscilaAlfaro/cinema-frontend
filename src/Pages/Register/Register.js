@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { useTranslation } from "react-i18next";
 import AppContext from "../../store/context";
@@ -12,19 +12,10 @@ const axios = require("axios");
 let stripePromise;
 
 function Register() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { state, dispatch } = useContext(AppContext);
   const { salesOrder } = state;
-  let errorInStripe;
-
-  const fetchApiKey = async () => {
-    const key = await axios.get(`${process.env.REACT_APP_BASE_URL}/stripe/key`);
-    stripePromise = loadStripe(key.data.publishableApiKey);
-  };
-
-  useEffect(() => {
-    fetchApiKey();
-  }, []);
+  const [error, setError] = useState(null);
 
   const validateEmail = (email) => {
     if (!email) {
@@ -69,6 +60,7 @@ function Register() {
     });
   };
 
+  // this post save order and update seatAvailability
   const postOrderData = async (sessionId) => {
     await axios.post(`${process.env.REACT_APP_BASE_URL}/order`, {
       name: salesOrder.userName,
@@ -89,19 +81,11 @@ function Register() {
       paymentReference: sessionId,
       paymentStatus: "pending",
       purchaseDate: new Date().toISOString(),
+      availability_id: salesOrder.availability_id,
     });
   };
 
-  const postAvailabilityData = async () => {
-    await axios.patch(
-      `${process.env.REACT_APP_BASE_URL}/seatAvailability/${salesOrder.availability_id}`,
-      {
-        screening_id: salesOrder.screening_id,
-        purchasedSeats: salesOrder.selectedSeats,
-      }
-    );
-  };
-
+  stripePromise = loadStripe(process.env.REACT_APP_STRIPE_API_KEY);
   const callStripeCheckout = async () => {
     const stripe = await stripePromise;
     const response = await axios.post(
@@ -114,18 +98,25 @@ function Register() {
       }
     );
     const session = await response.data;
-    postOrderData(session.id);
-    postAvailabilityData();
+    const orderResponse = postOrderData(session.id);
+
+    if (!orderResponse.order) {
+      setError({
+        es: "Error el sistema, por favor reingrese la información nuevamente.",
+        sv: "Systemfel, skriv in informationen igen.",
+      });
+    }
 
     const result = await stripe.redirectToCheckout({
       sessionId: session.id,
     });
 
     if (result.error) {
-      errorInStripe = result.error.message;
+      setError(result.error.message);
     }
   };
 
+  const currentLanguage = i18n.language;
   return (
     <div className="main-container">
       <Header />
@@ -187,8 +178,15 @@ function Register() {
           </div>
         </div>
       </div>
+      {/* -----------ERROR---------------*/}
+      {error && (
+        <div className="error">
+          <h1>{error[currentLanguage]}</h1>
+        </div>
+      )}
 
       {/* -----------FORM---------------*/}
+
       <div className="personal_info">
         <h2>{t("completePersonalInformation")}</h2>
       </div>
@@ -266,7 +264,7 @@ function Register() {
           </div>
         )}
       {/* -----------Error ---------------*/}
-      {errorInStripe && <div>{errorInStripe}</div>}
+
       <Footer />
     </div>
   );

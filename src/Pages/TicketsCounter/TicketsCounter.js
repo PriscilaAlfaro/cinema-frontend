@@ -25,13 +25,14 @@ function TicketsCounter() {
 
   const fetchSeatAvailableData = async () => {
     const available = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/seatAvailability`
+      `${process.env.REACT_APP_BASE_URL}/seatAvailability/${salesOrder.screening_id}`
     );
+    const currentSeatAvailability = available.data;
 
     // find the correct seatAvalability accoding to screennig id
-    const currentSeatAvailability = available.data.find(
-      (seats) => seats.screening_id === salesOrder.screening_id
-    );
+    // const currentSeatAvailability = available.data.find(
+    //   (seats) => seats.screening_id === salesOrder.screening_id
+    // );
     dispatch({
       type: "setPurchasedSeats",
       data: currentSeatAvailability.purchasedSeats,

@@ -11,6 +11,7 @@ function CancelledPay() {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
+  // this accion delete order and update seatAvailability
   const deleteOrderData = async (sessionId) => {
     await axios.delete(`${process.env.REACT_APP_BASE_URL}/order/${sessionId}`);
   };

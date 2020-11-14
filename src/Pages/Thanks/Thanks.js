@@ -9,7 +9,7 @@ import "./Thanks.css";
 const axios = require("axios");
 
 function Thanks() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [finalOrder, setFinalOrder] = useState({});
 
@@ -38,6 +38,7 @@ function Thanks() {
   const showPrintOption = () => {
     window.print();
   };
+  const currentLanguage = i18n.language;
 
   return (
     <div className="main-container">
@@ -116,15 +117,23 @@ function Thanks() {
               :&nbsp;
             </h3>
             <h4>
-              {finalOrder.paymentStatus.charAt(0).toUpperCase() +
-                finalOrder.paymentStatus.slice(1)}
+              {finalOrder.paymentStatus === "sucess" &&
+                currentLanguage === "es" &&
+                "Exitoso"}
+              {finalOrder.paymentStatus === "sucess" &&
+                currentLanguage === "sv" &&
+                "Framgångsrik"}
             </h4>
 
             <h3 className="order_detail_subtitle">
               {t("purchaseDate")}
               :&nbsp;
             </h3>
-            <h4>{formatDay(finalOrder.purchaseDate)}</h4>
+            <h4>
+              {formatDay(finalOrder.purchaseDate)}
+              &nbsp;
+              {new Date(finalOrder.purchaseDate).toLocaleTimeString("se-SV")}
+            </h4>
 
             <h3 className="order_detail_subtitle">
               {t("purchaseNumber")}

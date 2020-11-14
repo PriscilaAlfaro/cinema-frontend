@@ -23,7 +23,7 @@ const reducer = (state, action) => {
     case "setPurchasedSeats":
       return {
         ...state,
-        purchaseSeats: action.data,
+        purchasedSeats: action.data,
       };
 
     case "setSeatAvailability":

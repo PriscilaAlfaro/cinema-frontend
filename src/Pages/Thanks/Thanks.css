@@ -36,6 +36,7 @@
   color: white;
   border-color: black;
   border-radius: 50%;
+  font-size: 0.5rem;
 }
 .download:hover{
   background-color: rgba(155, 128, 235, 0.7);
