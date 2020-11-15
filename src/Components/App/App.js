@@ -19,9 +19,6 @@ function App() {
   const { movies, locations, screenings } = state;
 
   const loadData = async () => {
-    const mov = await axios.get(`${process.env.REACT_APP_BASE_URL}/movies`);
-    dispatch({ type: "setMovies", data: mov.data });
-
     const loc = await axios.get(`${process.env.REACT_APP_BASE_URL}/locations`);
     dispatch({ type: "setLocations", data: loc.data });
 
@@ -29,10 +26,20 @@ function App() {
       `${process.env.REACT_APP_BASE_URL}/screenings`
     );
     dispatch({ type: "setScreenings", data: scree.data });
+
+    const mov = await axios.get(`${process.env.REACT_APP_BASE_URL}/movies`);
+    dispatch({ type: "setMovies", data: mov.data });
   };
 
   useEffect(() => {
-    loadData();
+    let unmounted = false;
+    if (!unmounted) {
+      loadData();
+    }
+
+    return () => {
+      unmounted = true;
+    };
   }, []);
 
   function handleMovieClick(index) {

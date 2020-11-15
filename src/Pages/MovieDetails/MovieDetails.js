@@ -97,7 +97,7 @@ function MovieDetails() {
       <Header />
       {/* Movie details ----------------------------------- */}
       {currentMovie && (
-        <div>
+        <div data-testid="movie-details">
           <figure className="movie-general-image">
             <div className="poster">
               <img alt="poster" src={currentMovie.poster} />

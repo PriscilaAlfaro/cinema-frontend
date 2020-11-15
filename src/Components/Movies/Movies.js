@@ -16,7 +16,7 @@ function Movies() {
   };
 
   return (
-    <div className="movie-container">
+    <div className="movie-container" data-testid="movie-container">
       {movies.map((movie, index) => {
         return (
           <div key={movie._id} onClick={() => goToMovieDetail(index)}>
