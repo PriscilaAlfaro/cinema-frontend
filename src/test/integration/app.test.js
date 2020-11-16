@@ -1,22 +1,9 @@
 import React from "react";
-import {
-  render,
-  cleanup,
-  fireEvent,
-  waitFor,
-  screen,
-  act,
-} from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import * as Router from "@reach/router";
-// import {
-//   Router,
-//   createHistory,
-//   createMemorySource,
-//   LocationProvider,
-// } from "@reach/router";
+
 import nock from "nock";
-// import { act } from "react-dom/test-utils";
-// import AppContext from "../../store/context";
+
 import store from "../../store/index";
 import App from "../../Components/App/App";
 import { MOVIES, LOCATIONS, SCREENINGS } from "./fixtures/backend";
