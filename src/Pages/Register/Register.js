@@ -158,7 +158,7 @@ function Register() {
               <div className="seats">
                 {salesOrder.selectedSeats.length === 1 && (
                   <>
-                    <h3>
+                    <h3 data-testid="seatsSelectedinRegister">
                       {salesOrder.selectedSeats.map((seat) => `${seat} `)}
                     </h3>
                     <p>{t("seat")}</p>
@@ -174,7 +174,6 @@ function Register() {
                 )}
               </div>
             </div>
-            <div className="barcode" />
           </div>
         </div>
       </div>
@@ -198,6 +197,7 @@ function Register() {
               :&nbsp;
             </label>
             <input
+              data-testid="input-name"
               className="input"
               id="name"
               placeholder={t("fullName")}
@@ -213,6 +213,7 @@ function Register() {
               :&nbsp;
             </label>
             <input
+              data-testid="input-email"
               className="input"
               id="email"
               placeholder="example@sample.com"
@@ -231,6 +232,7 @@ function Register() {
               :&nbsp;
             </label>
             <input
+              data-testid="input-phone"
               className="input"
               pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}"
               id="phone"
@@ -254,6 +256,7 @@ function Register() {
         validatePhoneNumber(salesOrder.userPhone) && (
           <div>
             <button
+              data-testid="goToStripe"
               className="next-button"
               onClick={callStripeCheckout}
               type="button"

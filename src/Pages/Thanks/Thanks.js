@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "@reach/router";
+import { useNavigate, useLocation } from "@reach/router";
 import { useTranslation } from "react-i18next";
 import formatDay from "../../utils/utils";
 import Footer from "../../Components/Footer/Footer";
@@ -12,6 +12,7 @@ function Thanks() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [finalOrder, setFinalOrder] = useState({});
+  const location = useLocation();
 
   const UpdateOrderData = async (sessionId) => {
     const updateOrder = await axios.patch(
@@ -24,9 +25,7 @@ function Thanks() {
   };
 
   useEffect(() => {
-    const sessionId = new URLSearchParams(window.location.search).get(
-      "session_id"
-    );
+    const sessionId = new URLSearchParams(location.search).get("session_id");
 
     UpdateOrderData(sessionId);
   }, []);
@@ -45,7 +44,7 @@ function Thanks() {
       <Header />
       {finalOrder.movie && (
         <>
-          <div className="thanks">
+          <div className="thanks" data-testid="thanks">
             <h1>
               {t("thanksForyYourOrder")}
               &nbsp;
@@ -140,32 +139,34 @@ function Thanks() {
               :&nbsp;
             </h3>
             <h4>{finalOrder.paymentReference}</h4>
-          </div>
 
-          <div className="thanks_email">
-            <h5>
-              {t("tickectsSentTo")}
-              &nbsp;
-              {finalOrder.email}
-              <br />
-              {t("youCanDownloadHere")}
-              &gt; &nbsp;
-              <button
-                className="download"
-                onClick={showPrintOption}
-                type="button"
-              >
-                <h1>{t("tickets")}</h1>
-              </button>
-            </h5>
-            <h5>{t("thanksTorYourElection")}</h5>
-            <h6>
-              {t("ifQuestions")}
-              :&nbsp;
-              <a href="mailto:cinema_cr@outlook.com">cinema_cr@outlook.com</a>
-            </h6>
+            <div className="thanks_email">
+              <h5>
+                {t("tickectsSentTo")}
+                &nbsp;
+                {finalOrder.email}
+                <br />
+                {t("youCanDownloadHere")}
+                &gt; &nbsp;
+                <button
+                  data-testid="print"
+                  className="download"
+                  onClick={showPrintOption}
+                  type="button"
+                >
+                  <h1>{t("tickets")}</h1>
+                </button>
+              </h5>
+              <h5>{t("thanksTorYourElection")}</h5>
+              <h6>
+                {t("ifQuestions")}
+                :&nbsp;
+                <a href="mailto:cinema_cr@outlook.com">cinema_cr@outlook.com</a>
+              </h6>
+            </div>
           </div>
           <button
+            data-testid="goToHome"
             className="home"
             onClick={handlGoToHomeFromThanks}
             type="button"

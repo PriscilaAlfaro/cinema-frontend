@@ -3,14 +3,26 @@ import AppContext from "../../store/context";
 import "./Modal.css";
 
 function Modal() {
-  const { setShowModal, currentMovie } = useContext(AppContext);
+  const { state, dispatch } = useContext(AppContext);
+  const { currentMovie } = state;
+  // const { setShowModal, currentMovie } = useContext(AppContext);
+
+  const handleCloseModal = () => {
+    dispatch({ type: "setShowModal", data: false });
+  };
+
   return (
-    <div className="modal" onClick={() => setShowModal(false)}>
+    <div className="modal" onClick={handleCloseModal}>
       <section className="modal-content">
-        <button type="button" onClick={() => setShowModal(false)}>
+        <button
+          data-testid="close-modal"
+          type="button"
+          onClick={handleCloseModal}
+        >
           X
         </button>
         <iframe
+          data-testid="modal"
           title="movie"
           src={`${currentMovie.video}?autoplay=1`}
           frameBorder="0"

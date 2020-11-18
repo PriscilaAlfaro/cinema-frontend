@@ -23,38 +23,41 @@ function TicketsCounter() {
 
   const navigate = useNavigate();
 
-  const fetchSeatAvailableData = async () => {
+  const fetchSeatAvailableData = async (ismounted) => {
     const available = await axios.get(
       `${process.env.REACT_APP_BASE_URL}/seatAvailability/${salesOrder.screening_id}`
     );
-    const currentSeatAvailability = available.data;
+    if (ismounted) {
+      const currentSeatAvailability = available.data;
+      dispatch({
+        type: "setPurchasedSeats",
+        data: currentSeatAvailability.purchasedSeats,
+      });
 
-    // find the correct seatAvalability accoding to screennig id
-    // const currentSeatAvailability = available.data.find(
-    //   (seats) => seats.screening_id === salesOrder.screening_id
-    // );
-    dispatch({
-      type: "setPurchasedSeats",
-      data: currentSeatAvailability.purchasedSeats,
-    });
+      const seatsAvailable =
+        salesOrder.totalSeats - currentSeatAvailability.purchasedSeats.length;
+      setSeatsAvailableForCurrentScreening(seatsAvailable);
 
-    const seatsAvailable =
-      salesOrder.totalSeats - currentSeatAvailability.purchasedSeats.length;
-    setSeatsAvailableForCurrentScreening(seatsAvailable);
-
-    const initialTotalPrice = salesOrder.price * ticketCount;
-    setTotalPrice(initialTotalPrice);
-    dispatch({
-      type: "setSalesOrder",
-      data: {
-        totalPrice: initialTotalPrice,
-        availability_id: currentSeatAvailability._id,
-      },
-    });
+      const initialTotalPrice = salesOrder.price * ticketCount;
+      setTotalPrice(initialTotalPrice);
+      dispatch({
+        type: "setSalesOrder",
+        data: {
+          totalPrice: initialTotalPrice,
+          availability_id: currentSeatAvailability._id,
+        },
+      });
+    }
   };
 
   useEffect(() => {
-    fetchSeatAvailableData();
+    let ismounted = true;
+    if (ismounted) {
+      fetchSeatAvailableData(ismounted);
+    }
+    return () => {
+      ismounted = false;
+    };
   }, []);
 
   const incrementCounter = () => {
@@ -118,25 +121,39 @@ function TicketsCounter() {
         <div className="tickets_info">
           <h4>{t("amount")}</h4>
           <div className="buttons">
-            <button className="button" type="button" onClick={decrementCounter}>
+            <button
+              data-testid="decrement-button"
+              className="button"
+              type="button"
+              onClick={decrementCounter}
+            >
               <h2>-</h2>
             </button>
-            <h5 className="count">{ticketCount}</h5>
-            <button className="button" type="button" onClick={incrementCounter}>
+            <h5 data-testid="counter" className="count">
+              {ticketCount}
+            </h5>
+            <button
+              data-testid="increment-button"
+              className="button"
+              type="button"
+              onClick={incrementCounter}
+            >
               <h2>+</h2>
             </button>
           </div>
-          <div className="seats-available">
-            <p>
-              {t("seatsAvailableForScreen")}
-              :&nbsp;
-              {seatsAvailableForCurrentScreening}
-            </p>
-          </div>
+          {seatsAvailableForCurrentScreening && (
+            <div className="seats-available">
+              <p data-testid="seats-available">
+                {t("seatsAvailableForScreen")}
+                :&nbsp;
+                {seatsAvailableForCurrentScreening}
+              </p>
+            </div>
+          )}
         </div>
         <div className="tickets_info">
           <h4>Total</h4>
-          <h5>
+          <h5 data-testid="total-price">
             {totalPrice}
             &nbsp; kr
           </h5>
@@ -150,7 +167,7 @@ function TicketsCounter() {
             onClick={handlGoToSeats}
             type="button"
           >
-            <h3>{t("next")}</h3>
+            <h3 data-testid="goToSeats">{t("next")}</h3>
           </button>
         </div>
       )}

@@ -93,9 +93,10 @@ function Seats() {
       <div>
         <div className="row">
           {totalAmountOfSeats &&
-            totalAmountOfSeats.map((seatNumber) => (
+            totalAmountOfSeats.map((seatNumber, index) => (
               <div
-                className={`seat 
+                data-testid="seat-grid"
+                className={`seat-${index + 1} 
                 ${purchasedSeats.includes(seatNumber) ? "occupied" : ""} ${
                   selectedSeats.includes(seatNumber) ? "selected" : ""
                 }`}
@@ -109,7 +110,7 @@ function Seats() {
         </div>
         <div className="text">
           {selectedSeats.length === 1 && (
-            <div>
+            <div data-testid="seat-selected">
               {t("youSelectSeatSingular")}
               :&nbsp;
               {`${selectedSeats} `}
@@ -129,6 +130,7 @@ function Seats() {
       {selectedSeats.length === salesOrder.tickets && (
         <div>
           <button
+            data-testid="goToRegister"
             className="next-button"
             onClick={handlGoToRegister}
             type="button"

@@ -105,6 +105,7 @@ function MovieDetails() {
 
             {showModal && <Modal />}
             <button
+              data-testid="show-modal"
               className="play-container"
               type="button"
               onClick={handleOpenModal}
@@ -176,6 +177,7 @@ function MovieDetails() {
               </h4>
             </label>
             <select
+              data-testid="dropdown-location"
               name="location"
               className="location"
               onChange={handleSelectedLocation}
@@ -199,7 +201,12 @@ function MovieDetails() {
                 :&nbsp;
               </h4>
             </label>
-            <select name="days" className="days" onChange={handleSelectedDay}>
+            <select
+              data-testid="dropdown-day"
+              name="days"
+              className="days"
+              onChange={handleSelectedDay}
+            >
               {newDates.map((date) => (
                 <option value={date.day_id} key={date.day_id}>
                   {date.day}
@@ -239,6 +246,7 @@ function MovieDetails() {
               .find((date) => date.day_id === salesOrder.date_id)
               .screening.map((hour) => (
                 <button
+                  data-testid="hour-button"
                   className="hour-button"
                   type="button"
                   key={hour._id}
