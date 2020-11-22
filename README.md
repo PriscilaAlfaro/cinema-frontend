@@ -1,5 +1,5 @@
 
-[![Actions Status](https://github.com/PriscilaAlfaro/cinema/workflows/cinema-frontend-build/badge.svg)](https://github.com/PriscilaAlfaro/cinema/actions)
+[![Actions Status](https://github.com/PriscilaAlfaro/cinema-frontend/workflows/cinema-frontend-build/badge.svg)](https://github.com/PriscilaAlfaro/cinema-frontend/actions)
 
 
 # Cinema CR 
