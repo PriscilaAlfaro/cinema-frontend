@@ -1,4 +1,7 @@
 
+[![Actions Status](https://github.com/PriscilaAlfaro/cinema/workflows/cinema-frontend-build/badge.svg)](https://github.com/PriscilaAlfaro/cinema/actions)
+
+
 # Cinema CR 
 Our goal is to create a simply app to recreate a small movie theather in two languajes(Swedish and Spanish). This project is the final exam of the course of junior full stack of `SmartCoding`, developed in Swedish between octuber and november 2020. 
 
