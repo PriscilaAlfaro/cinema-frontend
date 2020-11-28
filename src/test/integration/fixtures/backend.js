@@ -33,13 +33,6 @@ export const LOCATIONS = [
     totalSeats: 25,
     salong: 1,
   },
-  // {
-  //   _id: "5f9936d9b06cca78a869c01e",
-  //   location: "Göteborg",
-  //   price: 10,
-  //   totalSeats: 25,
-  //   salong: 1,
-  // },
 ];
 
 export const SCREENINGS = [

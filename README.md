@@ -24,10 +24,12 @@ We are using a number of open source tools:
 
 - [React] - A JavaScript library for building user interfaces
 - [Axios] - Promise based HTTP client for the browser and node.js
+- [fontawesome] -  Icon library 
+- [i18next] - An internationalization-framework written in and for JavaScript
 
 ### Installation
-
-Install all dependencies and start the project.
+- Install all dependencies 
+- Start the project 
 
 ```sh
 $ cd cinema-frontend

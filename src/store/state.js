@@ -3,7 +3,6 @@ const state = {
   locations: [],
   screenings: [],
   purchasedSeats: [],
-  // seatAvailability: null,
   currentMovie: null,
   salesOrder: {},
   showModal: false,
