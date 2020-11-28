@@ -58,5 +58,6 @@
     "validPhoneNumber": "Ingrese un número de teléfono de 10 dígitos",
     "purchaseStatus": "Estatus de su compra",
     "purchaseDate": "Fecha de compra",
-    "purchaseNumber": "Número de referencia"
+    "purchaseNumber": "Número de referencia",
+    "watchTrailer": "Ver adelanto"
 }

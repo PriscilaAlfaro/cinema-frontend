@@ -118,5 +118,6 @@ export const ORDER = {
     paymentReference: "ch_1HiCaI2eZvKYlo2CsnhbyVsJ",
     paymentStatus: "pending",
     purchaseDate: new Date().toISOString(),
+    language: "sv",
   },
 };

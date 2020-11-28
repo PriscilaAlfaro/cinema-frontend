@@ -4,11 +4,15 @@
     width: 100%;
 }
 
+.movie-details{
+    position: relative;
+}
+
 .superior{  
     text-align: initial;
     padding: 20px 40px;
     color: white;
-    top: 18%;
+    top: 4rem;
     position: absolute;
 }
 .superior h4 {
@@ -31,6 +35,7 @@
     display: inline-flex;
     align-items: center;
     color: white;
+
 }
 
 select.location, select.days{
@@ -38,6 +43,12 @@ select.location, select.days{
     border-bottom: 2px solid purple;
     margin-left: 3.5rem;
     font-size: 1rem;
+    cursor: pointer;
+}
+
+select.location:hover, select.days:hover{
+    border-bottom: 2px solid rgb(230, 88, 6);
+    background-color: #dc681a;
 }
 
 select{
@@ -60,9 +71,17 @@ select{
     border-bottom: 5px solid purple;
     color: white;
     font-size: 1rem;
-    color: red;
+   color: white;
     cursor: pointer;
 }
+
+.hour-button:hover{
+  color: #c01919;;
+  font-size: 1.2rem;
+  background-color: rgb(223, 206, 240);
+
+}
+
 
 .map-iframe{
     width: 35%;
@@ -70,8 +89,6 @@ select{
 }
 
 /* ---------------main image -----------*/
-
-
 
 figure {
     justify-items: center;
@@ -87,23 +104,29 @@ figure {
 }
 
 .play-container {
-background-color: transparent;
-border-color: transparent;
-width: 7.5rem;
-height: 7.5rem;
-position: absolute;
-cursor: pointer;
-  display: block;
-  top: 100%;
-  left: 50%;
-background-image: url("../../utils/play-image.png");
- background-position: center;
-background-size: 100%;
-background-repeat: no-repeat;
-  font-size: 4rem;
-  border-radius: 50%;
-    
+  cursor: pointer;
+  align-self: center;
+  align-content: center;
 }  
+
+.watch-trailer{
+    background-color: #dc681a;
+    display: inline-flex;
+    width: 100%;
+    height: 5rem;
+    justify-content: center;
+    color: white;
+}
+
+.watch-trailer h1{
+    margin: 1.3rem 0.5rem;
+}
+
+.watch-trailer:hover{
+color: #c01919;
+background-color: #df8950;
+cursor: pointer;
+}
 
 /* ----------modal-content-------------- */
 iframe{
@@ -111,69 +134,35 @@ iframe{
   height: auto;
 }
 /* ----------MEDIA QUERY-------------- */
- @media only screen and (max-width: 2000px) {
-.play-container{
-       top: 62%;
-}
-
-}
- @media only screen and (max-width: 1750px) {
-.play-container{
-       top: 60%;
-}
-
-}
-
- @media only screen and (max-width: 1500px) {
-.play-container{
-       top: 58%;
-         width: 6rem;
-}
-
-}
-
-@media only screen and (max-width: 1250px) {
-.play-container {
-      top: 45%;
-}
-}
 
 @media only screen and (max-width: 950px) {
-.play-container{
-    width: 5rem;
-      top: 35%;
-}
 .superior{  
     padding: 15px 30px;
     font-size: 60%;
-
+    top: 3rem;
 }
-
 } 
 @media only screen and (max-width: 740px) {
 
 .superior{  
     padding: 15px 30px;
-    top: 24%;
+    top: 2rem;
     font-size: 60%;
 }
-.play-container{
-     top: 29%;
-     }
 
 }
 
 @media only screen and (max-width: 500px) {
 .superior{  
     padding: 12px 25px;
-    top: 25%;
+    top: 0.5rem;
     font-size: 50%;
 }
 
 
 .location_dropDownList, .days_dropDownList{
     display: block;
-      width: 25rem;
+    width: 17rem;
     margin: 1rem 0rem 0rem 1rem;
 
 }
@@ -192,15 +181,13 @@ div .hours{
 div .tickets{
       padding: 0 1rem; 
 }
-.play-container{
-      top: 20%;
-}
+
 }
 
 @media only screen and (max-width: 350px) {
 .superior{  
     padding: 10px 20px;
-    top: 26%;
+    top: 0.4rem;
     font-size: 45%;
 }
 
@@ -208,34 +195,25 @@ div .tickets{
     font-size: 50%;
 }
 .hour-button{
- 
     height: 3rem;
     margin-top: 1rem;
-  border-bottom: 2px solid purple;
-      font-size: 90%;
+    border-bottom: 2px solid purple;
+    font-size: 90%;
   
 
 }
 select.location, select.days {
     font-size: 90%;
-           width: 20%;
+    width: 20%;
 }
-.play-container{
-      top: 16%;
-         width: 3rem;
-}
+
 }
 
 
 @media only screen and (max-width: 250px) {
 .superior{  
     padding: 10px 20px;
-    top: 30%;
+    top: 0.3rem;
     font-size: 45%;
-}
-
-.play-container{
-      top: 9%;
-       
 }
 }

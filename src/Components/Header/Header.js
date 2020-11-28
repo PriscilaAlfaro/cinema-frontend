@@ -12,12 +12,17 @@ function Header() {
   };
 
   const changeLanguage = (code) => {
+    localStorage.setItem("language", code);
     i18n.changeLanguage(code);
   };
 
   return (
     <div className="header">
-      <div className="header_logo" onClick={handlGoToHomeFromLogo}>
+      <div
+        className="header_logo"
+        data-testid="header-logo"
+        onClick={handlGoToHomeFromLogo}
+      >
         <img
           className="header-image"
           alt=""
@@ -26,11 +31,19 @@ function Header() {
         <h3>Cinema CR</h3>
       </div>
       <div className="language-buttons">
-        <button type="button" onClick={() => changeLanguage("sv")}>
+        <button
+          type="button"
+          data-testid="sv-button"
+          onClick={() => changeLanguage("sv")}
+        >
           {t("sv")}
         </button>
 
-        <button type="button" onClick={() => changeLanguage("es")}>
+        <button
+          type="button"
+          data-testid="es-button"
+          onClick={() => changeLanguage("es")}
+        >
           {t("es")}
         </button>
       </div>

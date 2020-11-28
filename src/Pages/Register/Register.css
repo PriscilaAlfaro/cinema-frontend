@@ -72,7 +72,8 @@ h3 {
 
   p {
       margin:0rem;
-      font-size: 1rem;
+      font-size: 0.8rem;
+      text-align: start;
     }
 
 .title, .seats, .time, .date, .location, .salong {

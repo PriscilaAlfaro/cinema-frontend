@@ -14,7 +14,7 @@ function Thanks() {
   const [finalOrder, setFinalOrder] = useState({});
   const location = useLocation();
 
-  const UpdateOrderData = async (sessionId) => {
+  const updateOrderData = async (sessionId) => {
     const updateOrder = await axios.patch(
       `${process.env.REACT_APP_BASE_URL}/order/${sessionId}`,
       {
@@ -27,7 +27,7 @@ function Thanks() {
   useEffect(() => {
     const sessionId = new URLSearchParams(location.search).get("session_id");
 
-    UpdateOrderData(sessionId);
+    updateOrderData(sessionId);
   }, []);
 
   const handlGoToHomeFromThanks = () => {
@@ -48,7 +48,7 @@ function Thanks() {
             <h1>
               {t("thanksForyYourOrder")}
               &nbsp;
-              {finalOrder.name}
+              {finalOrder.name.split(" ")[0]}
             </h1>
             <h2>{t("detailsOfYourOrder")}</h2>
             <h3 className="order_detail_subtitle">

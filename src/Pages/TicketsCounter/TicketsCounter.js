@@ -23,41 +23,34 @@ function TicketsCounter() {
 
   const navigate = useNavigate();
 
-  const fetchSeatAvailableData = async (ismounted) => {
+  const fetchSeatAvailableData = async () => {
     const available = await axios.get(
       `${process.env.REACT_APP_BASE_URL}/seatAvailability/${salesOrder.screening_id}`
     );
-    if (ismounted) {
-      const currentSeatAvailability = available.data;
-      dispatch({
-        type: "setPurchasedSeats",
-        data: currentSeatAvailability.purchasedSeats,
-      });
 
-      const seatsAvailable =
-        salesOrder.totalSeats - currentSeatAvailability.purchasedSeats.length;
-      setSeatsAvailableForCurrentScreening(seatsAvailable);
+    const currentSeatAvailability = available.data;
+    dispatch({
+      type: "setPurchasedSeats",
+      data: currentSeatAvailability.purchasedSeats,
+    });
 
-      const initialTotalPrice = salesOrder.price * ticketCount;
-      setTotalPrice(initialTotalPrice);
-      dispatch({
-        type: "setSalesOrder",
-        data: {
-          totalPrice: initialTotalPrice,
-          availability_id: currentSeatAvailability._id,
-        },
-      });
-    }
+    const seatsAvailable =
+      salesOrder.totalSeats - currentSeatAvailability.purchasedSeats.length;
+    setSeatsAvailableForCurrentScreening(seatsAvailable);
+
+    const initialTotalPrice = salesOrder.price * ticketCount;
+    setTotalPrice(initialTotalPrice);
+    dispatch({
+      type: "setSalesOrder",
+      data: {
+        totalPrice: initialTotalPrice,
+        availability_id: currentSeatAvailability._id,
+      },
+    });
   };
 
   useEffect(() => {
-    let ismounted = true;
-    if (ismounted) {
-      fetchSeatAvailableData(ismounted);
-    }
-    return () => {
-      ismounted = false;
-    };
+    fetchSeatAvailableData();
   }, []);
 
   const incrementCounter = () => {
@@ -141,7 +134,7 @@ function TicketsCounter() {
               <h2>+</h2>
             </button>
           </div>
-          {seatsAvailableForCurrentScreening && (
+          {seatsAvailableForCurrentScreening > 0 && (
             <div className="seats-available">
               <p data-testid="seats-available">
                 {t("seatsAvailableForScreen")}

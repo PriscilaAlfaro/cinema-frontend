@@ -26,11 +26,11 @@ const reducer = (state, action) => {
         purchasedSeats: action.data,
       };
 
-    case "setSeatAvailability":
-      return {
-        ...state,
-        seatAvailability: action.data,
-      };
+    // case "setSeatAvailability":
+    //   return {
+    //     ...state,
+    //     seatAvailability: action.data,
+    //   };
     case "setShowModal":
       return {
         ...state,

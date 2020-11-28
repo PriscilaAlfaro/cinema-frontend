@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "@reach/router";
+import { useNavigate, useLocation } from "@reach/router";
 import { useTranslation } from "react-i18next";
 import Footer from "../../Components/Footer/Footer";
 import Header from "../../Components/Header/Header";
@@ -10,6 +10,7 @@ const axios = require("axios");
 function CancelledPay() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation();
 
   // this accion delete order and update seatAvailability
   const deleteOrderData = async (sessionId) => {
@@ -17,9 +18,7 @@ function CancelledPay() {
   };
 
   useEffect(() => {
-    const sessionId = new URLSearchParams(window.location.search).get(
-      "session_id"
-    );
+    const sessionId = new URLSearchParams(location.search).get("session_id");
 
     deleteOrderData(sessionId);
   }, []);
@@ -29,7 +28,7 @@ function CancelledPay() {
   };
 
   return (
-    <div className="main-container">
+    <div className="main-container-cancelled" data-testid="cancelled">
       <Header />
       <div className="text">
         <h1>{t("cancelledOrder")}</h1>
@@ -43,6 +42,7 @@ function CancelledPay() {
       <div>
         <button
           className="goHome"
+          data-testid="goHomeFromCancelled"
           onClick={handlGoToHomeFromCancelled}
           type="button"
         >

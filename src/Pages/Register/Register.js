@@ -82,6 +82,7 @@ function Register() {
       paymentStatus: "pending",
       purchaseDate: new Date().toISOString(),
       availability_id: salesOrder.availability_id,
+      languaje: i18n.language,
     });
   };
 
@@ -222,9 +223,7 @@ function Register() {
               type="email"
               onChange={handleUserEmail}
             />
-            {!validateEmail(salesOrder.userEmail) && (
-              <p>{t("validPhoneNumber")}</p>
-            )}
+            {!validateEmail(salesOrder.userEmail) && <p>{t("validEmail")}</p>}
           </div>
           <div className="phone">
             <label htmlFor="phone" className="label">
@@ -244,7 +243,7 @@ function Register() {
               onChange={handleUserPhone}
             />
             {!validatePhoneNumber(salesOrder.userPhone) && (
-              <p>{t("validEmail")}</p>
+              <p>{t("validPhoneNumber")}</p>
             )}
           </div>
         </form>

@@ -5,7 +5,6 @@ import "./Modal.css";
 function Modal() {
   const { state, dispatch } = useContext(AppContext);
   const { currentMovie } = state;
-  // const { setShowModal, currentMovie } = useContext(AppContext);
 
   const handleCloseModal = () => {
     dispatch({ type: "setShowModal", data: false });

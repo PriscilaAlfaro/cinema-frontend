@@ -47,6 +47,7 @@ function SearchBar() {
           {filteredMovies.map((movie, index) => {
             return (
               <li
+                data-testid="specific-movie-search"
                 className={index === activeOption ? "option-active" : ""}
                 key={movie.title}
                 onClick={() => {
@@ -67,6 +68,7 @@ function SearchBar() {
       <div className="searchBar_input">
         <h1>{t("search")}</h1>
         <input
+          data-testid="search-input"
           className="search-box"
           placeholder={t("searchForAMovie")}
           type="text"

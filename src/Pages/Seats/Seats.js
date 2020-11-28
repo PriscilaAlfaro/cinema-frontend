@@ -55,8 +55,6 @@ function Seats() {
     navigate("/register");
   };
 
-  // TODO: 2. aqui tiene que hacerse otro fecth
-
   return (
     <div className="main-container">
       <Header />
@@ -93,10 +91,10 @@ function Seats() {
       <div>
         <div className="row">
           {totalAmountOfSeats &&
-            totalAmountOfSeats.map((seatNumber, index) => (
+            totalAmountOfSeats.map((seatNumber) => (
               <div
                 data-testid="seat-grid"
-                className={`seat-${index + 1} 
+                className={`seat } 
                 ${purchasedSeats.includes(seatNumber) ? "occupied" : ""} ${
                   selectedSeats.includes(seatNumber) ? "selected" : ""
                 }`}

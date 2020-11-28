@@ -18,35 +18,21 @@ function App() {
   const [state, dispatch] = useReducer(store.reducer, store.initialState);
   const { movies, locations, screenings } = state;
 
-  const loadData = async (ismounted) => {
+  const loadData = async () => {
     const loc = await axios.get(`${process.env.REACT_APP_BASE_URL}/locations`);
-    if (ismounted) {
-      dispatch({ type: "setLocations", data: loc.data });
-    }
+    dispatch({ type: "setLocations", data: loc.data });
 
     const scree = await axios.get(
       `${process.env.REACT_APP_BASE_URL}/screenings`
     );
-
-    if (ismounted) {
-      dispatch({ type: "setScreenings", data: scree.data });
-    }
+    dispatch({ type: "setScreenings", data: scree.data });
 
     const mov = await axios.get(`${process.env.REACT_APP_BASE_URL}/movies`);
-    if (ismounted) {
-      dispatch({ type: "setMovies", data: mov.data });
-    }
+    dispatch({ type: "setMovies", data: mov.data });
   };
 
   useEffect(() => {
-    let ismounted = true;
-    if (ismounted) {
-      loadData(ismounted);
-    }
-
-    return () => {
-      ismounted = false;
-    };
+    loadData();
   }, []);
 
   function handleMovieClick(index) {

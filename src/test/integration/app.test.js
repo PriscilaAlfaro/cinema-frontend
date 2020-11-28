@@ -1,5 +1,6 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
+import { act } from "react-dom/test-utils";
 import * as Router from "@reach/router";
 
 import nock from "nock";
@@ -38,16 +39,15 @@ describe("Cinema CR tickets App", () => {
         "access-control-allow-origin": "*",
       })
       .patch(`/order/ch_1HiCaI2eZvKYlo2CsnhbyVsJ`)
-      .reply(200, ORDER);
+      .reply(200, ORDER)
+      .delete(`/order/ch_1HiCaI2eZvKYlo2CsnhbyVsJ`)
+      .reply(204);
   });
-  // afterAll(cleanup);
 
   const testState = {
     movies: [],
     locations: [],
     screenings: [],
-    purchasedSeats: [],
-    seatAvailability: null,
     currentMovie: null,
     salesOrder: {},
     showModal: false,
@@ -60,14 +60,20 @@ describe("Cinema CR tickets App", () => {
       history = Router.createHistory(Router.createMemorySource(route)),
     } = {}
   ) {
-    return {
-      ...render(
-        <Router.LocationProvider history={history}>
-          {ui}
-        </Router.LocationProvider>
-      ),
-      history,
-    };
+    let component;
+
+    act(() => {
+      component = {
+        ...render(
+          <Router.LocationProvider history={history}>
+            {ui}
+          </Router.LocationProvider>
+        ),
+        history,
+      };
+    });
+
+    return component;
   }
 
   describe("render home page with all movies", () => {
@@ -76,6 +82,42 @@ describe("Cinema CR tickets App", () => {
     test("user can view the list of movies avaliable", async () => {
       const { findAllByTestId } = renderWithRouter(<App />);
       await findAllByTestId("movie-item");
+
+      const component = renderWithRouter(<App />);
+      await component.findAllByTestId("movie-item");
+    });
+
+    test("user can click logo in header and go to home", async () => {
+      const { findAllByTestId, findByTestId, getByText } = renderWithRouter(
+        <App />
+      );
+      const moviesItems = await findAllByTestId("movie-item");
+      act(() => {
+        fireEvent.click(moviesItems[0]);
+      });
+
+      await findByTestId("movie-details");
+      expect(getByText("Amanda Adolfsson")).toBeInTheDocument();
+      const logo = await findByTestId("header-logo");
+      fireEvent.click(logo);
+      await findByTestId("movie-details");
+    });
+
+    test("user search for a movie in the Searchbar and go to movie details page when click over a movie in the list", async () => {
+      const { findAllByTestId, findByTestId, getByText } = renderWithRouter(
+        <App />
+      );
+      await findAllByTestId("movie-item");
+      const input = await findByTestId("search-input");
+      fireEvent.change(input, {
+        target: { value: "Nelly Rapp" },
+      });
+      const list = await findByTestId("specific-movie-search");
+      expect(list).toBeInTheDocument();
+      fireEvent.click(list);
+
+      await findByTestId("movie-details");
+      expect(getByText("Amanda Adolfsson")).toBeInTheDocument();
     });
 
     test("user click a movie and go to movie details page", async () => {
@@ -83,7 +125,9 @@ describe("Cinema CR tickets App", () => {
         <App />
       );
       const moviesItems = await findAllByTestId("movie-item");
-      await fireEvent.click(moviesItems[0]);
+      act(() => {
+        fireEvent.click(moviesItems[0]);
+      });
       await findByTestId("movie-details");
       expect(getByText("Amanda Adolfsson")).toBeInTheDocument();
     });
@@ -93,7 +137,9 @@ describe("Cinema CR tickets App", () => {
         <App />
       );
       const moviesItems = await findAllByTestId("movie-item");
-      await fireEvent.click(moviesItems[0]);
+      act(() => {
+        fireEvent.click(moviesItems[0]);
+      });
       await findByTestId("movie-details");
       expect(getByText("Amanda Adolfsson")).toBeInTheDocument();
       const showModalButton = await findByTestId("show-modal");
@@ -110,12 +156,17 @@ describe("Cinema CR tickets App", () => {
         <App />
       );
       const moviesItems = await findAllByTestId("movie-item");
-      fireEvent.click(moviesItems[0]);
+      act(() => {
+        fireEvent.click(moviesItems[0]);
+      });
       await findByTestId("movie-details");
       expect(getByText("Amanda Adolfsson")).toBeInTheDocument();
       const dropdownLocations = await findByTestId("dropdown-location");
-      fireEvent.change(dropdownLocations, {
-        target: { value: "5f9936d9b06cca78a869c01d" },
+
+      act(() => {
+        fireEvent.change(dropdownLocations, {
+          target: { value: "5f9936d9b06cca78a869c01d" },
+        });
       });
       const hourButton = await findByTestId("hour-button");
       expect(hourButton).toHaveTextContent("14:00");
@@ -126,7 +177,9 @@ describe("Cinema CR tickets App", () => {
         <App />
       );
       const moviesItems = await findAllByTestId("movie-item");
-      fireEvent.click(moviesItems[0]);
+      act(() => {
+        fireEvent.click(moviesItems[0]);
+      });
       await findByTestId("movie-details");
       expect(getByText("Amanda Adolfsson")).toBeInTheDocument();
       const dropdownDays = await findByTestId("dropdown-day");
@@ -142,7 +195,9 @@ describe("Cinema CR tickets App", () => {
         <App />
       );
       const moviesItems = await findAllByTestId("movie-item");
-      await fireEvent.click(moviesItems[0]);
+      act(() => {
+        fireEvent.click(moviesItems[0]);
+      });
       await findByTestId("movie-details");
       expect(getByText("Amanda Adolfsson")).toBeInTheDocument();
       const buyTikectButtons = await findAllByTestId("hour-button");
@@ -155,7 +210,9 @@ describe("Cinema CR tickets App", () => {
         <App />
       );
       const moviesItems = await findAllByTestId("movie-item");
-      fireEvent.click(moviesItems[0]);
+      act(() => {
+        fireEvent.click(moviesItems[0]);
+      });
       // movie details page------------
       await findByTestId("movie-details");
       expect(getByText("Amanda Adolfsson")).toBeInTheDocument();
@@ -184,7 +241,9 @@ describe("Cinema CR tickets App", () => {
         <App />
       );
       const moviesItems = await findAllByTestId("movie-item");
-      fireEvent.click(moviesItems[0]);
+      act(() => {
+        fireEvent.click(moviesItems[0]);
+      });
       // movie details page------------
       await findByTestId("movie-details");
       expect(getByText("Amanda Adolfsson")).toBeInTheDocument();
@@ -213,7 +272,9 @@ describe("Cinema CR tickets App", () => {
         <App />
       );
       const moviesItems = await findAllByTestId("movie-item");
-      fireEvent.click(moviesItems[0]);
+      act(() => {
+        fireEvent.click(moviesItems[0]);
+      });
       // movie details page------------
       await findByTestId("movie-details");
       expect(getByText("Amanda Adolfsson")).toBeInTheDocument();
@@ -262,7 +323,9 @@ describe("Cinema CR tickets App", () => {
         <App />
       );
       const moviesItems = await findAllByTestId("movie-item");
-      fireEvent.click(moviesItems[0]);
+      act(() => {
+        fireEvent.click(moviesItems[0]);
+      });
       // movie details page------------
       await findByTestId("movie-details");
       expect(getByText("Amanda Adolfsson")).toBeInTheDocument();
@@ -317,6 +380,22 @@ describe("Cinema CR tickets App", () => {
       expect(finalOrderContainer).toBeInTheDocument();
 
       const nextButtonToHome = await findByTestId("goToHome");
+      fireEvent.click(nextButtonToHome);
+      const movies = await findAllByTestId("movie-item");
+      expect(movies[0]).toBeInTheDocument();
+    });
+
+    test("user can view information about order cancelation in cancelled page when clicks return in stripe", async () => {
+      const {
+        findByTestId,
+        findAllByTestId,
+        history: { navigate },
+      } = renderWithRouter(<App />);
+      await navigate("/cancelled?session_id=ch_1HiCaI2eZvKYlo2CsnhbyVsJ");
+      const cancelledContainer = await findByTestId("cancelled");
+      expect(cancelledContainer).toBeInTheDocument();
+
+      const nextButtonToHome = await findByTestId("goHomeFromCancelled");
       fireEvent.click(nextButtonToHome);
       const movies = await findAllByTestId("movie-item");
       expect(movies[0]).toBeInTheDocument();

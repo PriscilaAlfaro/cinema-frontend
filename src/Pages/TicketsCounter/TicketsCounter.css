@@ -43,6 +43,10 @@ h2{
   width: 2rem;
   cursor: pointer;
 }
+.button:hover{
+    /* background-color: rgba(139, 108, 235, 0.7); */
+      background-color: #dc681a;
+}
 
 .count{
   margin: 1rem;

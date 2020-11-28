@@ -4,7 +4,6 @@
   background-color: rgb(8, 7, 61);
   color: white;
   font-size: 15px;
-  /* margin-bottom: 2rem; */
 }
 
 .header-image{
@@ -17,10 +16,9 @@
 }
 
 .language-buttons button{
-  background-color: tomato;
+  background-color: #dc681a;
 
 }
-
 
 
 @media only screen and (max-width: 600px) {

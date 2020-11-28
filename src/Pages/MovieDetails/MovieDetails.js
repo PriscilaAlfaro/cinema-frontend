@@ -1,4 +1,11 @@
 import React, { useContext } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  faPlayCircle,
+  faAngleDoubleRight,
+  faClock,
+} from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "@reach/router";
 import { useTranslation } from "react-i18next";
 import AppContext from "../../store/context";
@@ -7,6 +14,8 @@ import formatDay from "../../utils/utils";
 import Modal from "../../Components/Modal/Modal";
 import Header from "../../Components/Header/Header";
 import "./MovieDetails.css";
+
+library.add(faPlayCircle, faAngleDoubleRight, faClock);
 
 function MovieDetails() {
   const { t, i18n } = useTranslation();
@@ -97,29 +106,38 @@ function MovieDetails() {
       <Header />
       {/* Movie details ----------------------------------- */}
       {currentMovie && (
-        <div data-testid="movie-details">
+        <div data-testid="movie-details" className="movie-details">
           <figure className="movie-general-image">
             <div className="poster">
               <img alt="poster" src={currentMovie.poster} />
             </div>
-
             {showModal && <Modal />}
-            <button
-              data-testid="show-modal"
-              className="play-container"
-              type="button"
-              onClick={handleOpenModal}
-              aria-label="play"
-            />
           </figure>
+          <button
+            className="watch-trailer"
+            type="button"
+            onClick={handleOpenModal}
+            aria-label="play"
+            data-testid="show-modal"
+          >
+            <h1>
+              {t("watchTrailer")}
+              &nbsp;
+            </h1>
+            <FontAwesomeIcon
+              icon="play-circle"
+              size="lg"
+              className="play-container"
+            />
+          </button>
           <div className="superior">
             <h1>{currentMovie.title}</h1>
+
             <h4>
               {t("clasification")}
               :&nbsp;
               {currentMovie.rated[currentLanguage]}
             </h4>
-
             <h4>
               {t("recomendation")}
               :&nbsp;
@@ -229,7 +247,6 @@ function MovieDetails() {
               width="600"
               height="450"
               frameBorder="0"
-              // style="border:0;"
               allowFullScreen=""
               aria-hidden="false"
             />
@@ -253,6 +270,8 @@ function MovieDetails() {
                   value={hour._id}
                   onClick={handleSelectedHour}
                 >
+                  <FontAwesomeIcon icon="clock" size="lg" />
+                  &nbsp; &nbsp;
                   {hour.hour}
                   &nbsp; &nbsp;
                   {t("screen")}
@@ -260,7 +279,8 @@ function MovieDetails() {
                   {salesOrder.salong}
                   &nbsp; &nbsp;
                   {t("buyTickects")}
-                  &nbsp; &gt;
+                  &nbsp;
+                  <FontAwesomeIcon icon="angle-double-right" size="lg" />
                 </button>
               ))}
           </div>
