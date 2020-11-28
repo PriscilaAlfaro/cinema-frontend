@@ -47,6 +47,17 @@ Create an `.env.local` file at the root directory of the application. Just add t
 REACT_APP_BASE_URL="http://localhost:4001"
 ```
 
+####Coverage
+
+run `npm run coverage` to see the code that is not covered by a test
+
+####Test
+
+run `npm run test` to see the test result
+
+####Eslint
+run `npm run lint` to check errors
+
 Since we're using create-react-app, It does some tricks for you and simulates the same behavior inside the browser, only if you put the REACT*APP* prefix before your env variables.
 
 Note:

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { useTranslation } from "react-i18next";
 import AppContext from "../../store/context";
@@ -62,31 +62,38 @@ function Register() {
 
   // this post save order and update seatAvailability
   const postOrderData = async (sessionId) => {
-    await axios.post(`${process.env.REACT_APP_BASE_URL}/order`, {
-      name: salesOrder.userName,
-      email: salesOrder.userEmail,
-      location_id: salesOrder.location_id,
-      location: salesOrder.location,
-      place: salesOrder.place,
-      salong: salesOrder.salong,
-      movie_id: salesOrder.movie_id,
-      movie: salesOrder.movie,
-      date_id: salesOrder.date_id,
-      date: salesOrder.date,
-      screening_id: salesOrder.screening_id,
-      screening: salesOrder.screening,
-      price: salesOrder.price,
-      totalPrice: salesOrder.totalPrice,
-      seatNumber: salesOrder.selectedSeats,
-      paymentReference: sessionId,
-      paymentStatus: "pending",
-      purchaseDate: new Date().toISOString(),
-      availability_id: salesOrder.availability_id,
-      languaje: i18n.language,
-    });
+    const response = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/order`,
+      {
+        name: salesOrder.userName,
+        email: salesOrder.userEmail,
+        location_id: salesOrder.location_id,
+        location: salesOrder.location,
+        place: salesOrder.place,
+        salong: salesOrder.salong,
+        movie_id: salesOrder.movie_id,
+        movie: salesOrder.movie,
+        date_id: salesOrder.date_id,
+        date: salesOrder.date,
+        screening_id: salesOrder.screening_id,
+        screening: salesOrder.screening,
+        price: salesOrder.price,
+        totalPrice: salesOrder.totalPrice,
+        seatNumber: salesOrder.selectedSeats,
+        paymentReference: sessionId,
+        paymentStatus: "pending",
+        purchaseDate: new Date().toISOString(),
+        availability_id: salesOrder.availability_id,
+        language: i18n.language,
+      }
+    );
+    return response.data;
   };
 
-  stripePromise = loadStripe(process.env.REACT_APP_STRIPE_API_KEY);
+  useEffect(() => {
+    stripePromise = loadStripe(process.env.REACT_APP_STRIPE_API_KEY);
+  }, []);
+
   const callStripeCheckout = async () => {
     const stripe = await stripePromise;
     const response = await axios.post(
@@ -99,13 +106,15 @@ function Register() {
       }
     );
     const session = await response.data;
-    const orderResponse = postOrderData(session.id);
+    const orderResponse = await postOrderData(session.id);
 
-    if (!orderResponse.order) {
+    if (!orderResponse) {
       setError({
         es: "Error el sistema, por favor reingrese la información nuevamente.",
         sv: "Systemfel, skriv in informationen igen.",
       });
+
+      return;
     }
 
     const result = await stripe.redirectToCheckout({
