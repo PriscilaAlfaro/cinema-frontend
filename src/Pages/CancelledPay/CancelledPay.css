@@ -1,3 +1,9 @@
+.main-container-cancelled{
+  color: white;
+}
+
+
+
 .goHome{
   background-color: black;
   color: white;
@@ -20,4 +26,5 @@
 
 .goHome h1:hover{
  color: red;
+ cursor: pointer;
 }
