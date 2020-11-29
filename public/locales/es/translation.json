@@ -59,5 +59,6 @@
     "purchaseStatus": "Estatus de su compra",
     "purchaseDate": "Fecha de compra",
     "purchaseNumber": "Número de referencia",
-    "watchTrailer": "Ver adelanto"
+    "watchTrailer": "Ver adelanto",
+    "back": "Volver"
 }

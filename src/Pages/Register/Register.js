@@ -1,10 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "@reach/router";
 import AppContext from "../../store/context";
 import SalesOrderInfo from "../../Components/SalesOrderInfo/SalesOrderInfo";
 import Footer from "../../Components/Footer/Footer";
 import Header from "../../Components/Header/Header";
+import BackButton from "../../Components/BackButton/BackButton";
 import "./Register.css";
 
 const axios = require("axios");
@@ -16,7 +18,7 @@ function Register() {
   const { state, dispatch } = useContext(AppContext);
   const { salesOrder } = state;
   const [error, setError] = useState(null);
-
+  const navigate = useNavigate();
   const validateEmail = (email) => {
     if (!email) {
       return false;
@@ -126,10 +128,16 @@ function Register() {
     }
   };
 
+  const handleGoToSeats = () => {
+    navigate("/seats");
+  };
+
   const currentLanguage = i18n.language;
+
   return (
     <div className="main-container">
       <Header />
+      <BackButton onClick={handleGoToSeats} />
       <SalesOrderInfo />
       {/* -----------TIKECT ---------------*/}
       <div className="ticket-info">
@@ -140,16 +148,16 @@ function Register() {
               <span>CR</span>
             </h2>
             <div className="title">
-              <h3>{salesOrder.movie}</h3>
               <p>{t("movie")}</p>
+              <h3>{salesOrder.movie}</h3>
             </div>
             <div className="location">
+              <p>{t("place")}</p>
               <h3>
                 {salesOrder.location}
                 &#45; &nbsp;
                 {salesOrder.place}
               </h3>
-              <p>{t("place")}</p>
             </div>
 
             <div className="inline">

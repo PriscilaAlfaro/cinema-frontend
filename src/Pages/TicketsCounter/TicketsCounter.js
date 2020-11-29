@@ -6,6 +6,7 @@ import Footer from "../../Components/Footer/Footer";
 import SalesOrderInfo from "../../Components/SalesOrderInfo/SalesOrderInfo";
 import Header from "../../Components/Header/Header";
 import "./TicketsCounter.css";
+import BackButton from "../../Components/BackButton/BackButton";
 
 const axios = require("axios");
 
@@ -91,9 +92,13 @@ function TicketsCounter() {
     navigate("/seats");
   };
 
+  const handlGoToMovieDetails = () => {
+    navigate("/movie-details");
+  };
   return (
     <div className="container">
       <Header />
+      <BackButton onClick={handlGoToMovieDetails} />
       <SalesOrderInfo />
       {/* counter --------------------------*/}
       <div className="title-select-tickets">

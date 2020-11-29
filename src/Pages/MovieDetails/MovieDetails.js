@@ -5,6 +5,7 @@ import {
   faPlayCircle,
   faAngleDoubleRight,
   faClock,
+  faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "@reach/router";
 import { useTranslation } from "react-i18next";
@@ -14,8 +15,9 @@ import formatDay from "../../utils/utils";
 import Modal from "../../Components/Modal/Modal";
 import Header from "../../Components/Header/Header";
 import "./MovieDetails.css";
+import BackButton from "../../Components/BackButton/BackButton";
 
-library.add(faPlayCircle, faAngleDoubleRight, faClock);
+library.add(faPlayCircle, faAngleDoubleRight, faClock, faChevronLeft);
 
 function MovieDetails() {
   const { t, i18n } = useTranslation();
@@ -99,11 +101,16 @@ function MovieDetails() {
     dispatch({ type: "setShowModal", data: true });
   };
 
+  const handleGoBack = () => {
+    navigate("/");
+  };
+
   const currentLanguage = i18n.language;
 
   return (
     <div className="container">
       <Header />
+      <BackButton onClick={handleGoBack} />
       {/* Movie details ----------------------------------- */}
       {currentMovie && (
         <div data-testid="movie-details" className="movie-details">

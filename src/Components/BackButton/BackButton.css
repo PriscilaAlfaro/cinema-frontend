@@ -1,0 +1,37 @@
+
+.return-to-home{
+  z-index: 1;
+  position: absolute;
+  display: block;
+  background-color: transparent;
+  border-color: transparent;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.return-to-home:hover{
+ cursor: pointer;
+  color: #dc681a;
+}
+
+
+@media only screen and (max-width: 950px) {
+.return-to-home{
+    font-size: 80%
+}
+} 
+
+@media only screen and (max-width: 740px) {
+.return-to-home{
+    font-size: 60%
+}
+}
+
+@media only screen and (max-width: 500px) {
+.return-to-home{
+    font-size: 50%
+}
+
+}
+
+

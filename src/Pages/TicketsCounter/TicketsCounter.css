@@ -68,11 +68,13 @@ h2{
 .next-button:hover {
   background-color: rgba(155, 128, 235, 0.7);
 }
-p{
+/* p{
   font-size: small;
+} */
+
+.seats-available p{
+font-size: 1rem;
 }
-
-
 
 @media only screen and (max-width: 715px) {
 

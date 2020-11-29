@@ -3,18 +3,35 @@
     display: inline-flex;
     padding: 2rem;
 }
+.info_title{
+      font-size: 1.7rem;
+      margin-top: 3rem;
+}
+
 
 .info{
      padding: 2rem;  
 }
 
+.info h3 {
+  -webkit-text-decoration: rgb(181, 155, 228) solid underline;
+  text-decoration:rgb(181, 155, 228) solid underline;
+  -webkit-text-underline-position: under;
+  text-underline-position: under;
+
+}
 .info_subtitle{
       font-size: 2rem;
      color: rgb(181, 155, 228);
 }
+
+
 @media only screen and (max-width: 1055px) {
 .salesOrder_information{
       display: block;
+}
+.info_title{
+      font-size: 95%;
 }
 }
 
@@ -23,6 +40,6 @@
       display: block;
 }
 .info_subtitle{
-      font-size: 1.5rem;
+      font-size: 80%;
 }
 }

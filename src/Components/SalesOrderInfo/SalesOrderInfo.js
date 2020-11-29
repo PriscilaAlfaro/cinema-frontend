@@ -9,47 +9,52 @@ function SalesOrderInfo() {
   const { salesOrder } = state;
 
   return (
-    <div className="salesOrder_information">
-      <div className="info">
-        <h2 className="info_subtitle">
-          {t("movie")}
-          :&nbsp;
-        </h2>
-        <h3>{salesOrder.movie}</h3>
+    <>
+      <div className="info_title">
+        <h2>{t("detailsOfYourOrder")}</h2>
       </div>
-      <div className="info">
-        <h2 className="info_subtitle">
-          {t("place")}
-          :&nbsp;
-        </h2>
-        <h3>
-          {salesOrder.location}
-          &#45; &nbsp;
-          {salesOrder.place}
-        </h3>
+      <div className="salesOrder_information">
+        <div className="info">
+          <h2 className="info_subtitle">
+            {t("movie")}
+            :&nbsp;
+          </h2>
+          <h3>{salesOrder.movie}</h3>
+        </div>
+        <div className="info">
+          <h2 className="info_subtitle">
+            {t("place")}
+            :&nbsp;
+          </h2>
+          <h3>
+            {salesOrder.location}
+            &#45; &nbsp;
+            {salesOrder.place}
+          </h3>
+        </div>
+        <div className="info">
+          <h2 className="info_subtitle">
+            {t("screen")}
+            :&nbsp;
+          </h2>
+          <h3>{salesOrder.salong}</h3>
+        </div>
+        <div className="info">
+          <h2 className="info_subtitle">
+            {t("date")}
+            :&nbsp;
+          </h2>
+          <h3>{salesOrder.date}</h3>
+        </div>
+        <div className="info">
+          <h2 className="info_subtitle">
+            {t("hour")}
+            :&nbsp;
+          </h2>
+          <h3>{salesOrder.screening}</h3>
+        </div>
       </div>
-      <div className="info">
-        <h2 className="info_subtitle">
-          {t("screen")}
-          :&nbsp;
-        </h2>
-        <h3>{salesOrder.salong}</h3>
-      </div>
-      <div className="info">
-        <h2 className="info_subtitle">
-          {t("date")}
-          :&nbsp;
-        </h2>
-        <h3>{salesOrder.date}</h3>
-      </div>
-      <div className="info">
-        <h2 className="info_subtitle">
-          {t("hour")}
-          :&nbsp;
-        </h2>
-        <h3>{salesOrder.screening}</h3>
-      </div>
-    </div>
+    </>
   );
 }
 

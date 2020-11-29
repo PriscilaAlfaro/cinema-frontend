@@ -17,6 +17,11 @@
   display: inline-grid;
   font-size: 1rem;
 }
+
+.email p, .phone p{
+  margin: 0rem;
+  justify-self: left;
+}
 .label{
     justify-self: left;
     font-size: 1.5rem;
@@ -47,7 +52,7 @@
 }
 
 .card {
-  background: linear-gradient(to bottom, purple 0%, purple 11%, grey 22%, grey 100%);
+  background: linear-gradient(to bottom, purple 0%, purple 18%, grey 20%, grey 100%);
   height: auto;
   position: relative;
   padding: 1rem;
@@ -56,9 +61,10 @@
   margin: 3rem;
 }
 
-h2 {
+.card h2 {
   font-size: 1.1em;
-  padding-bottom: 0.9rem;
+  padding-bottom: 2rem;
+  
 }
 
 h2 span {
@@ -70,16 +76,18 @@ h3 {
       margin-bottom: 0.2rem;
   }
 
-  p {
+ .title p {
       margin:0rem;
       font-size: 0.8rem;
       text-align: start;
+      text-align: -webkit-center;
     }
 
 .title, .seats, .time, .date, .location, .salong {
   text-transform: uppercase;
   font-weight: normal;
-     margin: 0 1.5rem;  
+  margin: 0 1.5rem;  
+  text-align: -webkit-center;
 }
 
 .inline{
@@ -97,7 +105,6 @@ color: red;
 @media only screen and (max-width: 600px) {
 .input{
     width: 95%;
-
 }
 
 .name, .email, .phone{
@@ -105,8 +112,16 @@ color: red;
   font-size: 1.5rem;
 }
 
+.email p, .phone p{
+font-size: 50%;
+}
+
+.personal_info{
+  font-size: 90%;
+}
+
 .card {
-   background: linear-gradient(to bottom, purple 0%, purple 10%, grey 13%, grey 100%);
+   background: linear-gradient(to bottom, purple 0%, purple 15%, grey 13%, grey 100%);
   height: auto;
   padding: 1rem;
   margin: 2rem;

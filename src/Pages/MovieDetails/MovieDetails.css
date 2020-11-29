@@ -4,6 +4,7 @@
     width: 100%;
 }
 
+
 .movie-details{
     position: relative;
 }
@@ -26,15 +27,22 @@
     margin-top: 4rem;
 }
 
+
+.inferior h4{
+        font-size: 1.4rem;
+}
+
 .subtitle {
     color: rgb(181, 155, 228);
+        font-size: 1.8rem;
 }
-.location_dropDownList, .days_dropDownList {
-    width: 30rem;
+.location_dropDownList, .days_dropDownList, .hours h4 {
+    width: auto;
     margin: 3rem 0rem 0rem 3rem;
     display: inline-flex;
     align-items: center;
     color: white;
+    font-size: 1.4rem;
 
 }
 
@@ -70,14 +78,14 @@ select{
     border-color: black;
     border-bottom: 5px solid purple;
     color: white;
-    font-size: 1rem;
+    font-size: 1.5rem;
    color: white;
     cursor: pointer;
 }
 
 .hour-button:hover{
   color: #c01919;;
-  font-size: 1.2rem;
+  font-size: 1.7rem;
   background-color: rgb(223, 206, 240);
 
 }
@@ -141,6 +149,9 @@ iframe{
     font-size: 60%;
     top: 3rem;
 }
+.return-to-home{
+    font-size: 80%
+}
 } 
 @media only screen and (max-width: 740px) {
 
@@ -149,14 +160,21 @@ iframe{
     top: 2rem;
     font-size: 60%;
 }
-
+.return-to-home{
+    font-size: 60%
+}
 }
 
 @media only screen and (max-width: 500px) {
+.return-to-home{
+    font-size: 50%
+}
+    
 .superior{  
     padding: 12px 25px;
-    top: 0.5rem;
+    top: 1.4rem;
     font-size: 50%;
+
 }
 
 
@@ -164,8 +182,12 @@ iframe{
     display: block;
     width: 17rem;
     margin: 1rem 0rem 0rem 1rem;
-
 }
+
+.hour-button{
+        font-size: 90%;
+}
+
 select{
     margin: 0;
 }
@@ -176,6 +198,7 @@ select.location, select.days {
 
 div .hours{
     padding: 0 1rem;
+
 }
 
 div .tickets{
@@ -187,7 +210,7 @@ div .tickets{
 @media only screen and (max-width: 350px) {
 .superior{  
     padding: 10px 20px;
-    top: 0.4rem;
+    top: 1rem;
     font-size: 45%;
 }
 
@@ -213,7 +236,7 @@ select.location, select.days {
 @media only screen and (max-width: 250px) {
 .superior{  
     padding: 10px 20px;
-    top: 0.3rem;
+    top: 0.8rem;
     font-size: 45%;
 }
 }

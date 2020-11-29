@@ -5,6 +5,7 @@ import AppContext from "../../store/context";
 import SalesOrderInfo from "../../Components/SalesOrderInfo/SalesOrderInfo";
 import Footer from "../../Components/Footer/Footer";
 import Header from "../../Components/Header/Header";
+import BackButton from "../../Components/BackButton/BackButton";
 import "./Seats.css";
 
 function Seats() {
@@ -55,9 +56,14 @@ function Seats() {
     navigate("/register");
   };
 
+  const handlGoToTickets = () => {
+    navigate("/tickets");
+  };
+
   return (
     <div className="main-container">
       <Header />
+      <BackButton onClick={handlGoToTickets} />
       <SalesOrderInfo />
       <div className="tickets-buy">
         <h1>
